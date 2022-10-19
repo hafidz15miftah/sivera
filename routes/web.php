@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', function()  {
+    return view('pages.login');
+})->name('login');
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('pages.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
