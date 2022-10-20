@@ -11,7 +11,6 @@
     <!-- Loading Progressbar -->
     @include('partials.loading')
 
-    
     <!--**********************************
         Main wrapper start
     ***********************************-->

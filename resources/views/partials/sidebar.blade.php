@@ -13,8 +13,8 @@
                     <i class="icon-grid menu-icon"></i><span class="nav-text">Tabel</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="/barang">Barang</a></li>
-                    <li><a href="/aset">Aset</a></li>
+                    <li><a href="/barang">Daftar Barang</a></li>
+                    <li><a href="/aset">Daftar Aset</a></li>
                 </ul>
             </li>
             <li>

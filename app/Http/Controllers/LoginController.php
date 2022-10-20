@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    //Untuk Melihat Halaman Login
     public function login_view(Request $request){
 
         return view('pages.login');
     }
 
+    // Fungsi Validasi Login
     public function login(Request $request){
         $check = 0;
 

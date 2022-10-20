@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,16 +16,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
+//Route Untuk Mengakses Daftar Barang
+Route::middleware(['auth:sanctum', 'verified'])->get('/barang', [BarangController::class, 'index'])->name('barang');
+Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilbarang')->middleware('auth');
+
+//Route Untuk Membuka Halaman Login
 Route::get('/login', function()  {
     return view('pages.login');
 })->name('login');
 
+//Route AuthController Untuk Login
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-
+//Route Untuk Membuka Halaman Dasbor
 Route::get('/dashboard', function () {
     return view('pages.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
