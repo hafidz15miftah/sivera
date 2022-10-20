@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
-    //Untuk melihat halaman Tabel Data Barang
-    public function index(){
+    //Untuk melihat halaman Data Barang
+    public function indeksbarang(){
         return view('pages.datatablebarang');
     }
 

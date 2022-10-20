@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsetController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +20,12 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+//Route Untuk Mengakses Daftar Aset
+Route::middleware(['auth::sanctum', 'verified'])->get('/aset', [AsetController::class, 'indeksaset'])->name('aset');
+Route::get('/aset', [AsetController::class, 'tampilaset'])->name('tampilaset')->middleware('auth');
+
 //Route Untuk Mengakses Daftar Barang
-Route::middleware(['auth:sanctum', 'verified'])->get('/barang', [BarangController::class, 'index'])->name('barang');
+Route::middleware(['auth:sanctum', 'verified'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');
 Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilbarang')->middleware('auth');
 
 //Route Untuk Membuka Halaman Login
