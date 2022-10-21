@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
-<title>Aset &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
+<title>Daftar Aset &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 
 <!-- Head -->
 @include('partials.head')

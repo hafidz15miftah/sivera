@@ -85,16 +85,8 @@
                                 <div class="card">
                                     <div class="card-body pb-0 d-flex justify-content-between">
                                         <div>
-                                            <h4 class="mb-1">Product Sales</h4>
-                                            <p>Total Earnings of the Month</p>
-                                            <h3 class="m-0">$ 12,555</h3>
-                                        </div>
-                                        <div>
-                                            <ul>
-                                                <li class="d-inline-block mr-3"><a class="text-dark" href="#">Day</a></li>
-                                                <li class="d-inline-block mr-3"><a class="text-dark" href="#">Week</a></li>
-                                                <li class="d-inline-block"><a class="text-dark" href="#">Month</a></li>
-                                            </ul>
+                                            <h4 class="mb-1">Statistik</h4>
+                                            <p>Grafik</p>
                                         </div>
                                     </div>
                                     <div class="chart-wrapper">

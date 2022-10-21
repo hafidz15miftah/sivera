@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
-<title>Barang &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
+<title>Daftar Barang &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 
 <!-- Head -->
 @include('partials.head')
@@ -45,7 +45,7 @@
                                             <tr>
                                                 <th>Ruang</th>
                                                 <th>Tanggal</th>
-                                                <th>No. Barang</th>
+                                                <th>Kode Barang</th>
                                                 <th>Nama Barang</th>
                                                 <th>Kondisi</th>
                                                 <th>Jumlah</th>
@@ -59,7 +59,7 @@
                                             <tr>
                                                 <td>{{$b->ruang}}</td>
                                                 <td>{{$b->tanggal}}</td>
-                                                <td>{{$b->no_barang}}</td>
+                                                <td>{{$b->kode_barang}}</td>
                                                 <td>{{$b->nama_barang}}</td>
                                                 <td>{{$b->kondisi}}</td>
                                                 <td>{{$b->jumlah}}</td>

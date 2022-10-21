@@ -17,11 +17,11 @@ return new class extends Migration
             $table->increments('id');
             $table->enum('ruang', ['Kepala Desa', 'Sekretaris Desa', 'Kaur Umum dan Perencanaan', 'Kaur Keuangan dan Kasi Kesejahteraan', 'Kasi Pelayanan', 'Kasi Pemerintahan']);
             $table->date('tanggal');
-            $table->string('no_barang');
+            $table->string('kode_barang');
             $table->enum('kondisi', ['Baik', 'Rusak Ringan', 'Rusak Berat']);
             $table->string('nama_barang');
             $table->integer('jumlah');
-            $table->string('deskripsi');
+            $table->string('deskripsi')->nullable();
             $table->timestamps();
         });
     }
