@@ -25,6 +25,11 @@ Route::get('/sivera', function() {
     return view('pages.about');
 });
 
+//Route ke Tambah Barang
+Route::get('/tambah-barang', function() {
+    return view('pages.addbarang');
+});
+
 //Route ke Halaman Pusat Bantuan
 Route::get('/bantuan', function() {
     return view('pages.help');
