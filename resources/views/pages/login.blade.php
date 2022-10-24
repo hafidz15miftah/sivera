@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-100" lang="en">
+<html class="h-100" lang="id">
 <title>Masuk &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 
 <!-- Head -->

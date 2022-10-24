@@ -20,6 +20,16 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+//Route ke Halaman Tentang Sivera
+Route::get('/sivera', function() {
+    return view('pages.about');
+});
+
+//Route ke Halaman Pusat Bantuan
+Route::get('/bantuan', function() {
+    return view('pages.help');
+});
+
 //Route Untuk Mengakses Daftar Aset
 Route::middleware(['auth::sanctum', 'verified'])->get('/aset', [AsetController::class, 'indeksaset'])->name('aset');
 Route::get('/aset', [AsetController::class, 'tampilaset'])->name('tampilaset')->middleware('auth');
