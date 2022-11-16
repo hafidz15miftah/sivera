@@ -3,6 +3,7 @@
 use App\Http\Controllers\AsetController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,12 +26,6 @@ Route::get('/sivera', function() {
     return view('pages.about');
 });
 
-//Route untuk Membuka Halaman Pengguna
-Route::get('/pengguna', function() {
-    return view('pages.users');
-});
-
-
 //Route ke Halaman Pusat Bantuan
 Route::get('/bantuan', function() {
     return view('pages.help');
@@ -43,6 +38,10 @@ Route::get('/aset', [AsetController::class, 'tampilaset'])->name('tampilaset')->
 //Route Untuk Mengakses Daftar Barang
 Route::middleware(['auth:sanctum', 'verified','role:kup'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');
 Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilbarang')->middleware('auth','role:kup');
+
+//Route Untuk Mengakses Daftar Pengguna
+Route::middleware(['auth:sanctum', 'verified','role:kup'])->get('/pengguna', [UserController::class, 'indekspengguna'])->name('pengguna');
+Route::get('/pengguna', [UserController::class, 'tampilpengguna'])->name('tampilpengguna')->middleware('auth','role:kup');
 
 //Route Untuk Membuka Halaman Tambah Barang
 Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('tambahbarang')->middleware('auth', 'role:kup');

@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Daftar Barang</h4>
-                    <a class="btn btn-success" href="{{route('tambahbarang')}}"><i class="fa fa-plus"></i> Tambah Barang</a>
+                    <a class="btn btn-success" style="color:white" href="{{route('tambahbarang')}}"><i class="fa fa-plus"></i> Tambah Barang</a>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered zero-configuration">
                             <thead>
