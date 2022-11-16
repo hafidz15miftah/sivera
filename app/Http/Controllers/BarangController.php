@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
+
     //Untuk melihat halaman Data Barang
     public function indeksbarang()
     {
@@ -18,5 +19,27 @@ class BarangController extends Controller
     {
         $barang = DataBarangModel::select('*')->get();
         return view('pages.datatablebarang', ['barang' => $barang]);
+    }
+
+    //Untuk menambahkan barang
+    public function tambahbarang()
+    {
+        return view('pages.addbarang');
+    }
+
+    //Untuk menyimpan barang
+    public function simpanbarang(Request $request)
+    {
+        $barang = DataBarangModel::create([
+            'ruang' => $request->ruang,
+            'tanggal' => $request->tanggal,
+            'kode_barang' => $request->kode_barang,
+            'kondisi' => $request->kondisi,
+            'nama_barang' => $request->nama_barang,
+            'jumlah' => $request->jumlah,
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        return redirect()->route('tampilbarang');
     }
 }

@@ -25,12 +25,7 @@ Route::get('/sivera', function() {
     return view('pages.about');
 });
 
-//Route ke Tambah Barang
-Route::get('/tambah-barang', function() {
-    return view('pages.addbarang');
-});
-
-//Route ke Tambah Barang
+//Route untuk Membuka Halaman Pengguna
 Route::get('/pengguna', function() {
     return view('pages.users');
 });
@@ -48,6 +43,10 @@ Route::get('/aset', [AsetController::class, 'tampilaset'])->name('tampilaset')->
 //Route Untuk Mengakses Daftar Barang
 Route::middleware(['auth:sanctum', 'verified','role:kup'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');
 Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilbarang')->middleware('auth','role:kup');
+
+//Route Untuk Membuka Halaman Tambah Barang
+Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('tambahbarang')->middleware('auth', 'role:kup');
+Route::post('/simpanbarang', [BarangController::class, 'simpanbarang'])->name('simpanbarang')->middleware('auth', 'role:kup');
 
 //Route Untuk Membuka Halaman Login
 Route::get('/login', function()  {
