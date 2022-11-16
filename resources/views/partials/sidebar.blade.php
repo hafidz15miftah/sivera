@@ -19,9 +19,13 @@
                 </ul>
             </li>
             <li>
-                <a href="widgets.html" aria-expanded="false">
-                    <i class="icon-badge menu-icon"></i><span class="nav-text">Widget</span>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="icon-grid menu-icon"></i><span class="nav-text">Peminjaman</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li><a href="/pinjambarang">Pinjam Barang</a></li>
+                    <li><a href="/pinjamaset">Pinjam Aset</a></li>
+                </ul>
             </li>
             <li class="nav-label">LAINNYA</li>
             <li>

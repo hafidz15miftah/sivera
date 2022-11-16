@@ -48,68 +48,67 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Tambah Barang</h4>
-                                <div class="basic-form">
-                                    <form>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label>Email</label>
-                                                <input type="email" class="form-control" placeholder="Email">
+                                <div class="card-body">
+                                    <div class="form-validation">
+                                        <form class="form-valide" action="#" method="post">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-kode">Kode Barang</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" class="form-control" id="val-kode" name="val-kode" placeholder="Masukkan Kode Barang">
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Password</label>
-                                                <input type="password" class="form-control" placeholder="Password">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-nama">Nama Barang</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" class="form-control" id="val-nama" name="val-nama" placeholder="Masukkan Nama Barang">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input type="text" class="form-control" placeholder="1234 Main St">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Address 2</label>
-                                            <input type="text" class="form-control" placeholder="Apartment, studio, or floor">
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label>City</label>
-                                                <input type="text" class="form-control">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-kondisi">Kondisi</label>
+                                                <div class="col-lg-6">
+                                                    <select class="form-control" id="val-kondisi" name="val-skill">
+                                                        <option value="">Silahkan Pilih ...</option>
+                                                        <option value="baik">Baik</option>
+                                                        <option value="ruring">Rusak Ringan</option>
+                                                        <option value="rusber">Rusak Berat</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-4">
-                                                <label>State</label>
-                                                <select id="inputState" class="form-control">
-                                                    <option selected="selected">Choose...</option>
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                    <option>Option 3</option>
-                                                </select>
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-jumlah">Jumlah</label>
+                                                <div class="col-lg-6">
+                                                    <input type="password" class="form-control" id="val-jumlah" name="val-jumlah" placeholder="Masukkan Jumlah Barang">
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-2">
-                                                <label>Zip</label>
-                                                <input type="text" class="form-control">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-deskripsi">Deskripsi</label>
+                                                <div class="col-lg-6">
+                                                    <textarea class="form-control" id="val-deskripsi" name="val-deskripsi" rows="5" placeholder="Masukkan Informasi / Deskripsi Barang"></textarea>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox">
-                                                <label class="form-check-label">Check me out</label>
+                                            <div class="form-group row">
+                                                <div class="col-lg-8 ml-auto">
+                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-dark">Sign in</button>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- #/ container -->
         </div>
-        <!--**********************************
+        <!-- #/ container -->
+    </div>
+    <!--**********************************
             Content body end
         ***********************************-->
 
 
-        <!-- Footer -->
-        @include('partials.footer')
+    <!-- Footer -->
+    @include('partials.footer')
     </div>
 
     <!-- Script -->

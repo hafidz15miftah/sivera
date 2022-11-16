@@ -30,6 +30,12 @@ Route::get('/tambah-barang', function() {
     return view('pages.addbarang');
 });
 
+//Route ke Tambah Barang
+Route::get('/pengguna', function() {
+    return view('pages.users');
+});
+
+
 //Route ke Halaman Pusat Bantuan
 Route::get('/bantuan', function() {
     return view('pages.help');
