@@ -7,6 +7,7 @@
                     <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dasbor</span>
                 </a>
             </li>
+            @if(auth()->user()->role_id == 2)
             <li class="nav-label">FUNGSIONAL SISTEM</li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -28,6 +29,7 @@
                     <i class="icon-user menu-icon"></i><span class="nav-text">Pengguna</span>
                 </a>
             </li>
+            @endif
             <li>
                 <a href="/bantuan" aria-expanded="false">
                     <i class="icon-question menu-icon"></i><span class="nav-text">Pusat Bantuan</span>

@@ -62,7 +62,7 @@
                                                 <td>{{$b->tanggal}}</td>
                                                 <td>{{$b->kode_barang}}</td>
                                                 <td>{{$b->nama_barang}}</td>
-                                                <td>{{$b->kondisi}}</td>
+                                                <td style="margin: auto;"><p class="badge badge-success" style="justify-content: center; align-items: center; align-content: center; margin-left: 15px; color:white; padding: 8px;">{{$b->kondisi}}</p></td>
                                                 <td>{{$b->jumlah}}</td>
                                                 <td>{{$b->deskripsi}}</td>
                                                 <td>{{$b->updated_at}}</td>

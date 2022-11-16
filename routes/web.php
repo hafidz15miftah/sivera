@@ -36,12 +36,12 @@ Route::get('/bantuan', function() {
 });
 
 //Route Untuk Mengakses Daftar Aset
-Route::middleware(['auth::sanctum', 'verified'])->get('/aset', [AsetController::class, 'indeksaset'])->name('aset');
-Route::get('/aset', [AsetController::class, 'tampilaset'])->name('tampilaset')->middleware('auth');
+Route::middleware(['auth::sanctum', 'verified', 'role:kup'])->get('/aset', [AsetController::class, 'indeksaset'])->name('aset');
+Route::get('/aset', [AsetController::class, 'tampilaset'])->name('tampilaset')->middleware('auth','role:kup');
 
 //Route Untuk Mengakses Daftar Barang
-Route::middleware(['auth:sanctum', 'verified'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');
-Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilbarang')->middleware('auth');
+Route::middleware(['auth:sanctum', 'verified','role:kup'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');
+Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilbarang')->middleware('auth','role:kup');
 
 //Route Untuk Membuka Halaman Login
 Route::get('/login', function()  {
