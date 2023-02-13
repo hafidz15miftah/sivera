@@ -1,4 +1,4 @@
-<title>Daftar Barang &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
+<title>Daftar Ruangan &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 @extends('layouts.app-layout')
 
 @section('content')
@@ -8,7 +8,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
             <li class="breadcrumb-item"><a href="#">Tabel</a></li>
-            <li class="breadcrumb-item active"><a href="/barang">Daftar Barang</a></li>
+            <li class="breadcrumb-item active"><a href="/ruangan">Daftar Ruangan</a></li>
         </ol>
     </div>
 </div>

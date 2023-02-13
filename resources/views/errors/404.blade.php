@@ -8,7 +8,6 @@
 <body class="h-100">
     
     <!-- Loading Progressbar -->
-    @include('partials.loading')
 
     <div class="login-form-bg h-100">
         <div class="container h-100">

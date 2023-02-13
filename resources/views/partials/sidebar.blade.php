@@ -16,23 +16,15 @@
                 <ul aria-expanded="false">
                     <li><a href="/barang">Daftar Barang</a></li>
                     <li><a href="/aset">Daftar Aset</a></li>
+                    <li><a href="/ruangan">Daftar Ruangan</a></li>
                 </ul>
             </li>
-            <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-grid menu-icon"></i><span class="nav-text">Peminjaman</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="/pinjambarang">Pinjam Barang</a></li>
-                    <li><a href="/pinjamaset">Pinjam Aset</a></li>
-                </ul>
-            </li>
-            <li class="nav-label">LAINNYA</li>
             <li>
                 <a href="/pengguna" aria-expanded="false">
                     <i class="icon-user menu-icon"></i><span class="nav-text">Pengguna</span>
                 </a>
             </li>
+            <li class="nav-label">LAINNYA</li>
             @endif
             <li>
                 <a href="/bantuan" aria-expanded="false">

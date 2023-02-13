@@ -43,7 +43,12 @@ Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilba
 Route::middleware(['auth:sanctum', 'verified','role:kup'])->get('/pengguna', [UserController::class, 'indekspengguna'])->name('pengguna');
 Route::get('/pengguna', [UserController::class, 'tampilpengguna'])->name('tampilpengguna')->middleware('auth','role:kup');
 
-//Route Untuk Membuka Halaman Tambah Barang
+//Route Untuk Mengakses Daftar Ruangan
+Route::get('/ruangan', function() {
+    return view('pages.datatableruangan');
+});
+
+//Route Untuk Membuka Halaman Tambah Barang dan Fungsi Simpan
 Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('tambahbarang')->middleware('auth', 'role:kup');
 Route::post('/simpanbarang', [BarangController::class, 'simpanbarang'])->name('simpanbarang')->middleware('auth', 'role:kup');
 

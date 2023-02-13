@@ -52,44 +52,6 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body pb-0 d-flex justify-content-between">
-                            <div>
-                                <h4 class="mb-1">Statistik</h4>
-                                <p>Grafik</p>
-                            </div>
-                        </div>
-                        <div class="chart-wrapper">
-                            <canvas id="chart_widget_2"></canvas>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <div class="w-100 mr-2">
-                                    <h6>Pixel 2</h6>
-                                    <div class="progress" style="height: 6px">
-                                        <div class="progress-bar bg-danger" style="width: 40%"></div>
-                                    </div>
-                                </div>
-                                <div class="ml-2 w-100">
-                                    <h6>iPhone X</h6>
-                                    <div class="progress" style="height: 6px">
-                                        <div class="progress-bar bg-primary" style="width: 80%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="row">
         <div class="col-lg-6 col-md-12">
             <div class="card">
                 <div class="card-body">

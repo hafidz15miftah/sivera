@@ -1,4 +1,4 @@
-<title>Pengguna &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
+<title>Daftar Pengguna &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 @extends('layouts.app-layout')
 
 @section('content')
@@ -7,7 +7,7 @@
     <div class="col p-md-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Lainnya</a></li>
-            <li class="breadcrumb-item active"><a href="/pengguna">Pengguna</a></li>
+            <li class="breadcrumb-item active"><a href="/pengguna">Daftar Pengguna</a></li>
         </ol>
     </div>
 </div>
@@ -23,21 +23,19 @@
                         <table class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
+                                    <th>Tanggal Dibuat</th>
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Kata Sandi</th>
-                                    <th>Tanggal Dibuat</th>
-                                    <th>Role</th>
+                                    <th>Jabatan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($users as $u)
                                 <tr>
+                                    <td>{{$u->created_at}}</td>
                                     <td>{{$u->name}}</td>
                                     <td>{{$u->email}}</td>
-                                    <td>{{$u->password}}</td>
-                                    <td>{{$u->created_at}}</td>
-                                    <td>{{$u->role_id}}</td>
+                                    <td>{{$u->role_name}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

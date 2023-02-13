@@ -16,7 +16,7 @@ class UserController extends Controller
     //Untuk melihat tabel pengguna
     public function tampilpengguna()
     {
-        $users = DataPenggunaModel::select('*')->get();
+        $users = DataPenggunaModel::join('roles', 'roles.id', '=', 'users.role_id')->get();
         return view('pages.users', ['users' => $users]);
     }
 }
