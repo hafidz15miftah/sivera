@@ -31,6 +31,12 @@ class BarangController extends Controller
         return view('pages.addbarang', compact('ruang'));
     }
 
+    //Untuk menghapus data barang
+    public function hapusbarang($id){
+        $barang = DataBarangModel::where('id', $id)->delete();
+        return redirect()->route('tampilbarang');
+    }
+
     //Untuk menyimpan barang
     public function simpanbarang(Request $request)
     {

@@ -51,6 +51,7 @@ Route::get('/ruangan', function() {
 //Route Untuk Membuka Halaman Tambah Barang dan Fungsi Simpan
 Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('tambahbarang')->middleware('auth', 'role:kup');
 Route::post('/simpanbarang', [BarangController::class, 'simpanbarang'])->name('simpanbarang')->middleware('auth', 'role:kup');
+Route::get('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->name('hapusbarang')->middleware('auth', 'role:kup');
 
 //Route Untuk Membuka Halaman Login
 Route::get('/login', function()  {
