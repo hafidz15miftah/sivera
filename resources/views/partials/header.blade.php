@@ -17,6 +17,7 @@
                     </div>
                     <div>
                         <p class="mb-2">{{ Auth::user()->name }}</p>
+                        <p class="mb-2">{{ Auth::user()->role_name}}</p>
                     </div>
                     <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                         <div class="dropdown-content-body">

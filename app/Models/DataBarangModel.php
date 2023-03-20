@@ -17,7 +17,13 @@ class DataBarangModel extends Model
         'kondisi',
         'jumlah',
         'deskripsi',
+        'ruang_id'
 ];
     protected $table = 'barang';
     protected $primaryKey = 'id';
+
+    // one to many
+    public function ruang(){
+        return $this->belongsTo(Ruang::class, 'ruang_id', 'id');
+    }
 }

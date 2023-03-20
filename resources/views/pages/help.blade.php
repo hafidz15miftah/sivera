@@ -20,6 +20,7 @@
                 <div class="card-body">
                     <h4 class card-title>Pusat Bantuan</h4>
                     <p>Untuk mengunduh manual penggunaan, silahkan klik tombol di bawah ini</p>
+                    <a class="btn btn-secondary" style="color:white" href=""><i class="fa fa-cloud-download"></i> Unduh Manual</a>
                 </div>
             </div>
         </div>

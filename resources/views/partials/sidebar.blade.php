@@ -11,7 +11,7 @@
             <li class="nav-label">FUNGSIONAL SISTEM</li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-grid menu-icon"></i><span class="nav-text">Tabel</span>
+                    <i class="icon-grid menu-icon"></i><span class="nav-text">Tabel Data</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="/barang">Daftar Barang</a></li>
@@ -20,12 +20,21 @@
                 </ul>
             </li>
             <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fa fa-print menu-icon"></i><span class="nav-text">Cetak Data</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="/">Cetak Laporan Barang</a></li>
+                    <li><a href="/">Cetak Laporan Aset</a></li>
+                </ul>
+            </li>
+            <li>
                 <a href="/pengguna" aria-expanded="false">
                     <i class="icon-user menu-icon"></i><span class="nav-text">Pengguna</span>
                 </a>
             </li>
-            <li class="nav-label">LAINNYA</li>
             @endif
+            <li class="nav-label">LAINNYA</li>
             <li>
                 <a href="/bantuan" aria-expanded="false">
                     <i class="icon-question menu-icon"></i><span class="nav-text">Pusat Bantuan</span>

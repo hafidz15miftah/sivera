@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('barang', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('ruang', ['Kepala Desa', 'Sekretaris Desa', 'Kaur Umum dan Perencanaan', 'Kaur Keuangan dan Kasi Kesejahteraan', 'Kasi Pelayanan', 'Kasi Pemerintahan']);
             $table->date('tanggal');
             $table->string('kode_barang');
             $table->enum('kondisi', ['Baik', 'Rusak Ringan', 'Rusak Berat']);
@@ -23,6 +22,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->string('deskripsi')->nullable();
             $table->timestamps();
+
         });
     }
 

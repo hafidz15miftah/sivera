@@ -21,12 +21,12 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Barang</h4>
                     <a class="btn btn-success" style="color:white" href="{{route('tambahbarang')}}"><i class="fa fa-plus"></i> Tambah Barang</a>
-                    <a class="btn btn-primary" style="color:white" href="{{route('tambahbarang')}}"><i class="fa fa-plus"></i> Cetak Laporan</a>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
+                                    <th>Ruang</th>
                                     <th>Kode Barang</th>
                                     <th>Nama Barang</th>
                                     <th>Kondisi</th>
@@ -40,6 +40,7 @@
                                 @foreach($barang as $b)
                                 <tr>
                                     <td>{{$b->tanggal}}</td>
+                                    <td>{{$b->ruang->nama_ruang}}</td>
                                     <td>{{$b->kode_barang}}</td>
                                     <td>{{$b->nama_barang}}</td>
                                     <td>{{$b->kondisi}}</td>
@@ -47,7 +48,7 @@
                                     <td>{{$b->deskripsi}}</td>
                                     <td>{{$b->updated_at}}</td>
                                     <td>
-                                        <a href="/updatebarang/" style="color: white" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+                                        <a href="/updatebarang/{{$b->id}}" style="color: white" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

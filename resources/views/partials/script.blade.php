@@ -4,6 +4,9 @@
 <script src="js/gleek.js"></script>
 <script src="js/styleSwitcher.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+
 <!-- Chartjs -->
 <script src="/plugins/chart.js/Chart.bundle.min.js"></script>
 <!-- Circle progress -->

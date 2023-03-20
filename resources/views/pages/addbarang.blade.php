@@ -25,13 +25,13 @@
                             <form method="post" action="{{route('simpanbarang')}}">
                                 @csrf
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="ruang">Ruang</label>
+                                    <label class="col-lg-4 col-form-label" for="ruang_id">Ruang</label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="ruang" name="ruang">
+                                        <select class="form-control" id="ruang_id" name="ruang">
                                             <option value="">Silahkan Pilih ...</option>
-                                            <option value="Kepala Desa">Kepala Desa</option>
-                                            <option value="Sekretaris Desa">Sekretaris Desa</option>
-                                            <option value="Kaur Umum dan Perencanaan">Kaur Umum dan Perencanaan</option>
+                                            @foreach($ruang as $r)
+                                            <option value="{{ $r->id }}">{{ $r->nama_ruang }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
