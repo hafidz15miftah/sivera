@@ -16,15 +16,15 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string $role)
     {
-        if ($role == 'kepdes' && auth()->user()->role_id == 1){
+        if ($role == 'sekdes' && auth()->user()->role_id == 1){
             return $next($request);
         }
 
-        if ($role == 'kup' && auth()->user()->role_id == 2){
+        if ($role == 'kaurumum' && auth()->user()->role_id == 2){
             return $next($request);
         }
 
-        if ($role == 'peminjam' && auth()->user()->role_id == 3){
+        if ($role == 'kepdes' && auth()->user()->role_id == 3){
             return $next($request);
         }
 

@@ -25,6 +25,8 @@
                                 <tr>
                                     <th>Tanggal Dibuat</th>
                                     <th>Nama</th>
+                                    <th>NIP</th>
+                                    <th>Alamat</th>
                                     <th>Email</th>
                                     <th>Jabatan</th>
                                 </tr>
@@ -34,6 +36,8 @@
                                 <tr>
                                     <td>{{$u->created_at}}</td>
                                     <td>{{$u->name}}</td>
+                                    <td>{{$u->nip}}</td>
+                                    <td>{{$u->alamat}}</td>
                                     <td>{{$u->email}}</td>
                                     <td>{{$u->role_name}}</td>
                                 </tr>

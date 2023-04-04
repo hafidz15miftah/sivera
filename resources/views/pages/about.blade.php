@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <h4 class card-title>Tentang Sivera</h4>
                     <p>SIVERA atau Sistem Informasi Inventaris Barang dan Aset Desa adalah sistem informasi berbasis website yang dikembangkan untuk memudahkan perangkat desa dalam melakukan pendataan barang dan aset yang dimiliki oleh desa secara efektif dan efisien</p>
-                    <p>Hak Cipta &copy; 2023 &minus; Pemerintah Desa Kedawung, Hafidz Miftah Fauzi, Politeknik Negeri Cilacap</p>
+                    <p>Hak Cipta &copy; 2023 &minus; Pemerintah Desa Kedawung</p>
                 </div>
             </div>
         </div>

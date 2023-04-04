@@ -16,7 +16,6 @@ class DataBarangModel extends Model
         'nama_barang',
         'kondisi',
         'jumlah',
-        'deskripsi',
         'ruang_id'
 ];
     protected $table = 'barang';

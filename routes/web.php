@@ -3,6 +3,7 @@
 use App\Http\Controllers\AsetController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RuangController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,32 +27,41 @@ Route::get('/sivera', function() {
     return view('pages.about');
 });
 
+//Route ke Halaman Profil
+Route::get('/profil', function() {
+    return view('pages.profile');
+});
+
 //Route ke Halaman Pusat Bantuan
 Route::get('/bantuan', function() {
     return view('pages.help');
 });
 
 //Route Untuk Mengakses Daftar Aset
-Route::middleware(['auth::sanctum', 'verified', 'role:kup'])->get('/aset', [AsetController::class, 'indeksaset'])->name('aset');
-Route::get('/aset', [AsetController::class, 'tampilaset'])->name('tampilaset')->middleware('auth','role:kup');
+Route::middleware(['auth::sanctum', 'verified', 'role:kaurumum'])->get('/aset', [AsetController::class, 'indeksaset'])->name('aset');
+Route::get('/aset', [AsetController::class, 'tampilaset'])->name('tampilaset')->middleware('auth','role:kaurumum');
 
 //Route Untuk Mengakses Daftar Barang
-Route::middleware(['auth:sanctum', 'verified','role:kup'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');
-Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilbarang')->middleware('auth','role:kup');
+Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');
+Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilbarang')->middleware('auth','role:kaurumum');
 
 //Route Untuk Mengakses Daftar Pengguna
-Route::middleware(['auth:sanctum', 'verified','role:kup'])->get('/pengguna', [UserController::class, 'indekspengguna'])->name('pengguna');
-Route::get('/pengguna', [UserController::class, 'tampilpengguna'])->name('tampilpengguna')->middleware('auth','role:kup');
+Route::middleware(['auth:sanctum', 'verified','role:sekdes'])->get('/pengguna', [UserController::class, 'indekspengguna'])->name('pengguna');
+Route::get('/pengguna', [UserController::class, 'tampilpengguna'])->name('tampilpengguna')->middleware('auth','role:sekdes');
 
 //Route Untuk Mengakses Daftar Ruangan
-Route::get('/ruangan', function() {
-    return view('pages.datatableruangan');
-});
+Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/ruangan', [BarangController::class, 'indeksruangan'])->name('ruangan');
+Route::get('/ruangan', [RuangController::class, 'tampilruangan'])->name('tampilruangan')->middleware('auth','role:kaurumum');
 
 //Route Untuk Membuka Halaman Tambah Barang dan Fungsi Simpan
-Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('tambahbarang')->middleware('auth', 'role:kup');
-Route::post('/simpanbarang', [BarangController::class, 'simpanbarang'])->name('simpanbarang')->middleware('auth', 'role:kup');
-Route::get('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->name('hapusbarang')->middleware('auth', 'role:kup');
+Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('tambahbarang')->middleware('auth', 'role:kaurumum');
+Route::post('/simpanbarang', [BarangController::class, 'simpanbarang'])->name('simpanbarang')->middleware('auth', 'role:kaurumum');
+Route::get('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->name('hapusbarang')->middleware('auth', 'role:kaurumum');
+
+//Route Untuk Membuka Halaman Tambah Barang dan Fungsi Simpan
+Route::get('/tambahruangan', [RuangController::class, 'tambahruangan'])->name('tambahruangan')->middleware('auth', 'role:kaurumum');
+Route::post('/simpanruangan', [RuangController::class, 'simpanruangan'])->name('simpanruangan')->middleware('auth', 'role:kaurumum');
+Route::get('/hapusruangan/{id}', [RuangController::class, 'hapusruangan'])->name('hapusruangan')->middleware('auth', 'role:kaurumum');
 
 //Route Untuk Membuka Halaman Login
 Route::get('/login', function()  {

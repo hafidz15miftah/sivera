@@ -71,12 +71,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label" for="deskripsi">Deskripsi</label>
-                                    <div class="col-lg-6">
-                                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" placeholder="Masukkan Informasi / Deskripsi Barang"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
                                         <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#exampleModalCenter">Simpan</button>
                                         <button type="button" class="btn btn-danger text-white">Batal</button>

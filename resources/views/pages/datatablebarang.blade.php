@@ -32,7 +32,6 @@
                                     <th>Nama Barang</th>
                                     <th>Kondisi</th>
                                     <th>Jumlah</th>
-                                    <th>Deskripsi</th>
                                     <th>Audit Terakhir</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -46,7 +45,6 @@
                                     <td>{{$b->nama_barang}}</td>
                                     <td>{{$b->kondisi}}</td>
                                     <td>{{$b->jumlah}}</td>
-                                    <td>{{$b->deskripsi}}</td>
                                     <td>{{$b->updated_at}}</td>
                                     <td>
                                         <a href="/updatebarang/{{$b->id}}" style="color: white" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>

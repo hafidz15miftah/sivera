@@ -18,17 +18,30 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Warso',
-            'email' => 'kepdes@gmail.com',
+            'name' => 'Sekretaris Desa',
+            'email' => 'sekdes@gmail.com',
+            'nip' => '192199900297262',
+            'alamat' => 'Jl. Ahmad Yani',
             'password' => Hash::make('tes'),
             'role_id' => 1,
         ]);
 
         User::create([
             'name' => 'Tunggono',
-            'email' => 'admin@gmail.com',
+            'email' => 'kaurumum@gmail.com',
+            'nip' => '0',
+            'alamat' => 'Jl. Mangga',
             'password' => Hash::make('tes'),
             'role_id' => 2,
+        ]);
+
+        User::create([
+            'name' => 'H. Warso',
+            'email' => 'kepdes@gmail.com',
+            'nip' => '0',
+            'alamat' => 'Jl. Jeruk Manis',
+            'password' => Hash::make('tes'),
+            'role_id' => 3,
         ]);
     }
 }

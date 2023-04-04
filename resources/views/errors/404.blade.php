@@ -25,7 +25,7 @@
                                     </div>
                                 </form>
                                 <div class="text-center">
-                                    <p>Hak Cipta &copy; 2022 <a href="https://kedawung-kroya.cilacapkab.go.id">Pemerintah Desa Kedawung</a></p>
+                                    <p>Hak Cipta &copy; 2023 <a href="https://kedawung-kroya.cilacapkab.go.id">Pemerintah Desa Kedawung</a></p>
                                 </div>
                             </div>
                         </div>

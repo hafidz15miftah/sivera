@@ -14,7 +14,7 @@ class BarangController extends Controller
     public function indeksbarang()
     {
         return view('pages.datatablebarang');
-    }
+    }   
 
     //Untuk menampilkan tabel Barang
     public function tampilbarang()
@@ -23,7 +23,7 @@ class BarangController extends Controller
         return view('pages.datatablebarang', ['barang' => $barang]);
     }
 
-    //Untuk menambahkan barang
+    //Untuk menampilkan data ruang saat menambah data barang
     public function tambahbarang()
     {
         $ruang = Ruang::all();
@@ -48,7 +48,6 @@ class BarangController extends Controller
             'nama_barang' => $request->nama_barang,
             'jumlah' => $request->jumlah,
             'ruang_id' => $request->ruang,
-            'deskripsi' => $request->deskripsi,
         ]);
 
         // $ruang = new Ruang;

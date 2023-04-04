@@ -20,9 +20,7 @@ return new class extends Migration
             $table->enum('kondisi', ['Baik', 'Rusak Ringan', 'Rusak Berat']);
             $table->string('nama_barang');
             $table->integer('jumlah');
-            $table->string('deskripsi')->nullable();
             $table->timestamps();
-
         });
     }
 

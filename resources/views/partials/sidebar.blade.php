@@ -7,6 +7,19 @@
                     <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dasbor</span>
                 </a>
             </li>
+            @if(auth()->user()->role_id == 1)
+            <li class="nav-label">FUNGSIONAL SISTEM</li>
+            <li>
+                <a href="/laporan" aria-expanded="false">
+                    <i class="icon-check menu-icon"></i><span class="nav-text">Daftar Laporan</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pengguna" aria-expanded="false">
+                    <i class="icon-user menu-icon"></i><span class="nav-text">Pengguna</span>
+                </a>
+            </li>
+            @endif
             @if(auth()->user()->role_id == 2)
             <li class="nav-label">FUNGSIONAL SISTEM</li>
             <li>
@@ -16,28 +29,23 @@
                 <ul aria-expanded="false">
                     <li><a href="/barang">Daftar Barang</a></li>
                     <li><a href="/aset">Daftar Aset</a></li>
-                    <li><a href="/ruangan">Daftar Ruangan</a></li>
                 </ul>
             </li>
             <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="fa fa-print menu-icon"></i><span class="nav-text">Cetak Data</span>
+                <a href="/ruangan" aria-expanded="false">
+                    <i class="icon-home menu-icon"></i><span class="nav-text">Data Ruangan</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="/">Cetak Laporan Barang</a></li>
-                    <li><a href="/">Cetak Laporan Aset</a></li>
-                </ul>
             </li>
             <li>
-                <a href="/pengguna" aria-expanded="false">
-                    <i class="icon-user menu-icon"></i><span class="nav-text">Pengguna</span>
+                <a href="/laporan" aria-expanded="false">
+                    <i class="icon-check menu-icon"></i><span class="nav-text">Daftar Laporan</span>
                 </a>
             </li>
             @endif
             <li class="nav-label">LAINNYA</li>
             <li>
                 <a href="/bantuan" aria-expanded="false">
-                    <i class="icon-question menu-icon"></i><span class="nav-text">Pusat Bantuan</span>
+                    <i class="icon-question menu-icon"></i><span class="nav-text">Unduh Manual Sivera</span>
                 </a>
             </li>
             <li>
