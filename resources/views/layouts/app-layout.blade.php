@@ -48,6 +48,8 @@
 
     <!-- Script -->
     @include('partials.script')
+    @include('sweetalert::alert')
+
 
 </body>
 

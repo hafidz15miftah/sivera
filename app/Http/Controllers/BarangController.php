@@ -33,8 +33,20 @@ class BarangController extends Controller
 
     //Untuk menghapus data barang
     public function hapusbarang($id){
-        $barang = DataBarangModel::where('id', $id)->delete();
-        return redirect()->route('tampilbarang');
+        $barang = DataBarangModel::findOrFail($id);
+        $barang->delete();
+        if ($barang->delete()) {
+            return response()->json([
+                'status' => 'sukses',
+                'pesan' => 'Data berhasil dihapus!'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'pesan' => 'Terjadi kesalahan saat menghapus data!'
+            ]);
+        }
+        // return redirect()->route('tampilbarang')->with('toast_success', 'Barang Berhasil Dihapus!');
     }
 
     //Untuk menyimpan barang
@@ -54,6 +66,6 @@ class BarangController extends Controller
         // $ruang->ruang_id = $barang->id;
         // dd($barang);
 
-        return redirect()->route('tampilbarang');
+        return redirect()->route('tampilbarang')->withToastSuccess('Barang Berhasil Ditambahkan!');
     }
 }

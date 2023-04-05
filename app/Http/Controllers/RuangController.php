@@ -26,12 +26,12 @@ class RuangController extends Controller
             'nama_ruang' => $request->nama_ruang
         ]);
 
-        return redirect()->route('tampilruangan');
+        return redirect()->route('tampilruangan')->withToastSuccess('Ruangan Berhasil Ditambahkan!');;
     }
 
     public function hapusruangan($id){
         $ruangan = Ruang::where('id', $id)->delete();
-        return redirect()->route('tampilruangan');
+        return redirect()->route('tampilruangan')->withSuccess('Ruangan Berhasil Dihapus!');;
     }
 }
 
