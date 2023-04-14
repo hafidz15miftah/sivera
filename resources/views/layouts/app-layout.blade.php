@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.ico')}}">
     <!-- Pignose Calender -->
@@ -16,6 +17,8 @@
     <!-- Custom Stylesheet -->
     <link href="{{ asset('plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <!-- Load SweetAlert CSS -->
+    <link rel="stylesheet" href="">
 </head>
 
 <body>
@@ -48,7 +51,7 @@
 
     <!-- Script -->
     @include('partials.script')
-    @include('sweetalert::alert')
+    {{-- @include('sweetalert::alert') --}}
 
 
 </body>

@@ -4,7 +4,7 @@
 <script src="js/gleek.js"></script>
 <script src="js/styleSwitcher.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
 
 <!-- Chartjs -->
@@ -29,5 +29,55 @@
 <script src="/plugins/tables/js/jquery.dataTables.min.js"></script>
 <script src="/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
 <script src="/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
-<!-- Load SweetAlert CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+<script src="{{ asset('/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
+<script>
+        function deleteData(e) {
+            event.preventDefault();
+            let id = e.getAttribute('data-id');
+            let name = e.getAttribute('data-name');
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data " + name + " akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/hapusbarang/' + id,
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    'Berhasil!',
+                                    response.message,
+                                    'success'
+                                ).then((result) => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Gagal!',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.responseText);
+                            Swal.fire(
+                                'Gagal!',
+                                'Terjadi kesalahan saat menghapus data.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    </script>

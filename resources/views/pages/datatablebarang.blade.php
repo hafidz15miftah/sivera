@@ -48,7 +48,7 @@
                                     <td>{{$b->updated_at}}</td>
                                     <td>
                                         <a href="/updatebarang/{{$b->id}}" style="color: white" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <button data-id="{{$b->id}}" id="hapusBtn" onclick="hapusData(e)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                        <button data-id="{{ $b->id }}" data-name="{{ $b->nama_barang }}" onclick="deleteData(this)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -60,50 +60,4 @@
         </div>
     </div>
 </div>
-
-<script>
-
-    var hapusbtn = document.getElementById('hapusBtn');
-    var id = hapusbtn.getAttribute('data-id');
-    function hapusData() {
-    swal.fire({
-        title: 'Apakah kamu yakin?',
-        text: 'Data yang sudah dihapus tidak bisa dikembalikan lagi!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, hapus data!',
-        cancelButtonText: 'Batal'
-    }).then((result) => {
-        if (result.value) {
-            // Use AJAX or other method to delete data
-            $.ajax({
-                url: '/hapusbarang/' + id,
-                type: 'DELETE',
-                data: { _token: '{{ csrf_token() }}' },
-                success: function(result) {
-                    // Show SweetAlert success message
-                    swal.fire({
-                        title: 'Data berhasil dihapus!',
-                        icon: 'success'
-                    }).then(() => {
-                        // Reload the page after deleting data
-                        location.reload();
-                    });
-                },
-                error: function(xhr, status, error) {
-                    // Show SweetAlert error message
-                    swal.fire({
-                        title: 'Oops...',
-                        text: 'Terjadi kesalahan: ' + error,
-                        icon: 'error'
-                    });
-                }
-            });
-        }
-    });
-}
-
-</script>
 @endsection

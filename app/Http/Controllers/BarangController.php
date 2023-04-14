@@ -14,12 +14,12 @@ class BarangController extends Controller
     public function indeksbarang()
     {
         return view('pages.datatablebarang');
-    }   
+    }
 
     //Untuk menampilkan tabel Barang
     public function tampilbarang()
     {
-        $barang = DataBarangModel::select('*')->get();
+        $barang = DataBarangModel::all();
         return view('pages.datatablebarang', ['barang' => $barang]);
     }
 
@@ -32,18 +32,19 @@ class BarangController extends Controller
     }
 
     //Untuk menghapus data barang
-    public function hapusbarang($id){
-        $barang = DataBarangModel::findOrFail($id);
-        $barang->delete();
-        if ($barang->delete()) {
+    public function hapusbarang(Request $request, $id){
+        $barang = DataBarangModel::findorfail($id);
+        if ($request->ajax()){
+            if ($barang) {
+                $barang->delete();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data barang '. $barang->username . ' berhasil dihapus.'
+                ]);
+            }
             return response()->json([
-                'status' => 'sukses',
-                'pesan' => 'Data berhasil dihapus!'
-            ]);
-        } else {
-            return response()->json([
-                'status' => 'error',
-                'pesan' => 'Terjadi kesalahan saat menghapus data!'
+                'success' => false,
+                'message' => 'Data tidak ditemukan.'
             ]);
         }
         // return redirect()->route('tampilbarang')->with('toast_success', 'Barang Berhasil Dihapus!');

@@ -67,7 +67,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="jumlah">Jumlah</label>
                                     <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah Barang">
+                                        <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah Barang">
                                     </div>
                                 </div>
                                 <div class="form-group row">

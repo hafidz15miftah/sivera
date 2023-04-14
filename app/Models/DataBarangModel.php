@@ -9,6 +9,9 @@ class DataBarangModel extends Model
 {
     use HasFactory;
 
+
+    protected $table = 'barang';
+
     protected $fillable = [
         'ruang',
         'tanggal',
@@ -18,8 +21,6 @@ class DataBarangModel extends Model
         'jumlah',
         'ruang_id'
 ];
-    protected $table = 'barang';
-    protected $primaryKey = 'id';
 
     // one to many
     public function ruang(){
