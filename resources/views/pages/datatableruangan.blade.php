@@ -36,7 +36,7 @@
                                     <td>{{$r->nama_ruang}}</td>
                                     <td>
                                         <a href="/updatebarang/" style="color: white" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <a href="/hapusbarang/{{$r->id}}" onclick="return confirm('Apakah Anda Yakin Menghapus Data?');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                        <button data-id="{{ $r->id }}" data-name="{{ $r->nama_ruang }}" onclick="deleteData(this)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach

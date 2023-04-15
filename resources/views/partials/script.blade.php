@@ -29,55 +29,56 @@
 <script src="/plugins/tables/js/jquery.dataTables.min.js"></script>
 <script src="/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
 <script src="/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+<!-- SweetAlert -->
 <script src="{{ asset('/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script>
-        function deleteData(e) {
-            event.preventDefault();
-            let id = e.getAttribute('data-id');
-            let name = e.getAttribute('data-name');
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data " + name + " akan dihapus secara permanen!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: '/hapusbarang/' + id,
-                        type: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                Swal.fire(
-                                    'Berhasil!',
-                                    response.message,
-                                    'success'
-                                ).then((result) => {
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire(
-                                    'Gagal!',
-                                    response.message,
-                                    'error'
-                                );
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
+    function deleteData(e) {
+        event.preventDefault();
+        let id = e.getAttribute('data-id');
+        let name = e.getAttribute('data-name');
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data " + name + " akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/hapusbarang/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire(
+                                'Berhasil!',
+                                response.message,
+                                'success'
+                            ).then((result) => {
+                                location.reload();
+                            });
+                        } else {
                             Swal.fire(
                                 'Gagal!',
-                                'Terjadi kesalahan saat menghapus data.',
+                                response.message,
                                 'error'
                             );
                         }
-                    });
-                }
-            });
-        }
-    </script>
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire(
+                            'Gagal!',
+                            'Terjadi kesalahan saat menghapus data.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    }
+</script>

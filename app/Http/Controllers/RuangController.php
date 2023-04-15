@@ -29,9 +29,23 @@ class RuangController extends Controller
         return redirect()->route('tampilruangan')->withToastSuccess('Ruangan Berhasil Ditambahkan!');;
     }
 
-    public function hapusruangan($id){
-        $ruangan = Ruang::where('id', $id)->delete();
-        return redirect()->route('tampilruangan')->withSuccess('Ruangan Berhasil Dihapus!');;
+    //Untuk menghapus data barang
+    public function hapusbarang(Request $request, $id){
+        $ruangan = Ruang::findorfail($id);
+        if ($request->ajax()){
+            if ($ruangan) {
+                $ruangan->delete();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data barang '. $ruangan->username . ' berhasil dihapus.'
+                ]);
+            }
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak ditemukan.'
+            ]);
+        }
+        // return redirect()->route('tampilbarang')->with('toast_success', 'Barang Berhasil Dihapus!');
     }
 }
 
