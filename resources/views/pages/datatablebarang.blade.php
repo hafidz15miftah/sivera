@@ -61,7 +61,7 @@
     </div>
 </div>
 
-<div class="modal fade modal-xxl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-xxl" id="tambah-barang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -97,9 +97,9 @@
                         <label for="kondisi" class="col-form-label">Kondisi:</label>
                         <select class="form-control" id="kondisi" name="kondisi">
                             <option value="">Silahkan Pilih ...</option>
-                            @foreach($kondisi as $k)
-                            <option value="{{ $k->kondisi }}" name="kondisi" id="kondisi">{{ $k->kondisi }}</option>
-                            @endforeach
+                            <option value="Baik">Baik</option>
+                            <option value="Rusak Ringan">Rusak Ringan</option>
+                            <option value="Rusak Berat">Rusak Berat</option>
                         </select>
                     </div>
                     <div class="form-group">

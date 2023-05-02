@@ -21,9 +21,8 @@ class BarangController extends Controller
     public function tampilbarang()
     {
         $barang = DataBarangModel::all();
-        $kondisi = DataBarangModel::all();
         $ruang = Ruang::all();
-        return view('pages.datatablebarang', ['barang' => $barang, 'ruang' => $ruang, 'kondisi' => $kondisi]);
+        return view('pages.datatablebarang', ['barang' => $barang, 'ruang' => $ruang]);
     }
 
     //Untuk menampilkan data ruang saat menambah data barang

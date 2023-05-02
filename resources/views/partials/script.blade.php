@@ -38,7 +38,7 @@
     //button create post event
     $('body').on('click', '#tambahbarang', function() {
         //open modal
-        $('#exampleModal').modal('show');
+        $('#tambah-barang').modal('show');
     });
 
     //action create post
@@ -86,7 +86,7 @@
                     icon: 'success',
                     title: `${response.message}`,
                     showConfirmButton: false,
-                    timer: 3000
+                    timer: 2000
                 }).then((result) => {
                     location.reload();
                 });;
@@ -107,32 +107,69 @@
                     </tr>
                 `;
 
-                //append to table
-                $('#tabelbarang').prepend(post);
-
                 //close modal
-                $('#exampleModal').modal('hide');
+                $('#tambah-barang').modal('hide');
             },
             error: function(error) {
 
-                if (error.responseJSON.title[0]) {
+                if (error.responseJSON.tanggal[0]) {
 
                     //show alert
-                    $('#alert-title').removeClass('d-none');
-                    $('#alert-title').addClass('d-block');
+                    $('#alert-tanggal').removeClass('d-none');
+                    $('#alert-tanggal').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-title').html(error.responseJSON.title[0]);
+                    $('#alert-tanggal').html(error.responseJSON.tanggal[0]);
                 }
 
-                if (error.responseJSON.content[0]) {
+                if (error.responseJSON.ruang_id[0]) {
 
                     //show alert
-                    $('#alert-content').removeClass('d-none');
-                    $('#alert-content').addClass('d-block');
+                    $('#alert-ruang_id').removeClass('d-none');
+                    $('#alert-ruang_id').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-content').html(error.responseJSON.content[0]);
+                    $('#alert-ruang_id').html(error.responseJSON.ruang_id[0]);
+                }
+
+                if (error.responseJSON.kode_barang[0]) {
+
+                    //show alert
+                    $('#alert-kode_barang').removeClass('d-none');
+                    $('#alert-kode_barang').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-kode_barang').html(error.responseJSON.kode_barang[0]);
+                }
+
+                if (error.responseJSON.nama_barang[0]) {
+
+                    //show alert
+                    $('#alert-nama_barang').removeClass('d-none');
+                    $('#alert-nama_barang').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-nama_barang').html(error.responseJSON.nama_barang[0]);
+                }
+
+                if (error.responseJSON.kondisi[0]) {
+
+                    //show alert
+                    $('#alert-kondisi').removeClass('d-none');
+                    $('#alert-kondisi').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-kondisi').html(error.responseJSON.kondisi[0]);
+                }
+
+                if (error.responseJSON.jumlah[0]) {
+
+                    //show alert
+                    $('#alert-jumlah').removeClass('d-none');
+                    $('#alert-jumlah').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-jumlah').html(error.responseJSON.jumlah[0]);
                 }
             }
 
