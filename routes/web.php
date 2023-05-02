@@ -58,6 +58,9 @@ Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('ta
 Route::post('/simpanbarang', [BarangController::class, 'simpanbarang'])->name('simpanbarang')->middleware('auth', 'role:kaurumum');
 Route::delete('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->name('hapusbarang');
 
+//
+// Route::resource('/simpanbarang', App\Http\Controllers\BarangController::class);
+
 //Route Untuk Membuka Halaman Tambah Barang dan Fungsi Simpan
 Route::get('/tambahruangan', [RuangController::class, 'tambahruangan'])->name('tambahruangan')->middleware('auth', 'role:kaurumum');
 Route::post('/simpanruangan', [RuangController::class, 'simpanruangan'])->name('simpanruangan')->middleware('auth', 'role:kaurumum');

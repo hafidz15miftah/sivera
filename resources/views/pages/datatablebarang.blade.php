@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Daftar Barang</h4>
-                    <a class="btn btn-primary" style="color:white" href="{{route('tambahbarang')}}"><i class="fa fa-plus"></i> Tambah Barang</a>
+                    <a class="btn btn-primary" id="tambahbarang" style="color:white" href="javascript:void(0)"><i class="fa fa-plus"></i> Tambah Barang</a>
                     <a class="btn btn-success" style="color:white" href="{{route('tambahbarang')}}"><i class="fa fa-print"></i> Cetak Barang</a>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered zero-configuration">
@@ -36,7 +36,7 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tabelbarang">
                                 @foreach($barang as $b)
                                 <tr>
                                     <td>{{$b->tanggal}}</td>
@@ -56,6 +56,61 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-xxl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @csrf
+                <form id="add_barang">
+                    <div class="form-group">
+                        <label for="tanggal" class="col-form-label">Tanggal:</label>
+                        <input type="date" class="form-control" name="tanggal" id="tanggal">
+                    </div>
+                    <div class="form-group">
+                        <label for="ruang" class="col-form-label">Ruang:</label>
+                        <select class="form-control" id="ruang_id" name="ruang">
+                            <option value="">Silahkan Pilih ...</option>
+                            @foreach($ruang as $r)
+                            <option value="{{ $r->id }}" name="ruang_id" id="ruang_id">{{ $r->nama_ruang }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="kode_barang" class="col-form-label">Kode Barang:</label>
+                        <input type="text" class="form-control" name="kode_barang" id="kode_barang">
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_barang" class="col-form-label">Nama Barang:</label>
+                        <input type="text" class="form-control" name="nama_barang" id="nama_barang">
+                    </div>
+                    <div class="form-group">
+                        <label for="kondisi" class="col-form-label">Kondisi:</label>
+                        <select class="form-control" id="kondisi" name="kondisi">
+                            <option value="">Silahkan Pilih ...</option>
+                            @foreach($kondisi as $k)
+                            <option value="{{ $k->kondisi }}" name="kondisi" id="kondisi">{{ $k->kondisi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jumlah" class="col-form-label">Jumlah:</label>
+                        <input type="number" class="form-control" name="jumlah" id="jumlah">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success" id="simpanbarang">Simpan</button>
             </div>
         </div>
     </div>

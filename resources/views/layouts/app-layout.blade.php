@@ -23,6 +23,8 @@
 
 <body>
 
+    <!-- Add Barang Modal -->
+    @include('partials.barangmodal')
     <!-- Loading Progressbar -->
     @include('partials.loading')
 

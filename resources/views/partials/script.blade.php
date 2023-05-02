@@ -4,8 +4,9 @@
 <script src="js/gleek.js"></script>
 <script src="js/styleSwitcher.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <!-- Chartjs -->
 <script src="/plugins/chart.js/Chart.bundle.min.js"></script>
@@ -31,6 +32,116 @@
 <script src="/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 <!-- SweetAlert -->
 <script src="{{ asset('/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
+
+<!-- Script Tambah Data Barang -->
+<script>
+    //button create post event
+    $('body').on('click', '#tambahbarang', function() {
+        //open modal
+        $('#exampleModal').modal('show');
+    });
+
+    //action create post
+    $('#simpanbarang').click(function(e) {
+        e.preventDefault();
+
+        //define variable
+        let tanggal = $('#tanggal').val();
+        let ruang_id = $('#ruang_id').val();
+        let kode_barang = $('#kode_barang').val();
+        let nama_barang = $('#nama_barang').val();
+        let kondisi = $('#kondisi').val();
+        let jumlah = $('#jumlah').val();
+        // let token = $('#token').val();
+        console.log(tanggal + '-' + ruang_id + kode_barang + nama_barang + kondisi + jumlah);
+
+
+        //ajax
+        $.ajax({
+            url: `{{url('/simpanbarang')}}`,
+            type: "POST",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                // "token": token,
+                "tanggal": tanggal,
+                "ruang_id": ruang_id,
+                "kode_barang": kode_barang,
+                "nama_barang": nama_barang,
+                "kondisi": kondisi,
+                "jumlah": jumlah,
+            },
+            // success: function(response) {
+            //     if (response.errors) {
+            //         console.log(response.errors);
+            //     }
+            // }
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: `${response.message}`,
+                    showConfirmButton: false,
+                    timer: 3000
+                }).then((result) => {
+                    location.reload();
+                });;
+
+                //data post
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.tanggal}</td>
+                        <td>${response.data.ruang}</td>
+                        <td>${response.data.kode_barang}</td>
+                        <td>${response.data.nama_barang}</td>
+                        <td>${response.data.kondisi}</td>
+                        <td>${response.data.jumlah}</td>
+                        <td class="text-center">
+                            <a href="javascript:void(0)" id="btn-edit-post" data-id="${response.data.id}" class="btn btn-primary btn-sm">EDIT</a>
+                            <a href="javascript:void(0)" id="btn-delete-post" data-id="${response.data.id}" class="btn btn-danger btn-sm">DELETE</a>
+                        </td>
+                    </tr>
+                `;
+
+                //append to table
+                $('#tabelbarang').prepend(post);
+
+                //close modal
+                $('#exampleModal').modal('hide');
+            },
+            error: function(error) {
+
+                if (error.responseJSON.title[0]) {
+
+                    //show alert
+                    $('#alert-title').removeClass('d-none');
+                    $('#alert-title').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-title').html(error.responseJSON.title[0]);
+                }
+
+                if (error.responseJSON.content[0]) {
+
+                    //show alert
+                    $('#alert-content').removeClass('d-none');
+                    $('#alert-content').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-content').html(error.responseJSON.content[0]);
+                }
+            }
+
+        });
+
+    });
+</script>
+
+<!-- Script Hapus Data Barang -->
 <script>
     function deleteData(e) {
         event.preventDefault();

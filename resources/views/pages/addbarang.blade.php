@@ -73,6 +73,7 @@
                                 <div class="form-group row">
                                     <div class="col-lg-8 ml-auto">
                                         <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#exampleModalCenter">Simpan</button>
+                                        <button type="button" class="btn btn-success text-white" onclick="simpandata(this)">Simpan Barang</button>
                                         <button type="button" class="btn btn-danger text-white">Batal</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModalCenter">
