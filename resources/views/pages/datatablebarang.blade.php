@@ -75,6 +75,7 @@
                     <div class="form-group">
                         <label for="tanggal" class="col-form-label">Tanggal:</label>
                         <input type="date" class="form-control" name="tanggal" id="tanggal">
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tanggal"></div>
                     </div>
                     <div class="form-group">
                         <label for="ruang" class="col-form-label">Ruang:</label>
@@ -84,14 +85,17 @@
                             <option value="{{ $r->id }}" name="ruang_id" id="ruang_id">{{ $r->nama_ruang }}</option>
                             @endforeach
                         </select>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ruang_id"></div>
                     </div>
                     <div class="form-group">
                         <label for="kode_barang" class="col-form-label">Kode Barang:</label>
                         <input type="text" class="form-control" name="kode_barang" id="kode_barang">
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode_barang"></div>
                     </div>
                     <div class="form-group">
                         <label for="nama_barang" class="col-form-label">Nama Barang:</label>
                         <input type="text" class="form-control" name="nama_barang" id="nama_barang">
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_barang"></div>
                     </div>
                     <div class="form-group">
                         <label for="kondisi" class="col-form-label">Kondisi:</label>
@@ -101,10 +105,12 @@
                             <option value="Rusak Ringan">Rusak Ringan</option>
                             <option value="Rusak Berat">Rusak Berat</option>
                         </select>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kondisi"></div>
                     </div>
                     <div class="form-group">
                         <label for="jumlah" class="col-form-label">Jumlah:</label>
                         <input type="number" class="form-control" name="jumlah" id="jumlah">
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jumlah"></div>
                     </div>
                 </form>
             </div>
