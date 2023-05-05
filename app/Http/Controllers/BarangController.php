@@ -36,8 +36,8 @@ class BarangController extends Controller
             return DataTables::of($barang)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $tombol = '<a href="javascript:void(0)" class="edit btn btn-info btn-sm">Lihat</a>';
-                    $tombol = $tombol . '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $tombol = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">Lihat</a>';
+                    $tombol = $tombol . '<a href="javascript:void(0)" class="edit btn btn-warning text-white btn-sm">Edit</a>';
                     $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteData(this)' class='btn btn-danger btn-sm'>Hapus</button>";
 
                     return $tombol;

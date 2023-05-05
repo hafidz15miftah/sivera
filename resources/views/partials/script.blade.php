@@ -145,10 +145,21 @@
                     showConfirmButton: false,
                     timer: 2000
                 })
-                
+
+                //Reset Data Form Setelah Simpan Berhasil
+                $('#tanggal').val('');
+                $('#kode_barang').val('');
+                $('#nama_barang').val('');
+                $('#kondisi').val('');
+                $('#jumlah').val('');
+                $('#kondisi').prop('selectedIndex',0);
+                $('#ruang_id').prop('selectedIndex',0);
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tambah-barang').modal('hide');
                 $('#tabel-barang').DataTable().ajax.reload();
 
-                //data post
+                //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
                         <td>${response.data.tanggal}</td>
@@ -159,11 +170,6 @@
                         <td>${response.data.jumlah}</td>
                     </tr>
                 `;
-
-                $('#tabel-barang').prepend(post);
-
-                //close modal
-                $('#tambah-barang').hide();
             },
             error: function(error) {
 
