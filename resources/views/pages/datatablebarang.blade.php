@@ -23,7 +23,7 @@
                     <a class="btn btn-primary" id="tambahbarang" style="color:white" href="javascript:void(0)"><i class="fa fa-plus"></i> Tambah Barang</a>
                     <a class="btn btn-success" style="color:white" href="{{route('tambahbarang')}}"><i class="fa fa-print"></i> Cetak Barang</a>
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration">
+                        <table id="tabel-barang" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
@@ -36,22 +36,8 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="tabelbarang">
-                                @foreach($barang as $b)
-                                <tr>
-                                    <td>{{$b->tanggal}}</td>
-                                    <td>{{$b->ruang->nama_ruang}}</td>
-                                    <td>{{$b->kode_barang}}</td>
-                                    <td>{{$b->nama_barang}}</td>
-                                    <td>{{$b->kondisi}}</td>
-                                    <td>{{$b->jumlah}}</td>
-                                    <td>{{$b->updated_at}}</td>
-                                    <td>
-                                        <a href="/updatebarang/{{$b->id}}" style="color: white" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <button data-id="{{ $b->id }}" data-name="{{ $b->nama_barang }}" onclick="deleteData(this)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                @endforeach
+                            <tbody>
+
                             </tbody>
                         </table>
                     </div>

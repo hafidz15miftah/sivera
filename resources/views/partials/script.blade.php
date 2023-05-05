@@ -33,6 +33,72 @@
 <!-- SweetAlert -->
 <script src="{{ asset('/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
+<!-- Script Tampilkan Data Barang YajraDataTables -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#tabel-barang').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [{
+                    data: 'tanggal',
+                    name: 'tanggal'
+                },
+                {
+                    data: 'nama_ruang',
+                    name: 'nama_ruang'
+                },
+                {
+                    data: 'kode_barang',
+                    name: 'kode_barang'
+                },
+                {
+                    data: 'nama_barang',
+                    name: 'nama_barang'
+                },
+                {
+                    data: 'kondisi',
+                    name: 'kondisi'
+                },
+                {
+                    data: 'jumlah',
+                    name: 'jumlah'
+                },
+                {
+                    data: 'updated_at',
+                    name: 'updated_at'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            columnDefs: [
+                // targets may be classes
+                {
+                    targets: [1],
+                    searchable: false
+                }
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+
+        });
+        $('#nama_ruang').change(function() {
+            table.draw();
+        });
+    });
+</script>
+
 <!-- Script Tambah Data Barang -->
 <script>
     //button create post event
@@ -52,9 +118,6 @@
         let nama_barang = $('#nama_barang').val();
         let kondisi = $('#kondisi').val();
         let jumlah = $('#jumlah').val();
-        // let token = $('#token').val();
-        console.log(tanggal + '-' + ruang_id + kode_barang + nama_barang + kondisi + jumlah);
-
 
         //ajax
         $.ajax({
@@ -65,7 +128,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                // "token": token,
                 "tanggal": tanggal,
                 "ruang_id": ruang_id,
                 "kode_barang": kode_barang,
@@ -73,11 +135,6 @@
                 "kondisi": kondisi,
                 "jumlah": jumlah,
             },
-            // success: function(response) {
-            //     if (response.errors) {
-            //         console.log(response.errors);
-            //     }
-            // }
             success: function(response) {
 
                 //show success message
@@ -87,9 +144,9 @@
                     title: `${response.message}`,
                     showConfirmButton: false,
                     timer: 2000
-                }).then((result) => {
-                    location.reload();
-                });;
+                })
+                
+                $('#tabel-barang').DataTable().ajax.reload();
 
                 //data post
                 let post = `
@@ -100,15 +157,13 @@
                         <td>${response.data.nama_barang}</td>
                         <td>${response.data.kondisi}</td>
                         <td>${response.data.jumlah}</td>
-                        <td class="text-center">
-                            <a href="javascript:void(0)" id="btn-edit-post" data-id="${response.data.id}" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="javascript:void(0)" id="btn-delete-post" data-id="${response.data.id}" class="btn btn-danger btn-sm">DELETE</a>
-                        </td>
                     </tr>
                 `;
 
+                $('#tabel-barang').prepend(post);
+
                 //close modal
-                $('#tambah-barang').modal('hide');
+                $('#tambah-barang').hide();
             },
             error: function(error) {
 
@@ -206,9 +261,8 @@
                                 'Berhasil!',
                                 response.message,
                                 'success'
-                            ).then((result) => {
-                                location.reload();
-                            });
+                            )
+                            $('#tabel-barang').DataTable().ajax.reload();;
                         } else {
                             Swal.fire(
                                 'Gagal!',

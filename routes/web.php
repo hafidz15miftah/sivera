@@ -43,7 +43,7 @@ Route::get('/aset', [AsetController::class, 'tampilaset'])->name('tampilaset')->
 
 //Route Untuk Mengakses Daftar Barang
 Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');
-Route::get('/barang', [BarangController::class, 'tampilbarang'])->name('tampilbarang')->middleware('auth','role:kaurumum');
+Route::get('/barang', [BarangController::class, 'tampilkanBarang'])->name('tampilkanBarang')->middleware('auth','role:kaurumum');
 
 //Route Untuk Mengakses Daftar Pengguna
 Route::middleware(['auth:sanctum', 'verified','role:sekdes'])->get('/pengguna', [UserController::class, 'indekspengguna'])->name('pengguna');
@@ -60,6 +60,7 @@ Route::delete('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->na
 
 //
 // Route::resource('/simpanbarang', App\Http\Controllers\BarangController::class);
+Route::get('datainfo', [BarangController::class, 'tampilkanBarang']);
 
 //Route Untuk Membuka Halaman Tambah Barang dan Fungsi Simpan
 Route::get('/tambahruangan', [RuangController::class, 'tambahruangan'])->name('tambahruangan')->middleware('auth', 'role:kaurumum');
