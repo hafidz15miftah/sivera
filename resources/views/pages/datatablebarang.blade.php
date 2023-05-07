@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Daftar Barang</h4>
-                    <a class="btn btn-primary" id="tambahbarang" style="color:white" href="javascript:void(0)"><i class="fa fa-plus"></i> Tambah Barang</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-barang"><i class="fa fa-print"></i> Tambah Barang</button>
                     <a class="btn btn-success" style="color:white" href="{{route('tambahbarang')}}"><i class="fa fa-print"></i> Cetak Barang</a>
                     <div class="table-responsive">
                         <table id="tabel-barang" class="table table-striped table-bordered zero-configuration">
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<div class="modal fade modal-xxl" id="tambah-barang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambah-barang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -58,31 +58,42 @@
             <div class="modal-body">
                 @csrf
                 <form id="add_barang">
-                    <div class="form-group">
-                        <label for="tanggal" class="col-form-label">Tanggal:</label>
-                        <input type="date" class="form-control" name="tanggal" id="tanggal">
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tanggal"></div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="tanggal" class="col-form-label">Tanggal:</label>
+                            <input type="date" class="form-control" name="tanggal" id="tanggal">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tanggal"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="ruang" class="col-form-label">Ruang:</label>
+                            <select class="form-control" id="ruang_id" name="ruang">
+                                <option value="">Silahkan Pilih ...</option>
+                                @foreach($ruang as $r)
+                                <option value="{{ $r->id }}" name="ruang_id" id="ruang_id">{{ $r->nama_ruang }}</option>
+                                @endforeach
+                            </select>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ruang_id"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="ruang" class="col-form-label">Ruang:</label>
-                        <select class="form-control" id="ruang_id" name="ruang">
-                            <option value="">Silahkan Pilih ...</option>
-                            @foreach($ruang as $r)
-                            <option value="{{ $r->id }}" name="ruang_id" id="ruang_id">{{ $r->nama_ruang }}</option>
-                            @endforeach
-                        </select>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ruang_id"></div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="kode_barang" class="col-form-label">Kode Barang:</label>
+                            <input type="text" class="form-control" name="kode_barang" id="kode_barang">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode_barang"></div>
+                        </div>
+                        <div class="form-group col-md-7">
+                            <label for="nama_barang" class="col-form-label">Nama Barang:</label>
+                            <input type="text" class="form-control" name="nama_barang" id="nama_barang">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_barang"></div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="jumlah" class="col-form-label">Jumlah:</label>
+                            <input type="number" class="form-control" name="jumlah" id="jumlah">
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jumlah"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="kode_barang" class="col-form-label">Kode Barang:</label>
-                        <input type="text" class="form-control" name="kode_barang" id="kode_barang">
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode_barang"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="nama_barang" class="col-form-label">Nama Barang:</label>
-                        <input type="text" class="form-control" name="nama_barang" id="nama_barang">
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_barang"></div>
-                    </div>
+
                     <div class="form-group">
                         <label for="kondisi" class="col-form-label">Kondisi:</label>
                         <select class="form-control" id="kondisi" name="kondisi">
@@ -92,11 +103,6 @@
                             <option value="Rusak Berat">Rusak Berat</option>
                         </select>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kondisi"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="jumlah" class="col-form-label">Jumlah:</label>
-                        <input type="number" class="form-control" name="jumlah" id="jumlah">
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jumlah"></div>
                     </div>
                 </form>
             </div>
