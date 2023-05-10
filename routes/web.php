@@ -50,8 +50,8 @@ Route::middleware(['auth:sanctum', 'verified','role:sekdes'])->get('/pengguna', 
 Route::get('/pengguna', [UserController::class, 'tampilpengguna'])->name('tampilpengguna')->middleware('auth','role:sekdes');
 
 //Route Untuk Mengakses Daftar Ruangan
-Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/ruangan', [BarangController::class, 'indeksruangan'])->name('ruangan');
-Route::get('/ruangan', [RuangController::class, 'tampilruangan'])->name('tampilruangan')->middleware('auth','role:kaurumum');
+Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/ruangan', [RuangController::class, 'indeksruangan'])->name('ruangan');
+Route::get('/ruangan', [RuangController::class, 'tampilkanRuangan'])->name('tampilkanRuangan')->middleware('auth','role:kaurumum');
 
 //Route Untuk Membuka Halaman Tambah Barang dan Fungsi Simpan
 Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('tambahbarang')->middleware('auth', 'role:kaurumum');

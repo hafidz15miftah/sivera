@@ -19,9 +19,9 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Data Ruangan</h4>
-                    <a class="btn btn-success" style="color:white" href="/tambahruangan"><i class="fa fa-plus"></i> Tambah Ruangan</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-ruangan"><i class="fa fa-print"></i> Tambah Ruangan</button>
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration">
+                        <table id="tabel-ruangan" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
                                     <th>ID Ruang</th>
@@ -30,20 +30,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($ruangan as $r)
-                                <tr>
-                                    <td>{{$r->id}}</td>
-                                    <td>{{$r->nama_ruang}}</td>
-                                    <td>
-                                        <a href="/updatebarang/" style="color: white" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
-                                        <button data-id="{{ $r->id }}" data-name="{{ $r->nama_ruang }}" onclick="deleteData(this)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="tambah-ruangan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Ruangan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="nama_ruang" class="col-form-label">Nama Ruangan:</label>
+                        <input type="text" class="form-control" name="nama_ruang" id="nama_ruang" require>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_ruang"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="simpanruangan">Simpan</button>
             </div>
         </div>
     </div>

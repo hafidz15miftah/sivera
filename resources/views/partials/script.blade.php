@@ -65,10 +65,6 @@
                     name: 'jumlah'
                 },
                 {
-                    data: 'updated_at',
-                    name: 'updated_at'
-                },
-                {
                     data: 'aksi',
                     name: 'aksi',
                     orderable: false,
@@ -146,8 +142,8 @@
                 $('#nama_barang').val('');
                 $('#kondisi').val('');
                 $('#jumlah').val('');
-                $('#kondisi').prop('selectedIndex',0);
-                $('#ruang_id').prop('selectedIndex',0);
+                $('#kondisi').prop('selectedIndex', 0);
+                $('#ruang_id').prop('selectedIndex', 0);
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
                 $('#tabel-barang').DataTable().ajax.reload();
@@ -174,7 +170,7 @@
                     $('#alert-tanggal').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-tanggal').html(error.responseJSON.tanggal[0]);
+                    $('#alert-tanggal').html('Data Tanggal Perlu Dipilih');
                 }
 
                 if (error.responseJSON.ruang_id[0]) {
@@ -184,7 +180,7 @@
                     $('#alert-ruang_id').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-ruang_id').html(error.responseJSON.ruang_id[0]);
+                    $('#alert-ruang_id').html('Data Ruang Perlu Dipilih');
                 }
 
                 if (error.responseJSON.kode_barang[0]) {
@@ -194,7 +190,7 @@
                     $('#alert-kode_barang').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-kode_barang').html(error.responseJSON.kode_barang[0]);
+                    $('#alert-kode_barang').html('Kolom Kode Barang Perlu Diisi');
                 }
 
                 if (error.responseJSON.nama_barang[0]) {
@@ -204,7 +200,7 @@
                     $('#alert-nama_barang').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-nama_barang').html(error.responseJSON.nama_barang[0]);
+                    $('#alert-nama_barang').html('Kolom Nama Barang Perlu Diisi');
                 }
 
                 if (error.responseJSON.kondisi[0]) {
@@ -214,17 +210,17 @@
                     $('#alert-kondisi').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-kondisi').html(error.responseJSON.kondisi[0]);
+                    $('#alert-kondisi').html('Data Kondisi Perlu Dipilih');
                 }
 
-                if (error.responseJSON.jumlah[0]) {
+                if (jumlah == 0) {
 
                     //show alert
                     $('#alert-jumlah').removeClass('d-none');
                     $('#alert-jumlah').addClass('d-block');
 
                     //add message to alert
-                    $('#alert-jumlah').html(error.responseJSON.jumlah[0]);
+                    $('#alert-jumlah').html('Jumlah Barang Harus Lebih dari 0');
                 }
             }
 
@@ -276,6 +272,144 @@
                         Swal.fire(
                             'Gagal!',
                             'Terjadi kesalahan saat menghapus data.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+<!-- Script Tampilkan Data Ruangan YajraDataTables -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#tabel-ruangan').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'nama_ruang',
+                    name: 'nama_ruang'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+
+        });
+    });
+</script>
+
+<!-- Script Tambah Data Ruangan -->
+<script>
+    $('body').on('click', '#tambahruangan', function() {
+
+        //open modal
+        $('#tambah-ruangan').modal('show');
+    });
+
+    $('#simpanruangan').click(function(e) {
+        e.preventDefault();
+
+        let nama_ruang = $('#nama_ruang').val();
+
+        $.ajax({
+            url: `{{url('/simpanruangan')}}`,
+            type: "POST",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "nama_ruang": nama_ruang,
+            },
+            success: function(response) {
+                Swal.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: `${response.message}`,
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+
+                $('#nama_ruang').val('');
+
+                $('#tabel-ruangan').DataTable().ajax.reload();
+                $('#tambah-ruangan').modal('hide');
+
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.nama_ruang}</td>
+                    </tr>
+                `;
+            },
+            error: function(error) {
+                if (error.responseJSON.nama_ruang[0]) {
+                    $('#alert-nama_ruang').removeClass('d-none');
+                    $('#alert-nama_ruang').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-nama_ruang').html('Nama Ruangan Wajib Diisi!');
+                }
+            }
+        });
+    });
+</script>
+
+<!-- Script Hapus Data Ruangan -->
+<script>
+    function deleteData(e) {
+        event.preventDefault();
+        let id = e.getAttribute('data-id');
+        let name = e.getAttribute('data-name');
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data " + name + " akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/hapusruangan/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire(
+                                'Berhasil!',
+                                response.message,
+                                'success'
+                            )
+                            $('#tabel-ruangan').DataTable().ajax.reload();;
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire(
+                            'Gagal',
+                            'Terjadi kesalahan saat menghapus data, pastikan bahwa barang yang ada di Ruangan sudah kosong!.',
                             'error'
                         );
                     }

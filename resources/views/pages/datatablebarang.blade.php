@@ -26,14 +26,13 @@
                         <table id="tabel-barang" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th>Tanggal</th>
-                                    <th>Ruang</th>
-                                    <th>Kode Barang</th>
-                                    <th>Nama Barang</th>
-                                    <th>Kondisi</th>
-                                    <th>Jumlah</th>
-                                    <th>Audit Terakhir</th>
-                                    <th>Aksi</th>
+                                    <th width="65px">Tanggal</th>
+                                    <th width="20px">Ruang</th>
+                                    <th width="10px">Kode Barang</th>
+                                    <th width="75px">Nama Barang</th>
+                                    <th width="50px">Kondisi</th>
+                                    <th width="5px">Jumlah</th>
+                                    <th width="95px">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,12 +60,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="tanggal" class="col-form-label">Tanggal:</label>
-                            <input type="date" class="form-control" name="tanggal" id="tanggal">
+                            <input type="date" class="form-control" name="tanggal" id="tanggal" require>
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tanggal"></div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="ruang" class="col-form-label">Ruang:</label>
-                            <select class="form-control" id="ruang_id" name="ruang">
+                            <select class="form-control" id="ruang_id" name="ruang" require>
                                 <option value="">Silahkan Pilih ...</option>
                                 @foreach($ruang as $r)
                                 <option value="{{ $r->id }}" name="ruang_id" id="ruang_id">{{ $r->nama_ruang }}</option>
@@ -79,24 +78,24 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="kode_barang" class="col-form-label">Kode Barang:</label>
-                            <input type="text" class="form-control" name="kode_barang" id="kode_barang">
+                            <input type="text" class="form-control" name="kode_barang" id="kode_barang" require>
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode_barang"></div>
                         </div>
                         <div class="form-group col-md-7">
                             <label for="nama_barang" class="col-form-label">Nama Barang:</label>
-                            <input type="text" class="form-control" name="nama_barang" id="nama_barang">
+                            <input type="text" class="form-control" name="nama_barang" id="nama_barang" require>
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_barang"></div>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="jumlah" class="col-form-label">Jumlah:</label>
-                            <input type="number" class="form-control" name="jumlah" id="jumlah">
+                            <input type="number" class="form-control" name="jumlah" id="jumlah" value="0" min="0" require>
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jumlah"></div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="kondisi" class="col-form-label">Kondisi:</label>
-                        <select class="form-control" id="kondisi" name="kondisi">
+                        <select class="form-control" id="kondisi" name="kondisi" require>
                             <option value="">Silahkan Pilih ...</option>
                             <option value="Baik">Baik</option>
                             <option value="Rusak Ringan">Rusak Ringan</option>
