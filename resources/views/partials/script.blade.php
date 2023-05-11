@@ -231,7 +231,7 @@
 
 <!-- Script Hapus Data Barang -->
 <script>
-    function deleteData(e) {
+    function deleteDataBarang(e) {
         event.preventDefault();
         let id = e.getAttribute('data-id');
         let name = e.getAttribute('data-name');
@@ -369,7 +369,7 @@
 
 <!-- Script Hapus Data Ruangan -->
 <script>
-    function deleteData(e) {
+    function deleteDataRuangan(e) {
         event.preventDefault();
         let id = e.getAttribute('data-id');
         let name = e.getAttribute('data-name');

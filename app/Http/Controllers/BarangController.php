@@ -38,7 +38,7 @@ class BarangController extends Controller
                 ->addColumn('aksi', function ($row) {
                     $tombol = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>';
                     $tombol = $tombol . '<a href="javascript:void(0)" class="edit btn btn-warning text-white btn-sm"><i class="fa fa-pencil-square-o"></i></a>';
-                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteData(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button>";
+                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteDataBarang(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button>";
 
                     return $tombol;
                 })
