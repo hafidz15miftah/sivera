@@ -284,7 +284,7 @@
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
                 $('#tabel-barang').DataTable().ajax.reload();
-                $('#update-barang').modal('hide');
+                $('#update-barang').modal('close');
 
                 //Post Data
                 let post = `
@@ -298,68 +298,6 @@
                     </tr>
                 `;
             },
-            error: function(error) {
-
-                if (error.responseJSON.tanggal[0]) {
-
-                    //show alert
-                    $('#alert-tanggal').removeClass('d-none');
-                    $('#alert-tanggal').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-tanggal').html('Data Tanggal Perlu Dipilih');
-                }
-
-                if (error.responseJSON.ruang_id[0]) {
-
-                    //show alert
-                    $('#alert-ruang_id').removeClass('d-none');
-                    $('#alert-ruang_id').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-ruang_id').html('Data Ruang Perlu Dipilih');
-                }
-
-                if (error.responseJSON.kode_barang[0]) {
-
-                    //show alert
-                    $('#alert-kode_barang').removeClass('d-none');
-                    $('#alert-kode_barang').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-kode_barang').html('Kolom Kode Barang Perlu Diisi');
-                }
-
-                if (error.responseJSON.nama_barang[0]) {
-
-                    //show alert
-                    $('#alert-nama_barang').removeClass('d-none');
-                    $('#alert-nama_barang').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-nama_barang').html('Kolom Nama Barang Perlu Diisi');
-                }
-
-                if (error.responseJSON.kondisi[0]) {
-
-                    //show alert
-                    $('#alert-kondisi').removeClass('d-none');
-                    $('#alert-kondisi').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-kondisi').html('Data Kondisi Perlu Dipilih');
-                }
-
-                if (jumlah == 0) {
-
-                    //show alert
-                    $('#alert-jumlah').removeClass('d-none');
-                    $('#alert-jumlah').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-jumlah').html('Jumlah Barang Harus Lebih dari 0');
-                }
-            }
         })
 
     })

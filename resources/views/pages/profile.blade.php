@@ -37,7 +37,7 @@
                             <label>Alamat Email</label>
                             <input type="text" class="form-control" placeholder="Email">
                         </div>
-                        <button type="submit" class="btn btn-dark">Sign in</button>
+                        <button type="submit" class="btn btn-dark">Simpan</button>
                     </form>
                 </div>
             </div>
