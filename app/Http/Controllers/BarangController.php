@@ -37,7 +37,7 @@ class BarangController extends Controller
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
                     $tombol = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>';
-                    $tombol = $tombol . '<a href="javascript:void(0)" class="edit btn btn-warning text-white btn-sm"><i class="fa fa-pencil-square-o"></i></a>';
+                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' onclick='lihatdatabarang(this)'><i class='fa fa-pencil-square-o'></i></button>";
                     $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteDataBarang(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button>";
 
                     return $tombol;
@@ -64,6 +64,31 @@ class BarangController extends Controller
     //     return view('partials.barangmodal', compact('ruang'));
     // }
 
+    //Untuk melihat data barang
+    public function lihatdata($id){
+        $barang = DataBarangModel::findorfail($id);
+        return response()->json($barang);
+    }
+
+    public function updatebarang(Request $request, $id)
+    {
+        $barang = DataBarangModel::findorfail($id);
+
+        $barang->nama_barang = $request->input('nama_barang');
+        $barang->tanggal = $request->input('tanggal');
+        $barang->kode_barang = $request->input('kode_barang');
+        $barang->kondisi = $request->input('kondisi');
+        $barang->jumlah = $request->input('jumlah');
+        $barang->ruang_id = $request->input('ruang_id');
+        $barang->save();    
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data barang berhasil diupdate!',
+            'data' => $barang
+        ]);
+    }
+    
     //Untuk menghapus data barang
     public function hapusbarang(Request $request, $id)
     {
@@ -83,13 +108,6 @@ class BarangController extends Controller
         }
         // return redirect()->route('tampilbarang')->with('toast_success', 'Barang Berhasil Dihapus!');
     }
-
-    /**
-     * store
-     * 
-     * @param mixed $request
-     * @return void
-     */
 
     //Untuk menyimpan barang
     public function simpanbarang(Request $request)

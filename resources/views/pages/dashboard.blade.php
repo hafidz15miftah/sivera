@@ -71,62 +71,10 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-3 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="text-center">
-                        <img src="./images/users/8.jpg" class="rounded-circle" alt="">
-                        <h5 class="mt-3 mb-1">Ana Liem</h5>
-                        <p class="m-0">Senior Manager</p>
-                        <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="text-center">
-                        <img src="./images/users/5.jpg" class="rounded-circle" alt="">
-                        <h5 class="mt-3 mb-1">John Abraham</h5>
-                        <p class="m-0">Store Manager</p>
-                        <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="text-center">
-                        <img src="./images/users/7.jpg" class="rounded-circle" alt="">
-                        <h5 class="mt-3 mb-1">John Doe</h5>
-                        <p class="m-0">Sales Man</p>
-                        <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="text-center">
-                        <img src="./images/users/1.jpg" class="rounded-circle" alt="">
-                        <h5 class="mt-3 mb-1">Mehedi Titas</h5>
-                        <p class="m-0">Online Marketer</p>
-                        <!-- <a href="javascript:void()" class="btn btn-sm btn-warning">Send Message</a> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                <h4 class="card-title">Kondisi Barang Rusak Ringan</h4>
+                    <h4 class="card-title">Kondisi Barang Rusak Ringan</h4>
                     <div class="active-member">
                         <div class="table-responsive">
                             <table class="table table-xs mb-0">
@@ -249,113 +197,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6">
-
-            <div class="card">
-                <div class="chart-wrapper mb-4">
-                    <div class="px-4 pt-4 d-flex justify-content-between">
-                        <div>
-                            <h4>Sales Activities</h4>
-                            <p>Last 6 Month</p>
-                        </div>
-                        <div>
-                            <span><i class="fa fa-caret-up text-success"></i></span>
-                            <h4 class="d-inline-block text-success">720</h4>
-                            <p class=" text-danger">+120.5(5.0%)</p>
-                        </div>
-                    </div>
-                    <div>
-                        <canvas id="chart_widget_3"></canvas>
-                    </div>
-                </div>
-                <div class="card-body border-top pt-4">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <ul>
-                                <li>5% Negative Feedback</li>
-                                <li>95% Positive Feedback</li>
-                            </ul>
-                            <div>
-                                <h5>Customer Feedback</h5>
-                                <h3>385749</h3>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div id="chart_widget_3_1"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Activity</h4>
-                    <div id="activity">
-                        <div class="media border-bottom-1 pt-3 pb-3">
-                            <img width="35" src="./images/avatar/1.jpg" class="mr-3 rounded-circle">
-                            <div class="media-body">
-                                <h5>Received New Order</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                            </div><span class="text-muted ">April 24, 2018</span>
-                        </div>
-                        <div class="media border-bottom-1 pt-3 pb-3">
-                            <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                            <div class="media-body">
-                                <h5>iPhone develered</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                            </div><span class="text-muted ">April 24, 2018</span>
-                        </div>
-                        <div class="media border-bottom-1 pt-3 pb-3">
-                            <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                            <div class="media-body">
-                                <h5>3 Order Pending</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                            </div><span class="text-muted ">April 24, 2018</span>
-                        </div>
-                        <div class="media border-bottom-1 pt-3 pb-3">
-                            <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                            <div class="media-body">
-                                <h5>Join new Manager</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                            </div><span class="text-muted ">April 24, 2018</span>
-                        </div>
-                        <div class="media border-bottom-1 pt-3 pb-3">
-                            <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                            <div class="media-body">
-                                <h5>Branch open 5 min Late</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                            </div><span class="text-muted ">April 24, 2018</span>
-                        </div>
-                        <div class="media border-bottom-1 pt-3 pb-3">
-                            <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                            <div class="media-body">
-                                <h5>New support ticket received</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                            </div><span class="text-muted ">April 24, 2018</span>
-                        </div>
-                        <div class="media pt-3 pb-3">
-                            <img width="35" src="./images/avatar/3.jpg" class="mr-3 rounded-circle">
-                            <div class="media-body">
-                                <h5>Facebook Post 30 Comments</h5>
-                                <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                            </div><span class="text-muted ">April 24, 2018</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-6 col-lg-12 col-sm-12 col-xxl-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title mb-0">Store Location</h4>
-                    <div id="world-map" style="height: 470px;"></div>
                 </div>
             </div>
         </div>

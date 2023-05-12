@@ -29,7 +29,6 @@
                 <ul aria-expanded="false">
                     <li><a href="/tanah">Daftar Aset Tanah</a></li>
                     <li><a href="/kendaraan">Daftar Aset Kendaraan</a></li>
-                    <li><a href="/elektronik">Daftar Aset Elektronik</a></li>
                 </ul>
             </li>
             <li>

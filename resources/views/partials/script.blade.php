@@ -12,20 +12,6 @@
 <script src="/plugins/chart.js/Chart.bundle.min.js"></script>
 <!-- Circle progress -->
 <script src="/plugins/circle-progress/circle-progress.min.js"></script>
-<!-- Datamap -->
-<script src="/plugins/d3v3/index.js"></script>
-<script src="/plugins/topojson/topojson.min.js"></script>
-<script src="/plugins/datamaps/datamaps.world.min.js"></script>
-<!-- Morrisjs -->
-<script src="/plugins/raphael/raphael.min.js"></script>
-<script src="/plugins/morris/morris.min.js"></script>
-<!-- Pignose Calender -->
-<script src="/plugins/moment/moment.min.js"></script>
-<script src="/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
-<!-- ChartistJS -->
-<script src="/plugins/chartist/js/chartist.min.js"></script>
-<script src="/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
-<script src="/js/dashboard/dashboard-1.js"></script>
 <!-- DataTable -->
 <script src="/plugins/tables/js/jquery.dataTables.min.js"></script>
 <script src="/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
@@ -140,7 +126,6 @@
                 $('#tanggal').val('');
                 $('#kode_barang').val('');
                 $('#nama_barang').val('');
-                $('#kondisi').val('');
                 $('#jumlah').val('');
                 $('#kondisi').prop('selectedIndex', 0);
                 $('#ruang_id').prop('selectedIndex', 0);
@@ -227,6 +212,157 @@
         });
 
     });
+</script>
+
+<!-- Script Update Data Barang -->
+<script>
+    function lihatdatabarang(e) {
+        event.preventDefault();
+        var modal = document.getElementById("edit-barang");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatdata")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                //fill data to form
+                $('#edit-barang #id').val(response.id);
+                $('#edit-barang #tanggal').val(response.tanggal);
+                $('#edit-barang #kode_barang').val(response.kode_barang);
+                $('#edit-barang #nama_barang').val(response.nama_barang);
+                $('#edit-barang #kondisi').val(response.kondisi);
+                $('#edit-barang #jumlah').val(response.jumlah);
+                $('#edit-barang #ruang_id').val(response.ruang_id);
+            }
+        });
+    };
+
+    $('#updatebarang').click(function(e) {
+        e.preventDefault();
+
+        let id = $('#edit-barang #id').val();
+        let tanggal = $('#edit-barang #tanggal').val();
+        let ruang_id = $('#edit-barang #ruang_id').val();
+        let kode_barang = $('#edit-barang #kode_barang').val();
+        let nama_barang = $('#edit-barang #nama_barang').val();
+        let kondisi = $('#edit-barang #kondisi').val();
+        let jumlah = $('#edit-barang #jumlah').val();
+
+        $.ajax({
+            url: `/simpanbarang/` + id,
+            type: "PUT",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "tanggal": tanggal,
+                "ruang_id": ruang_id,
+                "kode_barang": kode_barang,
+                "nama_barang": nama_barang,
+                "kondisi": kondisi,
+                "jumlah": jumlah,
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: `${response.message}`,
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-barang').DataTable().ajax.reload();
+                $('#update-barang').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.tanggal}</td>
+                        <td>${response.data.ruang}</td>
+                        <td>${response.data.kode_barang}</td>
+                        <td>${response.data.nama_barang}</td>
+                        <td>${response.data.kondisi}</td>
+                        <td>${response.data.jumlah}</td>
+                    </tr>
+                `;
+            },
+            error: function(error) {
+
+                if (error.responseJSON.tanggal[0]) {
+
+                    //show alert
+                    $('#alert-tanggal').removeClass('d-none');
+                    $('#alert-tanggal').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-tanggal').html('Data Tanggal Perlu Dipilih');
+                }
+
+                if (error.responseJSON.ruang_id[0]) {
+
+                    //show alert
+                    $('#alert-ruang_id').removeClass('d-none');
+                    $('#alert-ruang_id').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-ruang_id').html('Data Ruang Perlu Dipilih');
+                }
+
+                if (error.responseJSON.kode_barang[0]) {
+
+                    //show alert
+                    $('#alert-kode_barang').removeClass('d-none');
+                    $('#alert-kode_barang').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-kode_barang').html('Kolom Kode Barang Perlu Diisi');
+                }
+
+                if (error.responseJSON.nama_barang[0]) {
+
+                    //show alert
+                    $('#alert-nama_barang').removeClass('d-none');
+                    $('#alert-nama_barang').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-nama_barang').html('Kolom Nama Barang Perlu Diisi');
+                }
+
+                if (error.responseJSON.kondisi[0]) {
+
+                    //show alert
+                    $('#alert-kondisi').removeClass('d-none');
+                    $('#alert-kondisi').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-kondisi').html('Data Kondisi Perlu Dipilih');
+                }
+
+                if (jumlah == 0) {
+
+                    //show alert
+                    $('#alert-jumlah').removeClass('d-none');
+                    $('#alert-jumlah').addClass('d-block');
+
+                    //add message to alert
+                    $('#alert-jumlah').html('Jumlah Barang Harus Lebih dari 0');
+                }
+            }
+        })
+
+    })
 </script>
 
 <!-- Script Hapus Data Barang -->
