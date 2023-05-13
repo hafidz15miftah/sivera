@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\DataBarangModel;
 use App\Models\Ruang;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 use Carbon\Carbon;
+use Dompdf\Adapter\PDFLib;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BarangController extends Controller
 {
@@ -19,14 +23,6 @@ class BarangController extends Controller
         return view('pages.datatablebarang', compact('datatablebarang'));
     }
 
-    //Untuk menampilkan tabel Barang
-    // public function tampilbarang()
-    // {
-    //     $barang = DataBarangModel::all();
-    //     $ruang = Ruang::all();
-    //     return view('pages.datatablebarang', ['barang' => $barang, 'ruang' => $ruang]);
-    // }
-
     //Menampilkan Tabel Data Barang Menggunakan Yajra DataTables
     public function tampilkanBarang()
     {
@@ -36,9 +32,9 @@ class BarangController extends Controller
             return DataTables::of($barang)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $tombol = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>';
-                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' onclick='lihatdatabarang(this)'><i class='fa fa-pencil-square-o'></i></button>";
-                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteDataBarang(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></button>";
+                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' onclick='lihatdata(this)'><i class='fa fa-eye'></i>Lihat</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' onclick='lihatdatabarang(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteDataBarang(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
 
                     return $tombol;
                 })
@@ -56,18 +52,15 @@ class BarangController extends Controller
         return view('pages.datatablebarang', ['ruang' => $ruang]);
     }
 
-    //Untuk menampilkan data ruang saat menambah data barang
-    // public function tambahbarang()
-    // {
-    //     $ruang = Ruang::all();
-    //     // dd($ruang);
-    //     return view('partials.barangmodal', compact('ruang'));
-    // }
-
     //Untuk melihat data barang
     public function lihatdata($id){
         $barang = DataBarangModel::findorfail($id);
         return response()->json($barang);
+    }
+
+    public function cetakbarang(){
+        $data = Pdf::loadView('pdf.barang_pdf', ['data' => 'Daftar Inventaris Barang']);
+        return $data->download('laporan.pdf');
     }
 
     public function updatebarang(Request $request, $id)
@@ -106,7 +99,6 @@ class BarangController extends Controller
                 'message' => 'Data tidak ditemukan.'
             ]);
         }
-        // return redirect()->route('tampilbarang')->with('toast_success', 'Barang Berhasil Dihapus!');
     }
 
     //Untuk menyimpan barang
@@ -146,24 +138,4 @@ class BarangController extends Controller
             ]);
         }
     }
-
-    //Untuk menyimpan barang via halaman
-    // public function simpanbarang(Request $request)
-    // {
-    //     $barang = DataBarangModel::create([
-    //         'nama_barang' => $request->nama_barang,
-    //         'tanggal' => $request->tanggal,
-    //         'kode_barang' => $request->kode_barang,
-    //         'kondisi' => $request->kondisi,
-    //         'nama_barang' => $request->nama_barang,
-    //         'jumlah' => $request->jumlah,
-    //         'ruang_id' => $request->ruang,
-    //     ]);
-
-    //     // $ruang = new Ruang;
-    //     // $ruang->ruang_id = $barang->id;
-    //     // dd($barang);
-
-    //     return redirect()->route('tampilbarang')->withToastSuccess('Barang Berhasil Ditambahkan!');
-    // }
 }

@@ -49,11 +49,6 @@
             @endif
             <li class="nav-label">LAINNYA</li>
             <li>
-                <a href="/bantuan" aria-expanded="false">
-                    <i class="fa fa-question-circle"></i><span class="nav-text">Unduh Manual Sivera</span>
-                </a>
-            </li>
-            <li>
                 <a href="/sivera" aria-expanded="false">
                     <i class="fa fa-info-circle"></i><span class="nav-text">Tentang Sivera</span>
                 </a>

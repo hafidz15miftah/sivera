@@ -214,6 +214,46 @@
     });
 </script>
 
+
+<script>
+    function formattanggal(date) {
+        return moment(date).format('DD/MM/YYYY');
+    }
+    </script>
+<!-- Script Lihat Data Barang -->
+<script>
+
+    function lihatdata(e) {
+        event.preventDefault();
+        var modal = document.getElementById("lihat-barang");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatdata")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                //fill data to form
+                $('#lihat-barang #id').text(response.id);
+                $('#lihat-barang #tanggal').text(response.tanggal);
+                $('#lihat-barang #kode_barang').text(response.kode_barang);
+                $('#lihat-barang #nama_barang').text(response.nama_barang);
+                $('#lihat-barang #kondisi').text(response.kondisi);
+                $('#lihat-barang #jumlah').text(response.jumlah);
+                $('#lihat-barang #ruang_id').text(response.ruang_id);
+                $('#lihat-barang #updated_at').text(response.updated_at);
+            }
+        });
+    };
+</script>
+
 <!-- Script Update Data Barang -->
 <script>
     function lihatdatabarang(e) {
@@ -257,7 +297,7 @@
         let jumlah = $('#edit-barang #jumlah').val();
 
         $.ajax({
-            url: `/simpanbarang/` + id,
+            url: `/updatebarang/` + id,
             type: "PUT",
             cache: false,
             headers: {
@@ -290,7 +330,7 @@
                 let post = `
                     <tr id="index_${response.data.id}">
                         <td>${response.data.tanggal}</td>
-                        <td>${response.data.ruang}</td>
+                        <td>${response.data.ruang_id}</td>
                         <td>${response.data.kode_barang}</td>
                         <td>${response.data.nama_barang}</td>
                         <td>${response.data.kondisi}</td>

@@ -3,7 +3,16 @@
 <title>Masuk &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 
 <!-- Head -->
-@include('partials.head')
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.ico')}}">
+    <!-- Custom Stylesheet -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+</head>
 
 <body class="h-100">
 
@@ -17,6 +26,7 @@
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5 text-center">
+                                <img src="images/cilacap.png" alt="SIVERA" width="80">
                                 <h4>Sistem Informasi Inventaris Barang dan Aset Desa</h4>
 
                                 <form action="{{ route('login') }}" method="POST" class="mt-5 mb-5 login-input">

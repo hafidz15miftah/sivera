@@ -74,15 +74,15 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Kondisi Barang Rusak Ringan</h4>
+                    <h4 class="card-title text-center">Informasi Laporan Terkini</h4>
                     <div class="active-member">
                         <div class="table-responsive">
                             <table class="table table-xs mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Customers</th>
-                                        <th>Product</th>
-                                        <th>Country</th>
+                                        <th>Kode Laporan</th>
+                                        <th>Nama Barang</th>
+                                        <th>Kondisi</th>
                                         <th>Status</th>
                                         <th>Payment Method</th>
                                         <th>Activity</th>
