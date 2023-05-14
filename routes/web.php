@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AsetController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\UserController;
@@ -65,9 +66,11 @@ Route::delete('/hapusruangan/{id}', [RuangController::class, 'hapusruangan'])->n
 //Route AuthController Untuk Login
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('index')->middleware('auth', 'verified');
+
 //Route Untuk Membuka Halaman Dasbor
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('pages.dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

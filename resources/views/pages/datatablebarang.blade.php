@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Daftar Barang</h4>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-barang"><i class="fa fa-print"></i> Tambah Barang</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-barang"><i class="fa fa-plus"></i> Tambah Barang</button>
                     <a class="btn btn-success" style="color:white" href="{{url('cetaklaporan')}}"><i class="fa fa-print"></i> Cetak Barang</a>
                     <div class="table-responsive">
                         <table id="tabel-barang" class="table table-striped table-bordered zero-configuration">
@@ -120,19 +120,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Lihat Data Barang</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
             </div>
             <div class="modal-body">
-                <p><strong>Tanggal:</strong> <span id="tanggal"></span></p>
+                <p><strong>Tanggal Diperoleh:</strong> <span id="tanggal"></span></p>
                 <p><strong>Kode Barang:</strong> <span id="kode_barang"></span></p>
                 <p><strong>Nama Barang:</strong> <span id="nama_barang"></span></p>
                 <p><strong>Ruang:</strong> <span id="ruang_id"></span></p>
                 <p><strong>Jumlah:</strong> <span id="jumlah"></span></p>
                 <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
+                <p><strong>Ditambahkan:</strong> <span id="updated_at"></span></p>
                 <p><strong>Terakhir Diubah:</strong> <span id="updated_at"></span></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>

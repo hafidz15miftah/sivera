@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Baik</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">50</h2>
+                        <h2 class="text-white">6</h2>
                     </div>
                     <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-check-circle"></i></span>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Jumlah</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">60</h2>
+                        <h2 class="text-white">{{ $barang }}</h2>
                     </div>
                     <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-pie-chart"></i></span>
                 </div>

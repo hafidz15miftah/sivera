@@ -67,7 +67,6 @@
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
             }
-
         });
         $('#nama_ruang').change(function() {
             table.draw();
@@ -131,7 +130,7 @@
                 $('#ruang_id').prop('selectedIndex', 0);
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
-                $('#tabel-barang').DataTable().ajax.reload();
+                $('#tabel-barang').DataTable().clear().draw();
                 $('#tambah-barang').modal('hide');
 
                 //Post Data
@@ -214,15 +213,8 @@
     });
 </script>
 
-
-<script>
-    function formattanggal(date) {
-        return moment(date).format('DD/MM/YYYY');
-    }
-    </script>
 <!-- Script Lihat Data Barang -->
 <script>
-
     function lihatdata(e) {
         event.preventDefault();
         var modal = document.getElementById("lihat-barang");
@@ -242,12 +234,17 @@
             success: function(response) {
                 //fill data to form
                 $('#lihat-barang #id').text(response.id);
-                $('#lihat-barang #tanggal').text(response.tanggal);
+                $('#lihat-barang #tanggal').text(new Date(response.tanggal).toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }));
                 $('#lihat-barang #kode_barang').text(response.kode_barang);
                 $('#lihat-barang #nama_barang').text(response.nama_barang);
                 $('#lihat-barang #kondisi').text(response.kondisi);
                 $('#lihat-barang #jumlah').text(response.jumlah);
                 $('#lihat-barang #ruang_id').text(response.ruang_id);
+                $('#lihat-barang #created_at').text(new Date(response.tanggal).toLocaleTimeString());
                 $('#lihat-barang #updated_at').text(response.updated_at);
             }
         });
@@ -323,7 +320,7 @@
                 })
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
-                $('#tabel-barang').DataTable().ajax.reload();
+                $('#tabel-barang').DataTable().clear().draw();
                 $('#update-barang').modal('close');
 
                 //Post Data
@@ -372,7 +369,7 @@
                                 response.message,
                                 'success'
                             )
-                            $('#tabel-barang').DataTable().ajax.reload();;
+                            $('#tabel-barang').DataTable().clear().draw();
                         } else {
                             Swal.fire(
                                 'Gagal!',

@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Data Ruangan</h4>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-ruangan"><i class="fa fa-print"></i> Tambah Ruangan</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-ruangan"><i class="fa fa-plus"></i> Tambah Ruangan</button>
                     <div class="table-responsive">
                         <table id="tabel-ruangan" class="table table-striped table-bordered zero-configuration">
                             <thead>

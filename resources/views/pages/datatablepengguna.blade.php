@@ -51,7 +51,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal Tambah Data Pengguna -->
 <!-- #/ container -->
 @endsection
