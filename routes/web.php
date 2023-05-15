@@ -38,6 +38,10 @@ Route::get('/bantuan', function() {
     return view('pages.help');
 });
 
+Route::get('/laporan', function() {
+    return view('pages.laporan');
+});
+
 //Route Untuk Mengakses Daftar Barang
 Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');
 Route::get('/barang', [BarangController::class, 'tampilkanBarang'])->name('tampilkanBarang')->middleware('auth','role:kaurumum');

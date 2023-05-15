@@ -7,7 +7,8 @@
     <div class="col p-md-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
-            <li class="breadcrumb-item active"><a href="/ruangan">Daftar Laporan</a></li>
+            <li class="breadcrumb-item"><a href="#">Tabel</a></li>
+            <li class="breadcrumb-item active"><a href="/aset">Daftar Laporan</a></li>
         </ol>
     </div>
 </div>
@@ -19,18 +20,27 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Daftar Laporan</h4>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-ruangan"><i class="fa fa-print"></i> Tambah Ruangan</button>
                     <div class="table-responsive">
-                        <table id="tabel-ruangan" class="table table-striped table-bordered zero-configuration">
+                        <table class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
                                     <th>Kode Laporan</th>
+                                    <th>Kode Barang</th>
                                     <th>Nama Barang</th>
+                                    <th>Kondisi</th>
+                                    <th>Jumlah</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <tr>
+                                    <td>384774667 (generate system)</td>
+                                    <td>TR/01/2019</td>
+                                    <td>Jam</td>
+                                    <td>Rusak Ringan</td>
+                                    <td>2</td>
+                                    <td>Verifikasi (Sekdes)/Setujui(Kades) | Lihat Laporan</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -39,29 +49,5 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="tambah-ruangan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Ruangan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="nama_ruang" class="col-form-label">Nama Ruangan:</label>
-                        <input type="text" class="form-control" name="nama_ruang" id="nama_ruang" require>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_ruang"></div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="simpanruangan">Simpan</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- #/ container -->
 @endsection
