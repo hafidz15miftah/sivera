@@ -232,20 +232,32 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
+                
+                //Mengubah created_at menjadi tanggal local
+                let createdAt = new Date(response[0].created_at);
+                let options = { weekday: 'long', year:'numeric', month:'long', day:'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+                let locale = 'id-ID';
+                let formattedDate = createdAt.toLocaleDateString(locale, options);
+
+                //Mengubah updated_at menjadi tanggal local
+                let updatedAt = new Date(response[0].updated_at);
+                let updatedAtDate = updatedAt.toLocaleDateString(locale, options);
+
                 //fill data to form
                 $('#lihat-barang #id').text(response.id);
-                $('#lihat-barang #tanggal').text(new Date(response.tanggal).toLocaleDateString('id-ID', {
+                $('#lihat-barang #tanggal').text(new Date(response[0].tanggal).toLocaleDateString('id-ID', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
                 }));
-                $('#lihat-barang #kode_barang').text(response.kode_barang);
-                $('#lihat-barang #nama_barang').text(response.nama_barang);
-                $('#lihat-barang #kondisi').text(response.kondisi);
-                $('#lihat-barang #jumlah').text(response.jumlah);
-                $('#lihat-barang #ruang_id').text(response.ruang_id);
-                $('#lihat-barang #created_at').text(new Date(response.tanggal).toLocaleTimeString());
-                $('#lihat-barang #updated_at').text(response.updated_at);
+                $('#lihat-barang #kode_barang').text(response[0].kode_barang);
+                $('#lihat-barang #nama_barang').text(response[0].nama_barang);
+                $('#lihat-barang #kondisi').text(response[0].kondisi);
+                $('#lihat-barang #jumlah').text(response[0].jumlah);
+                $('#lihat-barang #ruang_id').text(response[1]);
+                document.getElementById("created_at").innerHTML = formattedDate;
+                document.getElementById("updated_at").innerHTML = updatedAtDate;
+                
             }
         });
     };
@@ -271,13 +283,13 @@
             },
             success: function(response) {
                 //fill data to form
-                $('#edit-barang #id').val(response.id);
-                $('#edit-barang #tanggal').val(response.tanggal);
-                $('#edit-barang #kode_barang').val(response.kode_barang);
-                $('#edit-barang #nama_barang').val(response.nama_barang);
-                $('#edit-barang #kondisi').val(response.kondisi);
-                $('#edit-barang #jumlah').val(response.jumlah);
-                $('#edit-barang #ruang_id').val(response.ruang_id);
+                $('#edit-barang #id').val(response[0].id);
+                $('#edit-barang #tanggal').val(response[0].tanggal);
+                $('#edit-barang #kode_barang').val(response[0].kode_barang);
+                $('#edit-barang #nama_barang').val(response[0].nama_barang);
+                $('#edit-barang #kondisi').val(response[0].kondisi);
+                $('#edit-barang #jumlah').val(response[0].jumlah);
+                $('#edit-barang #ruang_id').val(response[0].ruang_id);
             }
         });
     };

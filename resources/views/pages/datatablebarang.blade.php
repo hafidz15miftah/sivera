@@ -129,7 +129,7 @@
                 <p><strong>Ruang:</strong> <span id="ruang_id"></span></p>
                 <p><strong>Jumlah:</strong> <span id="jumlah"></span></p>
                 <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
-                <p><strong>Ditambahkan:</strong> <span id="updated_at"></span></p>
+                <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>
                 <p><strong>Terakhir Diubah:</strong> <span id="updated_at"></span></p>
             </div>
             <div class="modal-footer">
