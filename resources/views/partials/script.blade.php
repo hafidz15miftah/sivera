@@ -541,3 +541,85 @@
         });
     }
 </script>
+
+<!-- Script Update Data Ruangan -->
+<script>
+    function lihatruangan(e) {
+        event.preventDefault();
+        var modal = document.getElementById("edit-ruangan");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatruangan")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                //fill data to form
+                $('#edit-ruangan #id').val(response.id);
+                $('#edit-ruangan #nama_ruang').val(response.ruang.nama_ruang);
+                $('#edit-ruangan #nama_ruang').attr('data-id', id);
+                console.log(response.ruang.nama_ruang);
+            }
+        });
+    };
+
+    $('#updateruangan').click(function(e) {
+        e.preventDefault();
+
+        let id =  $('#edit-ruangan #nama_ruang').data('id');
+        console.log(id);
+        let nama_ruang = $('#edit-ruangan #nama_ruang').val();
+
+        $.ajax({
+            url: '/updateruangan/' + id,
+            type: "PUT",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "nama_ruang": nama_ruang,
+            },
+            success: function(response) {
+
+                //show success message
+                if(response.success){
+                    Swal.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: `${response.message}`,
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                }else{
+                    Swal.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: `${response.message}`,
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                }
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-ruangan').DataTable().clear().draw();
+                $('#edit-ruangan').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.nama_ruang}</td>
+                    </tr>
+                `;
+            },
+        })
+
+    })
+</script>

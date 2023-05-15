@@ -23,7 +23,7 @@ class RuangController extends Controller
             return DataTables::of($ruang)
             ->addIndexColumn()
             ->addColumn('aksi', function ($row) {
-                $tombol = '<a href="javascript:void(0)" class="edit btn btn-warning text-white btn-sm"><i class="fa fa-pencil-square-o"></i>Ubah</a>';
+                $tombol = "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' onclick='lihatruangan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
                 $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_ruang' onclick='deleteDataRuangan(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
 
                 return $tombol;
@@ -79,6 +79,35 @@ class RuangController extends Controller
             'message' => 'Data Ruangan Berhasil Disimpan!',
             'data' => $ruangan
         ]);
+    }
+
+    public function lihatruangan($id){
+        $ruang = Ruang::findorfail($id);
+        return response()->json(['ruang' => $ruang]);
+    }
+
+    public function updateruangan(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(),[
+            'nama_ruang' => 'required|unique:ruangs,nama_ruang,'.$id 
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'success' => false,
+                'message' => 'Data Ruang Sudah Ada!',
+            ]);
+        }else{
+            $ruang = Ruang::findorfail($id);
+
+            $ruang->nama_ruang = $request->input('nama_ruang');
+            $ruang->save();    
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data ruangan berhasil diupdate!',
+                'data' => $ruang
+            ]);
+        }
     }
 
     // public function simpanruangan(Request $request)

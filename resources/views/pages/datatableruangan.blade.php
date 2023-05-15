@@ -40,6 +40,7 @@
     </div>
 </div>
 
+<!-- Modal Tambah Ruangan -->
 <div class="modal fade" id="tambah-ruangan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -60,6 +61,35 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                 <button type="button" class="btn btn-primary" id="simpanruangan">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ubah Ruangan -->
+<div class="modal fade" id="edit-ruangan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Data Ruangan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <input type="hidden" id="id">
+                @csrf
+                <form id="edit_ruangan">
+                <form>
+                    <div class="form-group">
+                        <label for="nama_ruang" class="col-form-label">Nama Ruangan:</label>
+                        <input type="text" class="form-control" data-id="" name="nama_ruang" id="nama_ruang" require>
+                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_ruang"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" id="updateruangan" >Update</button>
             </div>
         </div>
     </div>

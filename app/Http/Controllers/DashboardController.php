@@ -9,10 +9,10 @@ class DashboardController extends Controller
 {
     public function index(){
         $barang = DataBarangModel::count();
-        $baik = DataBarangModel::query('barang')->where('kondisi', '=', '1')->count();
-        $rudang = DataBarangModel::where('kondisi', 'Rusak Sedang')->count();
+        $baik = DataBarangModel::query('barang')->where('kondisi', '=', 'Baik')->count();
+        $ruring = DataBarangModel::where('kondisi', 'Rusak Ringan')->count();
         $ruber = DataBarangModel::where('kondisi', 'Rusak Berat')->count();
 
-        return view('pages.dashboard', compact('barang'));
+        return view('pages.dashboard', compact('barang','baik','ruring','ruber'));
     }
 }

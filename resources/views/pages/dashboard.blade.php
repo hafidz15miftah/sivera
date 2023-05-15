@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Baik</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">6</h2>
+                        <h2 class="text-white">{{ $baik }}</h2>
                     </div>
                     <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-check-circle"></i></span>
                 </div>
@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Rusak Ringan</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">4</h2>
+                        <h2 class="text-white">{{ $ruring }}</h2>
                     </div>
                     <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-warning"></i></span>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Rusak Berat</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">1</h2>
+                        <h2 class="text-white">{{ $ruber }}</h2>
                     </div>
                     <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-times-circle"></i></span>
                 </div>

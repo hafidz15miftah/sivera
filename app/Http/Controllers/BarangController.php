@@ -17,11 +17,11 @@ class BarangController extends Controller
 {
 
     //Untuk melihat halaman Data Barang
-    public function indeksbarang()
-    {
-        $barang = DataBarangModel::latest()->get();
-        return view('pages.datatablebarang', compact('datatablebarang'));
-    }
+    // public function indeksbarang()
+    // {
+    //     $barang = DataBarangModel::latest()->get();
+    //     return view('pages.datatablebarang', compact('datatablebarang'));
+    // }
 
     //Menampilkan Tabel Data Barang Menggunakan Yajra DataTables
     public function tampilkanBarang()
