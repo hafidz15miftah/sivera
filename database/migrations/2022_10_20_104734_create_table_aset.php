@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('aset', function (Blueprint $table) {
+        Schema::create('tanah', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama_aset');
+            $table->string('nama_obyek');
+            $table->string('alamat');
+            $table->string('no_sertifikat');
+            $table->float('luas');
             $table->enum('kondisi', ['Baik', 'Rusak Ringan', 'Rusak Berat']);
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aset');
+        Schema::dropIfExists('tanah');
     }
 };

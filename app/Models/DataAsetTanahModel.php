@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataAsetModel extends Model
+class DataAsetTanahModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'aset';
+    protected $table = 'tanah';
 }

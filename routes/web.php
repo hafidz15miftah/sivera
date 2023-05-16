@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AsetController;
+use App\Http\Controllers\AsetTanahController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -41,6 +41,8 @@ Route::get('/bantuan', function() {
 Route::get('/laporan', function() {
     return view('pages.laporan');
 });
+
+Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/tanah', [AsetTanahController::class, 'tampiltanah'])->name('tanah');
 
 //Route Untuk Mengakses Daftar Barang
 Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');

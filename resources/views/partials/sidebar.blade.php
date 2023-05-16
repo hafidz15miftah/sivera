@@ -24,21 +24,12 @@
             <li class="nav-label">FUNGSIONAL SISTEM</li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="fa fa-institution"></i><span class="nav-text">Data Aset</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="/tanah">Daftar Aset Tanah</a></li>
-                    <li><a href="/kendaraan">Daftar Aset Kendaraan</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="fa fa-check-square"></i><span class="nav-text">Data Barang</span>
+                    <i class="fa fa-check-square"></i><span class="nav-text">Data Aset</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="/ruangan">Data Ruangan</a></li>
-                    <li><a href="/barang">Daftar Barang di Ruangan</a></li>
-                    <li><a href="/gudang">Daftar Barang di Gudang</a></li>
+                    <li><a href="/barang">Daftar Barang</a></li>
+                    <li><a href="/tanah">Daftar Aset Tanah/Lahan</a></li>
                 </ul>
             </li>
             <li>

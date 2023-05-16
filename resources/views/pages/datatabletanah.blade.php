@@ -1,4 +1,4 @@
-<title>Daftar Aset &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
+<title>Daftar Aset Tanah/Lahan &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 @extends('layouts.app-layout')
 
 @section('content')
@@ -19,20 +19,27 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Daftar Aset</h4>
+                    <h4 class="card-title">Daftar Aset Tanah/Lahan</h4>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th>Nama Aset</th>
+                                    <th>Nama Obyek</th>
+                                    <th>Alamat</th>
+                                    <th>No. Sertifikat</th>
+                                    <th>Luas</th>
                                     <th>Kondisi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($aset as $a)
+                                @foreach($tanah as $t)
                                 <tr>
-                                    <td>{{$a->nama_aset}}</td>
-                                    <td>{{$a->kondisi}}</td>
+                                    <td>{{$t->nama_obyek}}</td>
+                                    <td>{{$t->alamat}}</td>
+                                    <td>{{$t->no_sertifikat}}</td>
+                                    <td>{{$t->luas}}</td>
+                                    <td>{{$t->kondisi}}</td>
+
                                 </tr>
                                 @endforeach
                             </tbody>

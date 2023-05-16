@@ -114,11 +114,12 @@
 
                 //show success message
                 Swal.fire({
-                    type: 'success',
                     icon: 'success',
-                    title: `${response.message}`,
+                    title: "Data barang berhasil ditambahkan",
+                    toast: true,
+                    position: 'top-end',
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 3000
                 })
 
                 //Reset Data Form Setelah Simpan Berhasil
@@ -232,10 +233,17 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
-                
+
                 //Mengubah created_at menjadi tanggal local
                 let createdAt = new Date(response[0].created_at);
-                let options = { weekday: 'long', year:'numeric', month:'long', day:'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+                let options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                };
                 let locale = 'id-ID';
                 let formattedDate = createdAt.toLocaleDateString(locale, options);
 
@@ -257,7 +265,7 @@
                 $('#lihat-barang #ruang_id').text(response[1]);
                 document.getElementById("created_at").innerHTML = formattedDate;
                 document.getElementById("updated_at").innerHTML = updatedAtDate;
-                
+
             }
         });
     };
@@ -324,11 +332,13 @@
 
                 //show success message
                 Swal.fire({
-                    type: 'success',
                     icon: 'success',
-                    title: `${response.message}`,
+                    title: "Data barang berhasil diperbarui",
+                    toast: true,
+                    position: 'top-end',
                     showConfirmButton: false,
-                    timer: 2000
+                    timerProgressBar: true,
+                    timer: 3000
                 })
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
@@ -376,11 +386,15 @@
                     },
                     success: function(response) {
                         if (response.success) {
-                            Swal.fire(
-                                'Berhasil!',
-                                response.message,
-                                'success'
-                            )
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Data " + name + " berhasil dihapus",
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                timer: 3000
+                            })
                             $('#tabel-barang').DataTable().clear().draw();
                         } else {
                             Swal.fire(
@@ -459,12 +473,14 @@
             },
             success: function(response) {
                 Swal.fire({
-                    type: 'success',
                     icon: 'success',
-                    title: `${response.message}`,
+                    title: "Data ruangan berhasil ditambahkan",
+                    toast: true,
+                    position: 'top-end',
                     showConfirmButton: false,
+                    timerProgressBar: true,
                     timer: 3000
-                });
+                })
 
                 $('#nama_ruang').val('');
 
@@ -514,11 +530,15 @@
                     },
                     success: function(response) {
                         if (response.success) {
-                            Swal.fire(
-                                'Berhasil!',
-                                response.message,
-                                'success'
-                            )
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Data " + name + " berhasil dihapus",
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                timer: 3000
+                            })
                             $('#tabel-ruangan').DataTable().ajax.reload();;
                         } else {
                             Swal.fire(
@@ -530,11 +550,16 @@
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr.responseText);
-                        Swal.fire(
-                            'Gagal',
-                            'Terjadi kesalahan saat menghapus data, pastikan bahwa barang yang ada di Ruangan sudah kosong!.',
-                            'error'
-                        );
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Data ruangan " + name + " gagal dihapus",
+                            text: "Pastikan tidak ada barang yang ada di ruangan!",
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 7000
+                        })
                     }
                 });
             }
@@ -573,7 +598,7 @@
     $('#updateruangan').click(function(e) {
         e.preventDefault();
 
-        let id =  $('#edit-ruangan #nama_ruang').data('id');
+        let id = $('#edit-ruangan #nama_ruang').data('id');
         console.log(id);
         let nama_ruang = $('#edit-ruangan #nama_ruang').val();
 
@@ -590,7 +615,7 @@
             success: function(response) {
 
                 //show success message
-                if(response.success){
+                if (response.success) {
                     Swal.fire({
                         type: 'success',
                         icon: 'success',
@@ -598,7 +623,7 @@
                         showConfirmButton: false,
                         timer: 2000
                     })
-                }else{
+                } else {
                     Swal.fire({
                         type: 'error',
                         icon: 'error',
