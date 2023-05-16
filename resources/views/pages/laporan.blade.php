@@ -20,6 +20,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Daftar Laporan</h4>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-barang"><i class="fa fa-plus"></i> Tambah Barang</button>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered zero-configuration">
                             <thead>
@@ -29,6 +30,7 @@
                                     <th>Nama Barang</th>
                                     <th>Kondisi</th>
                                     <th>Jumlah</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -39,6 +41,7 @@
                                     <td>Jam</td>
                                     <td>Rusak Ringan</td>
                                     <td>2</td>
+                                    <td>Pending</td>
                                     <td>Verifikasi (Sekdes)/Setujui(Kades) | Lihat Laporan</td>
                                 </tr>
                             </tbody>

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('barang', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->date('tanggal');
             $table->string('kode_barang');
             $table->enum('kondisi', ['Baik', 'Rusak Ringan', 'Rusak Berat']);

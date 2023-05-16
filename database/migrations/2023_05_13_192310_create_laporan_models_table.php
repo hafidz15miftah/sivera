@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('laporan', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('kode_laporan');
-            $table->string('barang_id');
+            $table->foreignId('barang_id')->unsigned();
             $table->string('nama_barang');
             $table->integer('jumlah');
             $table->string('gambar')->nullable();
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->integer('status');
             $table->timestamps();
         });
