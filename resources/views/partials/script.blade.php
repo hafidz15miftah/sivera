@@ -558,7 +558,7 @@
                             position: 'top-end',
                             showConfirmButton: false,
                             timerProgressBar: true,
-                            timer: 7000
+                            timer: 5000
                         })
                     }
                 });
@@ -617,20 +617,25 @@
                 //show success message
                 if (response.success) {
                     Swal.fire({
-                        type: 'success',
-                        icon: 'success',
-                        title: `${response.message}`,
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
+                    icon: 'success',
+                    title: "Data ruangan berhasil diperbarui",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
                 } else {
                     Swal.fire({
-                        type: 'error',
-                        icon: 'error',
-                        title: `${response.message}`,
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
+                    icon: 'error',
+                    title: "Data ruangan sudah ada",
+                    text: "Pastikan nama ruangan berbeda dari ruangan yang sudah ada!",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 5000
+                })
                 }
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
