@@ -54,7 +54,6 @@
                     <div class="form-group">
                         <label for="nama_ruang" class="col-form-label">Nama Ruangan:</label>
                         <input type="text" class="form-control" name="nama_ruang" id="nama_ruang" require>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_ruang"></div>
                     </div>
                 </form>
             </div>

@@ -174,17 +174,14 @@
                         <div class="form-group col-md-3">
                             <label for="kode_barang" class="col-form-label">Kode Barang:</label>
                             <input type="text" class="form-control" name="kode_barang" id="kode_barang" require>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode_barang"></div>
                         </div>
                         <div class="form-group col-md-7">
                             <label for="nama_barang" class="col-form-label">Nama Barang:</label>
                             <input type="text" class="form-control" name="nama_barang" id="nama_barang" require>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_barang"></div>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="jumlah" class="col-form-label">Jumlah:</label>
                             <input type="number" class="form-control" name="jumlah" id="jumlah" value="0" min="0" require>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jumlah"></div>
                         </div>
                     </div>
 
@@ -196,7 +193,6 @@
                             <option value="Rusak Ringan">Rusak Ringan</option>
                             <option value="Rusak Berat">Rusak Berat</option>
                         </select>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kondisi"></div>
                     </div>
                 </form>
             </div>

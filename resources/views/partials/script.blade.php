@@ -146,67 +146,17 @@
                     </tr>
                 `;
             },
-            error: function(error) {
-
-                if (error.responseJSON.tanggal[0]) {
-
-                    //show alert
-                    $('#alert-tanggal').removeClass('d-none');
-                    $('#alert-tanggal').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-tanggal').html('Data Tanggal Perlu Dipilih');
-                }
-
-                if (error.responseJSON.ruang_id[0]) {
-
-                    //show alert
-                    $('#alert-ruang_id').removeClass('d-none');
-                    $('#alert-ruang_id').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-ruang_id').html('Data Ruang Perlu Dipilih');
-                }
-
-                if (error.responseJSON.kode_barang[0]) {
-
-                    //show alert
-                    $('#alert-kode_barang').removeClass('d-none');
-                    $('#alert-kode_barang').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-kode_barang').html('Kolom Kode Barang Perlu Diisi');
-                }
-
-                if (error.responseJSON.nama_barang[0]) {
-
-                    //show alert
-                    $('#alert-nama_barang').removeClass('d-none');
-                    $('#alert-nama_barang').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-nama_barang').html('Kolom Nama Barang Perlu Diisi');
-                }
-
-                if (error.responseJSON.kondisi[0]) {
-
-                    //show alert
-                    $('#alert-kondisi').removeClass('d-none');
-                    $('#alert-kondisi').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-kondisi').html('Data Kondisi Perlu Dipilih');
-                }
-
-                if (jumlah == 0) {
-
-                    //show alert
-                    $('#alert-jumlah').removeClass('d-none');
-                    $('#alert-jumlah').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-jumlah').html('Jumlah Barang Harus Lebih dari 0');
-                }
+            error: function() {
+                    Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: 'Pastikan semua data yang diperlukan sudah diisi',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
             }
 
         });
@@ -493,14 +443,17 @@
                     </tr>
                 `;
             },
-            error: function(error) {
-                if (error.responseJSON.nama_ruang[0]) {
-                    $('#alert-nama_ruang').removeClass('d-none');
-                    $('#alert-nama_ruang').addClass('d-block');
-
-                    //add message to alert
-                    $('#alert-nama_ruang').html('Nama Ruangan Wajib Diisi!');
-                }
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: 'Mohon isikan nama ruangan',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
             }
         });
     });
@@ -627,9 +580,9 @@
                 })
                 } else {
                     Swal.fire({
-                    icon: 'error',
+                    icon: 'warning',
                     title: "Data ruangan sudah ada",
-                    text: "Pastikan nama ruangan berbeda dari ruangan yang sudah ada!",
+                    text: "Mohon gunakan nama ruangan lainnya",
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
