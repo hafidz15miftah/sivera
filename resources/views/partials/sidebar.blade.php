@@ -33,9 +33,14 @@
                 </ul>
             </li>
             <li>
-                <a href="/laporan" aria-expanded="false">
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="fa fa-bullhorn"></i><span class="nav-text">Daftar Laporan</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li><a href="/laporan">Laporan Ruangan</a></li>
+                    <li><a href="/laporan-barang">Laporan Barang</a></li>
+                    <li><a href="/tanah">Laporan Aset Tanah/Lahan</a></li>
+                </ul>
             </li>
             @endif
             <li class="nav-label">LAINNYA</li>

@@ -1,48 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title>Laporan Inventaris Barang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container mt-4">
-        <h3 class="alert alert-success">{{ $data }}</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <h2 style="justify-content: center; text-align: center">DAFTAR INVENTARIS RUANGAN</h2>
+    <h2 style="justify-content: center; text-align: center">TAHUN 2023</h2>
+    <hr>
+    <h3>RUANGAN: </h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="border: 1px solid #000; background-color: white;">NO</th>
+                <th style="border: 1px solid #000; background-color: white;">TANGGAL</th>
+                <th style="border: 1px solid #000; background-color: white;">NAMA RUANGAN</th>
+                <th style="border: 1px solid #000; background-color: white;">KODE BARANG</th>
+                <th style="border: 1px solid #000; background-color: white;">NAMA BARANG</th>
+                <th style="border: 1px solid #000; background-color: white;">KONDISI</th>
+                <th style="border: 1px solid #000; background-color: white;">JUMLAH</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($barang as $b)
+            <tr>
+                <td style="border: 1px solid #000;">{{ $loop->iteration }}</td>
+                <td style="border: 1px solid #000;">{{ \Carbon\Carbon::parse($b->tanggal)->locale('id')->translatedFormat('d/m/Y')}}</td>
+                <td style="border: 1px solid #000;">{{ $b->nama_ruang }}</td>
+                <td style="border: 1px solid #000;">{{ $b->kode_barang }}</td>
+                <td style="border: 1px solid #000;  width: 30%;">{{ $b->nama_barang }}</td>
+                <td style="border: 1px solid #000; width: 20%;">{{ $b->kondisi }}</td>
+                <td style="border: 1px solid #000; text-align: center; width: 2%">{{ $b->jumlah }}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 </body>
 
 </html>

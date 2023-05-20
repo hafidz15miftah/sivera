@@ -15,13 +15,15 @@ return new class extends Migration
     {
         Schema::create('laporan', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_laporan');
-            $table->foreignId('barang_id')->unsigned();
-            $table->string('nama_barang');
+            $table->foreignId('barang_id')->constrained();
+            $table->date('tgl_pembelian');
+            $table->string('sumber_dana');
+            $table->integer('baik')->default(0);
+            $table->integer('rusak_ringan')->default(0);
+            $table->integer('rusak_berat')->default(0);
             $table->integer('jumlah');
-            $table->string('gambar')->nullable();
             $table->string('keterangan')->nullable();
-            $table->integer('status');
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }

@@ -13,15 +13,19 @@ class LaporanModel extends Model
 
     protected $fillable = [
         'kode_laporan',
-        'kode_barang',
-        'kondisi',
+        'barang_id',
+        'tgl_pembelian',
+        'sumber_dana',
+        'baik',
+        'rusak_ringan',
+        'rusak_berat',
         'jumlah',
-        'gambar',
         'keterangan',
-        'status',
+        'gambar',
     ];
 
-    public function kodebar() {
-        return $this->belongsTo(DataBarangModel::class, 'kode_barang', 'id');
+    // one to many
+    public function barang(){
+        return $this->belongsTo(DataBarangModel::class, 'barang_id', 'id');
     }
 }

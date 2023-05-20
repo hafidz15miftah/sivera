@@ -3,6 +3,8 @@
 use App\Http\Controllers\AsetTanahController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExportLaporanContoller;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\UserController;
@@ -38,9 +40,15 @@ Route::get('/bantuan', function() {
     return view('pages.help');
 });
 
-Route::get('/laporan', function() {
-    return view('pages.laporan');
-});
+
+//cetak
+Route::get('/cetakbarang', [ExportLaporanContoller::class, 'cetak_semua_barang']);
+Route::get('/cetak-laporan', [ExportLaporanContoller::class, 'cetak_semua_laporan'])->name('cetak_semua_laporan');
+Route::post('/cetak-laporan-bybarang', [ExportLaporanContoller::class, 'cetak_laporan_bybarang'])->name('cetak_laporan_bybarang');
+Route::post('/cetak-laporan-bytanggal', [ExportLaporanContoller::class, 'cetak_laporan_bytanggal'])->name('cetak_laporan_bytanggal');
+
+Route::get('/laporan-barang', [LaporanController::class, 'tampilkanLaporan'])->middleware('auth','role:kaurumum');
+Route::post('/simpanlaporan', [LaporanController::class, 'simpanLaporan'])->name('simpanLaporan')->middleware('auth', 'role:kaurumum');
 
 Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/tanah', [AsetTanahController::class, 'tampiltanah'])->name('tanah');
 
@@ -64,7 +72,6 @@ Route::get('/lihatdata/{id}', [BarangController::class, 'lihatdata'])->name('lih
 Route::put('/updatebarang/{id}', [BarangController::class, 'updatebarang'])->name('updatebarang')->middleware('auth', 'role:kaurumum');
 Route::post('/simpanbarang', [BarangController::class, 'simpanbarang'])->name('simpanbarang')->middleware('auth', 'role:kaurumum');
 Route::delete('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->name('hapusbarang');
-Route::get('/cetaklaporan', 'App\Http\Controllers\BarangController@cetakbarang');
 
 //Route Untuk Membuka Halaman Tambah Barang dan Fungsi Simpan
 Route::get('/tambahruangan', [RuangController::class, 'tambahruangan'])->name('tambahruangan')->middleware('auth', 'role:kaurumum');

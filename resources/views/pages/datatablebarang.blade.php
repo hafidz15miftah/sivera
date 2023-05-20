@@ -26,17 +26,13 @@
                         <table id="tabel-barang" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th width="65px">Tanggal</th>
-                                    <th width="20px">Ruang</th>
-                                    <th width="10px">Kode Barang</th>
-                                    <th width="75px">Nama Barang</th>
-                                    <th width="50px">Kondisi</th>
-                                    <th width="5px">Jumlah</th>
-                                    <th width="95px">Aksi</th>
+                                    <th width="40%">Nama Barang</th>
+                                    <th width="20%">Kode Barang</th>
+                                    <th width="20%">Ruang</th>
+                                    <th width="20%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-
                             </tbody>
                         </table>
                     </div>
@@ -60,11 +56,6 @@
                 <form id="add_barang">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="tanggal" class="col-form-label">Tanggal:</label>
-                            <input type="date" class="form-control" name="tanggal" id="tanggal" require>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-tanggal"></div>
-                        </div>
-                        <div class="form-group col-md-6">
                             <label for="ruang" class="col-form-label">Ruang:</label>
                             <select class="form-control" id="ruang_id" name="ruang" require>
                                 <option value="">Silahkan Pilih ...</option>
@@ -87,22 +78,6 @@
                             <input type="text" class="form-control" name="nama_barang" id="nama_barang" require>
                             <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_barang"></div>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="jumlah" class="col-form-label">Jumlah:</label>
-                            <input type="number" class="form-control" name="jumlah" id="jumlah" value="0" min="0" require>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-jumlah"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="kondisi" class="col-form-label">Kondisi:</label>
-                        <select class="form-control" id="kondisi" name="kondisi" require>
-                            <option value="">Silahkan Pilih ...</option>
-                            <option value="Baik">Baik</option>
-                            <option value="Rusak Ringan">Rusak Ringan</option>
-                            <option value="Rusak Berat">Rusak Berat</option>
-                        </select>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kondisi"></div>
                     </div>
                 </form>
             </div>
@@ -123,12 +98,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
             </div>
             <div class="modal-body">
-                <p><strong>Tanggal Diperoleh:</strong> <span id="tanggal"></span></p>
                 <p><strong>Kode Barang:</strong> <span id="kode_barang"></span></p>
                 <p><strong>Nama Barang:</strong> <span id="nama_barang"></span></p>
                 <p><strong>Ruang:</strong> <span id="ruang_id"></span></p>
-                <p><strong>Jumlah:</strong> <span id="jumlah"></span></p>
-                <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
                 <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>
                 <p><strong>Terakhir Diubah:</strong> <span id="updated_at"></span></p>
             </div>

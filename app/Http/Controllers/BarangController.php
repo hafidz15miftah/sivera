@@ -28,7 +28,7 @@ class BarangController extends Controller
     {
         $ruang = Ruang::all();
         if (request()->ajax()) {
-            $barang = DataBarangModel::join('ruangs', 'barang.ruang_id', '=', 'ruangs.id')->select('barang.id', 'barang.tanggal', 'barang.kode_barang', 'barang.kondisi', 'barang.nama_barang', 'barang.jumlah', 'barang.updated_at', 'barang.ruang_id', 'ruangs.nama_ruang');
+            $barang = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->select('barangs.id', 'barangs.kode_barang', 'barangs.nama_barang', 'barangs.updated_at', 'barangs.ruang_id', 'ruangs.nama_ruang');
             return DataTables::of($barang)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
@@ -41,10 +41,6 @@ class BarangController extends Controller
                 ->editColumn('updated_at', function ($dataupdate) {
                     $formatdataupdate = Carbon::createFromFormat('Y-m-d H:i:s', $dataupdate->updated_at)->format('d-m-Y H:i:s');
                     return $formatdataupdate;
-                })
-                ->editColumn('tanggal', function ($datatanggal) {
-                    $formatdatatanggal = Carbon::createFromFormat('Y-m-d', $datatanggal->tanggal)->format('d-m-Y');
-                    return $formatdatatanggal;
                 })
                 ->rawColumns(['aksi'])
                 ->make(true);
@@ -59,22 +55,15 @@ class BarangController extends Controller
         return response()->json([$barang,$ruang]);
     }
 
-    public function cetakbarang(){
-        $data = Pdf::loadView('pdf.barang_pdf', ['data' => 'Daftar Inventaris Barang']);
-        return $data->download('laporan.pdf');
-    }
 
     public function updatebarang(Request $request, $id)
     {
         $barang = DataBarangModel::findorfail($id);
 
         $barang->nama_barang = $request->input('nama_barang');
-        $barang->tanggal = $request->input('tanggal');
         $barang->kode_barang = $request->input('kode_barang');
-        $barang->kondisi = $request->input('kondisi');
-        $barang->jumlah = $request->input('jumlah');
         $barang->ruang_id = $request->input('ruang_id');
-        $barang->save();    
+        $barang->save();
 
         return response()->json([
             'success' => true,
@@ -82,7 +71,7 @@ class BarangController extends Controller
             'data' => $barang
         ]);
     }
-    
+
     //Untuk menghapus data barang
     public function hapusbarang(Request $request, $id)
     {
@@ -108,30 +97,34 @@ class BarangController extends Controller
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
                 'nama_barang' => 'required',
-                'tanggal' => 'required',
-                'kode_barang' => 'required',
-                'kondisi' => 'required',
-                'jumlah' => 'required',
+                'kode_barang' => 'required|unique:barangs,kode_barang',
                 'ruang_id' => 'required',
-            ]);
+            ],[
+                'nama_barang.required' => 'Nama barang harus diisi.',
+                'kode_barang.required' => 'Kode barang harus diisi.',
+                'kode_barang.unique' => 'Kode barang sudah digunakan.',
+                'ruang_id.required' => 'Ruang harus dipilih.',
+            ]
+        );
 
             //Cek Validasi
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 422);
+                $errors = $validator->errors();
+                $errorMessage = $errors->first();
+
+                return response()->json([
+                    'errors' => $errorMessage,
+                ], 422);
             }
 
             // Membuat Data
-            $barang = DataBarangModel::create([
+            $barang = [
                 'nama_barang' => $request->nama_barang,
-                'tanggal' => $request->tanggal,
                 'kode_barang' => $request->kode_barang,
-                'kondisi' => $request->kondisi,
-                'jumlah' => $request->jumlah,
                 'ruang_id' => $request->ruang_id,
-            ]);
+            ];
 
-            $ruang = new Ruang;
-            $ruang->ruang_id = $barang->id;
+            DataBarangModel::create($barang);
 
             return response()->json([
                 'success' => true,

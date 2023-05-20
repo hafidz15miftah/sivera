@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('role_id')->constrained();
+        Schema::create('verifikasi_laporan', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_laporan');
+            $table->date('tanggal_dilaporkan');
+            $table->string('path');
+            $table->integer('status');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('verifikasi_laporan');
     }
 };
