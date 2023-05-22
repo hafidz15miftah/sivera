@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportLaporanContoller;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -46,9 +47,14 @@ Route::get('/cetakbarang', [ExportLaporanContoller::class, 'cetak_semua_barang']
 Route::get('/cetak-laporan', [ExportLaporanContoller::class, 'cetak_semua_laporan'])->name('cetak_semua_laporan');
 Route::post('/cetak-laporan-bybarang', [ExportLaporanContoller::class, 'cetak_laporan_bybarang'])->name('cetak_laporan_bybarang');
 Route::post('/cetak-laporan-bytanggal', [ExportLaporanContoller::class, 'cetak_laporan_bytanggal'])->name('cetak_laporan_bytanggal');
+Route::post('/cetak-berita-acara', [ExportLaporanContoller::class, 'cetak_berita_acara'])->name('cetak_berita_acara');
 
 Route::get('/laporan-barang', [LaporanController::class, 'tampilkanLaporan'])->middleware('auth','role:kaurumum');
+Route::get('/pelaporan', [PelaporanController::class, 'tampilkanPelaporan'])->middleware('auth');
 Route::post('/simpanlaporan', [LaporanController::class, 'simpanLaporan'])->name('simpanLaporan')->middleware('auth', 'role:kaurumum');
+Route::post('/uploadPDF', [PelaporanController::class, 'uploadPDF'])->name('uploadPDF')->middleware('auth', 'role:kaurumum');
+Route::post('/pelaporan/setuju/{id}', [PelaporanController::class, 'setuju'])->name('setujui.pelaporan')->middleware('auth');
+Route::post('/pelaporan/tolak/{id}', [PelaporanController::class, 'tolak'])->name('tolak.pelaporan')->middleware('auth');
 
 Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/tanah', [AsetTanahController::class, 'tampiltanah'])->name('tanah');
 

@@ -113,6 +113,42 @@
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
             }
         });
+
+        $('#tabel-pelaporan').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [
+                {
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'nama_laporan',
+                    name: 'nama_laporan'
+                },
+                {
+                    data: 'tanggal_dilaporkan',
+                    name: 'tanggal_dilaporkan'
+                },
+                {
+                    data: 'status_html',
+                    name: 'status'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            order: [[2, 'desc']],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+        });
     });
 </script>
 
@@ -304,6 +340,80 @@
         });
 
     });
+</script>
+
+<!-- Script Tambah Pelaporan -->
+<script>
+
+    //action create post
+    $('#simpanPelaporan').click(function(e) {
+    e.preventDefault();
+
+    // Define variable
+    var form = document.getElementById('add_pelaporan');
+    var formData = new FormData(form);
+
+    // Ajax
+    $.ajax({
+        url: "{{ url('/uploadPDF') }}",
+        type: "POST",
+        cache: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: "Pelaporan berhasil dibuat.",
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            // Reset Data Form Setelah Simpan Berhasil
+            $('#add_pelaporan')[0].reset();
+
+            // Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+            $('#tabel-pelaporan').DataTable().clear().draw();
+            $('#tambah-pelaporan').modal('hide');
+
+            // Post Data
+            let post = `
+                <tr id="index_${response.data.id}">
+                    <td>${response.data.nama_laporan}</td>
+                    <td>${response.data.file_pdf}</td>
+                </tr>
+            `;
+        },
+        error: function(xhr, status, error) {
+            // Parse the JSON response
+            var errorData = JSON.parse(xhr.responseText);
+
+            // Access the errors array
+            var errors = errorData.errors;
+
+            // Get the first error message
+            var errorMessage = Object.values(errors)[0][0];
+
+            Swal.fire({
+                icon: 'error',
+                title: "Gagal Menyimpan Data!",
+                text: errorMessage,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 3000
+            });
+        }
+    });
+});
+
 </script>
 
 <!-- Script Lihat Data Barang -->
@@ -780,5 +890,85 @@
             }
         });
     });
+</script>
+<script>
+    function tolakLaporan(e) {
+    let id = e.getAttribute('data-id');
+    $.ajax({
+        url: '/pelaporan/tolak/' + id,
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            // Tampilkan pesan sukses
+            Swal.fire({
+                icon: 'success',
+                title: response.message,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            // Lakukan refresh atau reload tabel laporan
+            $('#tabel-pelaporan').DataTable().ajax.reload();
+        },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan error
+            var errorMessage = xhr.responseJSON.message;
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal Menolak Laporan',
+                text: errorMessage,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 3000
+            });
+        }
+    });
+}
+
+function setujuLaporan(e) {
+    let id = e.getAttribute('data-id');
+    $.ajax({
+        url: '/pelaporan/setuju/' + id,
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            // Tampilkan pesan sukses
+            Swal.fire({
+                icon: 'success',
+                title: response.message,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+            // Lakukan refresh atau reload tabel laporan
+            $('#tabel-pelaporan').DataTable().ajax.reload();
+        },
+        error: function(xhr, status, error) {
+            // Tampilkan pesan error
+            var errorMessage = xhr.responseJSON.message;
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal Menyetujui Laporan',
+                text: errorMessage,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 3000
+            });
+        }
+    });
+}
+
 </script>
 

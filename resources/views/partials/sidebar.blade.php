@@ -43,6 +43,12 @@
                 </ul>
             </li>
             @endif
+            <li class="nav-label">VERIF LAPORAN</li>
+                <li>
+                    <a href="/pelaporan" aria-expanded="false">
+                        <i class="fa fa-folder-open"></i><span class="nav-text">Pelaporan</span>
+                    </a>
+                </li>
             <li class="nav-label">LAINNYA</li>
             <li>
                 <a href="/sivera" aria-expanded="false">

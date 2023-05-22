@@ -9,6 +9,8 @@ class VerifikasiLaporanModel extends Model
 {
     use HasFactory;
 
+    protected $table = 'verifikasi_laporan';
+
     protected $fillable = [
         'nama_laporan',
         'tanggal_dilaporkan',

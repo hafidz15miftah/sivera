@@ -28,19 +28,19 @@
     <br>
     <table>
         <tr>
-            <th rowspan="2" style="text-align: center; width: 1%">No</th>
+            <th rowspan="2" style="text-align: center; width: 1%">NO</th>
             <th rowspan="2" style="width: 10%">NAMA BARANG</th>
             <th rowspan="2" style="width: 1%">TANGGAL PEMBELIAN</th>
             <th rowspan="2" style="text-align: center; width: 1%">JUMLAH BARANG</th>
-            <th colspan="3" style="text-align: center">Kondisi</th>
+            <th colspan="3" style="text-align: center">KONDISI</th>
             <th rowspan="2" style="text-align: center">KODE BARANG</th>
             <th rowspan="2" style="text-align: center">RUANGAN</th>
             <th rowspan="2" style="text-align: center">KETERANGAN</th>
         </tr>
         <tr>
-            <th>Baik</th>
-            <th>Rusak Ringan</th>
-            <th>Rusak Berat</th>
+            <th>BAIK</th>
+            <th>RUSAK RINGAN</th>
+            <th>RUSAK BERAT</th>
         </tr>
 
         @foreach ($laporan as $l)

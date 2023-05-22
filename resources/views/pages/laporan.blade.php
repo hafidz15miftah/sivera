@@ -13,7 +13,7 @@
     </div>
     <!-- row -->
 
-    <!-- Modal -->
+    <!-- Modal Download-->
     <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -65,6 +65,38 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Download</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Berita Acara-->
+    <div class="modal fade" id="BeritaAcaraModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="downloadModalLabel">Cetak Berita Acara</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="BeritaAcara" method="POST" action="{{ route('cetak_berita_acara') }}">
+                        @csrf
+                        <div id="" >
+                            <div class="form-group">
+                                <label for="">Pilih Barang:</label>
+                                <select class="form-control" id="downloadOption" name="barang_dipilih">
+                                            <option value="">Silahkan Pilih ...</option>
+                                        @foreach ($barang as $b)
+                                            <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
+                                        @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cetak</button>
                     </form>
                 </div>
             </div>
@@ -172,8 +204,10 @@
                         <h4 class="card-title">Daftar Laporan</h4>
                         <button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#tambah-laporan"><i class="fa fa-plus"></i> Tambah Laporan</button>
-                        <button class="btn btn-success" style="color:white" data-toggle="modal"
+                        <button class="btn btn-primary" style="color:white" data-toggle="modal"
                             data-target="#downloadModal"><i class="fa fa-print"></i> Cetak Laporan Barang</button>
+                        <button class="btn btn-primary" style="color:white" data-toggle="modal"
+                            data-target="#BeritaAcaraModal"><i class="fa fa-print"></i> Cetak Berita Acara</button>
                         <div class="table-responsive">
                             <table id="tabel-laporan" class="table table-striped table-bordered zero-configuration">
                                 <thead>

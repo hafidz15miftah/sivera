@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Barang</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-barang"><i class="fa fa-plus"></i> Tambah Barang</button>
-                    <a class="btn btn-success" style="color:white" href="{{url('cetaklaporan')}}"><i class="fa fa-print"></i> Cetak Barang</a>
+                    <a class="btn btn-success" style="color:white" href="{{url('cetakbarang')}}"><i class="fa fa-print"></i> Cetak Barang</a>
                     <div class="table-responsive">
                         <table id="tabel-barang" class="table table-striped table-bordered zero-configuration">
                             <thead>
