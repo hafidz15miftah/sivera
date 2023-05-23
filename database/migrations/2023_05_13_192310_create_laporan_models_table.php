@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('laporan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('barang_id')->constrained();
+            $table->foreignId('ruang_id')->constrained();
             $table->date('tgl_pembelian');
             $table->string('sumber_dana');
             $table->integer('baik')->default(0);
@@ -23,7 +24,6 @@ return new class extends Migration
             $table->integer('rusak_berat')->default(0);
             $table->integer('jumlah');
             $table->string('keterangan')->nullable();
-            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }

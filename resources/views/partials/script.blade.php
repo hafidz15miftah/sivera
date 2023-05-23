@@ -880,6 +880,7 @@
                 monthForm.hide();
                 ruangForm.show();
                 downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', '{{ route('cetak_laporan_byruang') }}');
 
             } else {
                 barangForm.hide();

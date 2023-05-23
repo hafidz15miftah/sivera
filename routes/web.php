@@ -47,6 +47,7 @@ Route::get('/cetakbarang', [ExportLaporanContoller::class, 'cetak_semua_barang']
 Route::get('/cetak-laporan', [ExportLaporanContoller::class, 'cetak_semua_laporan'])->name('cetak_semua_laporan');
 Route::post('/cetak-laporan-bybarang', [ExportLaporanContoller::class, 'cetak_laporan_bybarang'])->name('cetak_laporan_bybarang');
 Route::post('/cetak-laporan-bytanggal', [ExportLaporanContoller::class, 'cetak_laporan_bytanggal'])->name('cetak_laporan_bytanggal');
+Route::post('/cetak-laporan-byruang', [ExportLaporanContoller::class, 'cetak_laporan_byruang'])->name('cetak_laporan_byruang');
 Route::post('/cetak-berita-acara', [ExportLaporanContoller::class, 'cetak_berita_acara'])->name('cetak_berita_acara');
 
 Route::get('/laporan-barang', [LaporanController::class, 'tampilkanLaporan'])->middleware('auth','role:kaurumum');

@@ -81,9 +81,11 @@ class LaporanController extends Controller
                 ], 422);
             }
 
+            $barang = DataBarangModel::findorFail($request->barang_id);
             // Membuat Data
             $data = [
-                'barang_id' => $request->barang_id,
+                'barang_id' => $barang->id,
+                'ruang_id' => $barang->ruang_id,
                 'tgl_pembelian' => $request->tgl_pembelian,
                 'sumber_dana' => $request->sumber_dana,
                 'baik' => $request->baik,

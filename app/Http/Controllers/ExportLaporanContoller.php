@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataBarangModel;
 use App\Models\LaporanModel;
+use App\Models\Ruang;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -87,17 +88,31 @@ class ExportLaporanContoller extends Controller
         return $data->stream('laporan.pdf');
     }
 
-    //Cetak Barang berdasarkan ruangan dan bulan
-    public function cetak_barang_ruangan(Request $request){
-        $ruangan =  $request->input('ruangan_id');
-        $tanggal = $request->input('selected_month');
-        $ubahformat = \Carbon\Carbon::parse($tanggal)->startOfMonth();
-        $bulan = $ubahformat->month;
-        $tahun =  $ubahformat->year;
+//Cetak Barang berdasarkan ruangan 
+    public function cetak_laporan_byruang(Request $request){
+        $ruangan =  $request->input('selected_ruang');
 
-        $barang = DataBarangModel::join('ruangs', 'barang.ruang_id', '=', 'ruangs.id')->where('barang.ruang_id', $ruangan)->whereMonth('barang.tanggal', $bulan)->whereYear('barang.tanggal', $tahun)->get();
+        $laporan = LaporanModel::select(
+            'laporan.id',
+            'laporan.tgl_pembelian',
+            'laporan.sumber_dana',
+            'laporan.baik',
+            'laporan.rusak_ringan',
+            'laporan.rusak_berat',
+            'laporan.jumlah',
+            'laporan.keterangan',
+            'barangs.kode_barang',
+            'barangs.nama_barang',
+            'ruangs.nama_ruang'
+        )
+        ->join('barangs', 'laporan.barang_id', '=', 'barangs.id')
+        ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
+        ->where('laporan.ruang_id', $ruangan)
+        ->get();
 
-        $data = Pdf::loadView('pdf.barang_pdf', ['data' => 'Daftar Inventaris Barang', 'barang' => $barang]);
+        $ruang = Ruang::findorFail($ruangan);
+
+        $data = Pdf::loadView('pdf.laporanbyruang', ['data' => 'Daftar Inventaris Barang', 'laporan' => $laporan, 'nama_ruangan' => $ruang])->setPaper('A4', 'landscape');
         return $data->stream('laporan.pdf');
     }
 

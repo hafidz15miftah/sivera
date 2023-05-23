@@ -14,6 +14,7 @@ class LaporanModel extends Model
     protected $fillable = [
         'kode_laporan',
         'barang_id',
+        'ruang_id',
         'tgl_pembelian',
         'sumber_dana',
         'baik',
@@ -27,5 +28,9 @@ class LaporanModel extends Model
     // one to many
     public function barang(){
         return $this->belongsTo(DataBarangModel::class, 'barang_id', 'id');
+    }
+
+    public function ruang(){
+        return $this->belongsTo(Ruang::class, 'ruang_id', 'id');
     }
 }
