@@ -29,19 +29,10 @@
                                     <th>No. Sertifikat</th>
                                     <th>Luas</th>
                                     <th>Kondisi</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($tanah as $t)
-                                <tr>
-                                    <td>{{$t->nama_obyek}}</td>
-                                    <td>{{$t->alamat}}</td>
-                                    <td>{{$t->no_sertifikat}}</td>
-                                    <td>{{$t->luas}}</td>
-                                    <td>{{$t->kondisi}}</td>
-
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
                     </div>

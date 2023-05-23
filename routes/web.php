@@ -57,6 +57,7 @@ Route::post('/pelaporan/setuju/{id}', [PelaporanController::class, 'setuju'])->n
 Route::post('/pelaporan/tolak/{id}', [PelaporanController::class, 'tolak'])->name('tolak.pelaporan')->middleware('auth');
 
 Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/tanah', [AsetTanahController::class, 'tampiltanah'])->name('tanah');
+Route::get('/tanah', [AsetTanahController::class, 'tampilkanLahan'])->name('tampilkanLahan')->middleware('auth','role:kaurumum');
 
 //Route Untuk Mengakses Daftar Barang
 Route::middleware(['auth:sanctum', 'verified','role:kaurumum'])->get('/barang', [BarangController::class, 'indeksbarang'])->name('barang');

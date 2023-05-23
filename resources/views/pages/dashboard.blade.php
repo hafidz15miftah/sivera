@@ -4,6 +4,55 @@
 @section('content')
 
 <div class="container-fluid mt-3">
+    @if(auth()->user()->role_id == 2)
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card bg-success">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Disetujui</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white">{{ $disetujui }}</h2>
+                    </div>
+                    <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-check-circle"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card bg-warning">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Dalam Peninjauan</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white">{{ $ditinjau }}</h2>
+                    </div>
+                    <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-warning"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card bg-danger">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Ditolak</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white">{{ $ditolak }}</h2>
+                    </div>
+                    <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-times-circle"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card bg-primary">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Jumlah Laporan</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white">{{ $jumlahlaporan }}</h2>
+                    </div>
+                    <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-pie-chart"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    @if(auth()->user()->role_id == 1) || if(auth()->user()->role_id == 3 )
     <div class="row">
         <div class="col-lg-3 col-sm-6">
             <div class="card bg-success">
@@ -50,6 +99,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <div class="row">
         <div class="col-lg-6 col-md-12">
@@ -80,119 +130,13 @@
                             <table class="table table-xs mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Kode Laporan</th>
-                                        <th>Nama Barang</th>
-                                        <th>Kondisi</th>
+                                        <th>Nama Laporan</th>
+                                        <th>Tanggal Dilaporkan</th>
                                         <th>Status</th>
-                                        <th>Payment Method</th>
-                                        <th>Activity</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><img src="./images/avatar/1.jpg" class=" rounded-circle mr-3" alt="">Sarah Smith</td>
-                                        <td>iPhone X</td>
-                                        <td>
-                                            <span>United States</span>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <div class="progress" style="height: 6px">
-                                                    <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                        <td>
-                                            <span>Last Login</span>
-                                            <span class="m-0 pl-3">10 sec ago</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="./images/avatar/2.jpg" class=" rounded-circle mr-3" alt="">Walter R.</td>
-                                        <td>Pixel 2</td>
-                                        <td><span>Canada</span></td>
-                                        <td>
-                                            <div>
-                                                <div class="progress" style="height: 6px">
-                                                    <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                        <td>
-                                            <span>Last Login</span>
-                                            <span class="m-0 pl-3">50 sec ago</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="./images/avatar/3.jpg" class=" rounded-circle mr-3" alt="">Andrew D.</td>
-                                        <td>OnePlus</td>
-                                        <td><span>Germany</span></td>
-                                        <td>
-                                            <div>
-                                                <div class="progress" style="height: 6px">
-                                                    <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><i class="fa fa-circle-o text-warning  mr-2"></i> Pending</td>
-                                        <td>
-                                            <span>Last Login</span>
-                                            <span class="m-0 pl-3">10 sec ago</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="./images/avatar/6.jpg" class=" rounded-circle mr-3" alt=""> Megan S.</td>
-                                        <td>Galaxy</td>
-                                        <td><span>Japan</span></td>
-                                        <td>
-                                            <div>
-                                                <div class="progress" style="height: 6px">
-                                                    <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                        <td>
-                                            <span>Last Login</span>
-                                            <span class="m-0 pl-3">10 sec ago</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="./images/avatar/4.jpg" class=" rounded-circle mr-3" alt=""> Doris R.</td>
-                                        <td>Moto Z2</td>
-                                        <td><span>England</span></td>
-                                        <td>
-                                            <div>
-                                                <div class="progress" style="height: 6px">
-                                                    <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                        <td>
-                                            <span>Last Login</span>
-                                            <span class="m-0 pl-3">10 sec ago</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="./images/avatar/5.jpg" class=" rounded-circle mr-3" alt="">Elizabeth W.</td>
-                                        <td>Notebook Asus</td>
-                                        <td><span>China</span></td>
-                                        <td>
-                                            <div>
-                                                <div class="progress" style="height: 6px">
-                                                    <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><i class="fa fa-circle-o text-warning  mr-2"></i> Pending</td>
-                                        <td>
-                                            <span>Last Login</span>
-                                            <span class="m-0 pl-3">10 sec ago</span>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
