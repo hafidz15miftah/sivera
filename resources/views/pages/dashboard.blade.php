@@ -52,7 +52,7 @@
         </div>
     </div>
     @endif
-    @if(auth()->user()->role_id == 1) || if(auth()->user()->role_id == 3 )
+    @if(auth()->user()->role_id == 1 || (auth()->user()->role_id == 3))
     <div class="row">
         <div class="col-lg-3 col-sm-6">
             <div class="card bg-success">
