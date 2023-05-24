@@ -138,10 +138,6 @@
                     name: 'nama_ruang'
                 },
                 {
-                    data: 'sumber_dana',
-                    name: 'sumber_dana'
-                },
-                {
                     data: 'baik',
                     name: 'baik'
                 },
@@ -600,11 +596,8 @@
             success: function(response) {
                 //fill data to form
                 $('#edit-barang #id').val(response[0].id);
-                $('#edit-barang #tanggal').val(response[0].tanggal);
                 $('#edit-barang #kode_barang').val(response[0].kode_barang);
                 $('#edit-barang #nama_barang').val(response[0].nama_barang);
-                $('#edit-barang #kondisi').val(response[0].kondisi);
-                $('#edit-barang #jumlah').val(response[0].jumlah);
                 $('#edit-barang #ruang_id').val(response[0].ruang_id);
             }
         });
@@ -614,12 +607,9 @@
         e.preventDefault();
 
         let id = $('#edit-barang #id').val();
-        let tanggal = $('#edit-barang #tanggal').val();
         let ruang_id = $('#edit-barang #ruang_id').val();
         let kode_barang = $('#edit-barang #kode_barang').val();
         let nama_barang = $('#edit-barang #nama_barang').val();
-        let kondisi = $('#edit-barang #kondisi').val();
-        let jumlah = $('#edit-barang #jumlah').val();
 
         $.ajax({
             url: `/updatebarang/` + id,
@@ -629,12 +619,9 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                "tanggal": tanggal,
                 "ruang_id": ruang_id,
                 "kode_barang": kode_barang,
                 "nama_barang": nama_barang,
-                "kondisi": kondisi,
-                "jumlah": jumlah,
             },
             success: function(response) {
 
@@ -651,17 +638,14 @@
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
                 $('#tabel-barang').DataTable().clear().draw();
-                $('#update-barang').modal('close');
+                $('#edit-barang').modal('hide');
 
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
-                        <td>${response.data.tanggal}</td>
                         <td>${response.data.ruang_id}</td>
                         <td>${response.data.kode_barang}</td>
                         <td>${response.data.nama_barang}</td>
-                        <td>${response.data.kondisi}</td>
-                        <td>${response.data.jumlah}</td>
                     </tr>
                 `;
             },
@@ -690,7 +674,7 @@
             success: function(response) {
                 //fill data to form
                 $('#edit-laporan #id').val(response[0].id);
-                $('#edit-laporan #barang_id').val(response[2]);
+                $('#edit-laporan #barang_id').val(response[0].barang_id);
                 $('#edit-laporan #tgl_pembelian').val(response[0].tgl_pembelian);
                 $('#edit-laporan #sumber_dana').val(response[0].sumber_dana);
                 $('#edit-laporan #baik').val(response[0].baik);

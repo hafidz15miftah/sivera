@@ -4,55 +4,6 @@
 @section('content')
 
 <div class="container-fluid mt-3">
-    @if(auth()->user()->role_id == 2)
-    <div class="row">
-        <div class="col-lg-3 col-sm-6">
-            <div class="card bg-success">
-                <div class="card-body">
-                    <h3 class="card-title text-white">Disetujui</h3>
-                    <div class="d-inline-block">
-                        <h2 class="text-white">{{ $disetujui }}</h2>
-                    </div>
-                    <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-check-circle"></i></span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card bg-warning">
-                <div class="card-body">
-                    <h3 class="card-title text-white">Dalam Peninjauan</h3>
-                    <div class="d-inline-block">
-                        <h2 class="text-white">{{ $ditinjau }}</h2>
-                    </div>
-                    <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-warning"></i></span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card bg-danger">
-                <div class="card-body">
-                    <h3 class="card-title text-white">Ditolak</h3>
-                    <div class="d-inline-block">
-                        <h2 class="text-white">{{ $ditolak }}</h2>
-                    </div>
-                    <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-times-circle"></i></span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card bg-primary">
-                <div class="card-body">
-                    <h3 class="card-title text-white">Jumlah Laporan</h3>
-                    <div class="d-inline-block">
-                        <h2 class="text-white">{{ $jumlahlaporan }}</h2>
-                    </div>
-                    <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-pie-chart"></i></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-    @if(auth()->user()->role_id == 1 || (auth()->user()->role_id == 3))
     <div class="row">
         <div class="col-lg-3 col-sm-6">
             <div class="card bg-success">
@@ -99,22 +50,21 @@
             </div>
         </div>
     </div>
-    @endif
 
     <div class="row">
         <div class="col-lg-6 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title text-center">Grafik Kondisi Aset</h4>
-                    <div id="pie-chart2" class="ct-chart ct-golden-section"></div>
+                    <h4 class="card-title text-center">Grafik Kondisi Barang</h4>
+                    <canvas id="myChart"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-6">
+        <div class="col-lg-6 col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title text-center">Grafik Kondisi Aset</h4>
-                    <div id="pie-chart2" class="ct-chart ct-golden-section"></div>
+                    <h4 class="card-title text-center">Grafik Kondisi Aset Tanah / Lahan</h4>
+                    <canvas id="myChart2"></canvas>
                 </div>
             </div>
         </div>
@@ -136,7 +86,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -146,4 +96,68 @@
         </div>
     </div>
 </div>
+
+<!-- ChartJS Pie Barang -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var totalBaik = '{{ $totalBaik }}';
+        var totalRuring = '{{ $totalRuring }}';
+        var totalRuber = '{{ $totalRuber }}';
+
+        var data = {
+            labels: ['Baik', 'Rusak Ringan', 'Rusak Berat'],
+            datasets: [{
+                data: [totalBaik, totalRuring, totalRuber],
+                backgroundColor: [
+                    '#6fd96f',
+                    '#f29d56',
+                    '#FF5E5E',
+                ],
+            }],
+        };
+
+        var options = {
+            responsive: true,
+        };
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+    });
+</script>
+
+<!-- ChartJS Pie - Aset Tanah -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('myChart2').getContext('2d');
+        var tbaik = '{{ $tbaik }}';
+        var truring = '{{ $truring }}';
+        var truber = '{{ $truber }}';
+
+        var data = {
+            labels: ['Baik', 'Rusak Ringan', 'Rusak Berat'],
+            datasets: [{
+                data: [tbaik, truring, truber],
+                backgroundColor: [
+                    '#6fd96f',
+                    '#f29d56',
+                    '#FF5E5E',
+                ],
+            }],
+        };
+
+        var options = {
+            responsive: true,
+        };
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+    });
+</script>
 @endsection

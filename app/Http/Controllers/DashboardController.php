@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataAsetTanahModel;
 use App\Models\DataBarangModel;
 use App\Models\LaporanModel;
 use App\Models\VerifikasiLaporanModel;
@@ -21,11 +22,11 @@ class DashboardController extends Controller
         $totalRuber = $ruber->totalRuber;
         $jumlah = $totalBaik + $totalRuring + $totalRuber;
 
-        $jumlahlaporan = VerifikasiLaporanModel::count();
-        $disetujui = VerifikasiLaporanModel::where('status', '3')->count();
-        $ditinjau = VerifikasiLaporanModel::where('status', '1')->where('status', '2')->count();
-        $ditolak = VerifikasiLaporanModel::where('status', '0')->count();
+        $tbaik = DataAsetTanahModel::where('kondisi', 'Baik')->count();
+        $truring = DataAsetTanahModel::where('kondisi', 'Rusak Ringan')->count();
+        $truber = DataAsetTanahModel::where('kondisi', 'Rusak Berat')->count();
 
-        return view('pages.dashboard', compact('barang','totalBaik','totalRuring','totalRuber','jumlah', 'jumlahlaporan', 'disetujui', 'ditolak', 'ditinjau'));
+        return view('pages.dashboard', compact('barang','totalBaik','totalRuring','totalRuber','jumlah', 'tbaik', 'truring', 'truber'));
     }
+
 }

@@ -305,7 +305,6 @@
                                     <th>Kode Barang</th>
                                     <th>Nama Barang</th>
                                     <th>Ruang</th>
-                                    <th>Sumber Dana</th>
                                     <th>Kondisi Baik</th>
                                     <th>Kondisi Rusak Ringan</th>
                                     <th>Kondisi Rusak Berat</th>
