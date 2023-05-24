@@ -26,8 +26,7 @@
             processing: true,
             serverSide: true,
             destroy: true,
-            columns: [
-                {
+            columns: [{
                     data: 'nama_barang',
                     name: 'nama_barang'
                 },
@@ -61,12 +60,72 @@
             table.draw();
         });
 
+        $('#tabel-tanah').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [{
+                    data: 'nama_obyek',
+                    name: 'nama_obyek',
+                },
+                {
+                    data: 'alamat',
+                    name: 'alamat',
+                },
+                {
+                    data: 'no_sertifikat',
+                    name: 'no_sertifikat',
+                },
+                {
+                    data: 'luas',
+                    name: 'luas',
+                },
+                {
+                    data: 'kondisi',
+                    name: 'kondisi',
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+        })
+
+        $('#tabel-ruangan').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'nama_ruang',
+                    name: 'nama_ruang'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+
+        });
+
         $('#tabel-laporan').DataTable({
             processing: true,
             serverSide: true,
             destroy: true,
-            columns: [
-                {
+            columns: [{
                     data: 'kode_barang',
                     name: 'kode_barang'
                 },
@@ -99,10 +158,6 @@
                     name: 'jumlah'
                 },
                 {
-                    data: 'keterangan',
-                    name: 'keterangan'
-                },
-                {
                     data: 'aksi',
                     name: 'aksi',
                     orderable: false,
@@ -118,8 +173,7 @@
             processing: true,
             serverSide: true,
             destroy: true,
-            columns: [
-                {
+            columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     orderable: false,
@@ -144,7 +198,9 @@
                     searchable: false
                 },
             ],
-            order: [[2, 'desc']],
+            order: [
+                [2, 'desc']
+            ],
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
             }
@@ -191,6 +247,7 @@
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
+                    timerProgressBar: true,
                     timer: 3000
                 })
 
@@ -213,16 +270,16 @@
                 `;
             },
             error: function(response) {
-                 // Parse the JSON response
-                        var errorData = JSON.parse(response.responseText);
+                // Parse the JSON response
+                var errorData = JSON.parse(response.responseText);
 
-                    // Access the errors array
-                    var errors = errorData.errors;
+                // Access the errors array
+                var errors = errorData.errors;
 
-                    // Get the error message
-                    var errorMessage = errors;
+                // Get the error message
+                var errorMessage = errors;
 
-                    Swal.fire({
+                Swal.fire({
                     icon: 'error',
                     title: "Gagal Menyimpan Data!",
                     text: errorMessage,
@@ -286,6 +343,7 @@
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
+                    timerProgressBar: true,
                     timer: 3000
                 })
 
@@ -316,16 +374,16 @@
                 `;
             },
             error: function(response) {
-                 // Parse the JSON response
-                        var errorData = JSON.parse(response.responseText);
+                // Parse the JSON response
+                var errorData = JSON.parse(response.responseText);
 
-                    // Access the errors array
-                    var errors = errorData.errors;
+                // Access the errors array
+                var errors = errorData.errors;
 
-                    // Get the error message
-                    var errorMessage = errors;
+                // Get the error message
+                var errorMessage = errors;
 
-                    Swal.fire({
+                Swal.fire({
                     icon: 'error',
                     title: "Gagal Menyimpan Data!",
                     text: errorMessage,
@@ -344,76 +402,77 @@
 
 <!-- Script Tambah Pelaporan -->
 <script>
-
     //action create post
     $('#simpanPelaporan').click(function(e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    // Define variable
-    var form = document.getElementById('add_pelaporan');
-    var formData = new FormData(form);
+        // Define variable
+        var form = document.getElementById('add_pelaporan');
+        var formData = new FormData(form);
 
-    // Ajax
-    $.ajax({
-        url: "{{ url('/uploadPDF') }}",
-        type: "POST",
-        cache: false,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-            // Show success message
-            Swal.fire({
-                icon: 'success',
-                title: "Pelaporan berhasil dibuat.",
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            });
+        // Ajax
+        $.ajax({
+            url: "{{ url('/uploadPDF') }}",
+            type: "POST",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: "Laporan berhasil dibuat",
+                    text: "Silahkan menunggu konfirmasi Sekretaris Desa dan Kepala Desa",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 5000
+                });
 
-            // Reset Data Form Setelah Simpan Berhasil
-            $('#add_pelaporan')[0].reset();
+                // Reset Data Form Setelah Simpan Berhasil
+                $('#add_pelaporan')[0].reset();
 
-            // Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
-            $('#tabel-pelaporan').DataTable().clear().draw();
-            $('#tambah-pelaporan').modal('hide');
+                // Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-pelaporan').DataTable().clear().draw();
+                $('#tambah-pelaporan').modal('hide');
 
-            // Post Data
-            let post = `
+                // Post Data
+                let post = `
                 <tr id="index_${response.data.id}">
                     <td>${response.data.nama_laporan}</td>
                     <td>${response.data.file_pdf}</td>
+                    <td>${response.data.file_gambar}</td>
                 </tr>
             `;
-        },
-        error: function(xhr, status, error) {
-            // Parse the JSON response
-            var errorData = JSON.parse(xhr.responseText);
+            },
+            error: function(xhr, status, error) {
+                // Parse the JSON response
+                var errorData = JSON.parse(xhr.responseText);
 
-            // Access the errors array
-            var errors = errorData.errors;
+                // Access the errors array
+                var errors = errorData.errors;
 
-            // Get the first error message
-            var errorMessage = Object.values(errors)[0][0];
+                // Get the first error message
+                var errorMessage = Object.values(errors)[0][0];
 
-            Swal.fire({
-                icon: 'error',
-                title: "Gagal Menyimpan Data!",
-                text: errorMessage,
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timerProgressBar: true,
-                timer: 3000
-            });
-        }
+                Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: errorMessage,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                });
+            }
+        });
     });
-});
-
 </script>
 
 <!-- Script Lihat Data Barang -->
@@ -461,6 +520,60 @@
                 document.getElementById("created_at").innerHTML = formattedDate;
                 document.getElementById("updated_at").innerHTML = updatedAtDate;
 
+            }
+        });
+    };
+
+    function lihatlapbar(e) {
+        event.preventDefault();
+        var modal = document.getElementById("lihat-laporanbar");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatdetailbar")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+
+                //Mengubah created_at menjadi tanggal local
+                let createdAt = new Date(response[0].created_at);
+                let options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                };
+                let locale = 'id-ID';
+                let formattedDate = createdAt.toLocaleDateString(locale, options);
+
+                //Mengubah updated_at menjadi tanggal local
+                let updatedAt = new Date(response[0].updated_at);
+                let updatedAtDate = updatedAt.toLocaleDateString(locale, options);
+
+                //fill data to form
+                $('#lihat-laporanbar #id').text(response.id);
+                $('#lihat-laporanbar #kode_barang').text(response[3]);
+                $('#lihat-laporanbar #nama_barang').text(response[2]);
+                $('#lihat-laporanbar #ruang_id').text(response[1]);
+                $('#lihat-laporanbar #tgl_pembelian').text(new Date(response[0].tgl_pembelian).toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }));
+                $('#lihat-laporanbar #sumber_dana').text(response[0].sumber_dana);
+                $('#lihat-laporanbar #jumlah').text(response[0].jumlah);
+                $('#lihat-laporanbar #keterangan').text(response[0].keterangan);
+                document.getElementById("created_at").innerHTML = formattedDate;
+                document.getElementById("updated_at").innerHTML = updatedAtDate;
             }
         });
     };
@@ -557,6 +670,102 @@
     })
 </script>
 
+<script>
+    function updateDetailBarang(e) {
+        event.preventDefault();
+        var modal = document.getElementById("edit-laporan");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatdetailbar")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                //fill data to form
+                $('#edit-laporan #id').val(response[0].id);
+                $('#edit-laporan #barang_id').val(response[2]);
+                $('#edit-laporan #tgl_pembelian').val(response[0].tgl_pembelian);
+                $('#edit-laporan #sumber_dana').val(response[0].sumber_dana);
+                $('#edit-laporan #baik').val(response[0].baik);
+                $('#edit-laporan #rusak_ringan').val(response[0].rusak_ringan);
+                $('#edit-laporan #rusak_berat').val(response[0].rusak_berat);
+                $('#edit-laporan #keterangan').val(response[0].keterangan);
+            }
+        });
+    };
+
+    $('#updatedetail').click(function(e) {
+        e.preventDefault();
+
+        let id = $('#edit-laporan #id').val();
+        let barang_id = $('#edit-laporan #barang_id').val();
+        let tgl_pembelian = $('#edit-laporan #tgl_pembelian').val();
+        let sumber_dana = $('#edit-laporan #sumber_dana').val();
+        let baik = $('#edit-laporan #baik').val();
+        let rusak_ringan = $('#edit-laporan #rusak_ringan').val();
+        let rusak_berat = $('#edit-laporan #rusak_berat').val();
+        let jumlah = $('#edit-laporan #jumlah').val();
+        let keterangan = $('#edit-laporan #keterangan').val();
+
+        $.ajax({
+            url: `{{url("/updatedetailbar")}}/` + id,
+            type: "PUT",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "barang_id": barang_id,
+                "tgl_pembelian": tgl_pembelian,
+                "sumber_dana": sumber_dana,
+                "baik": baik,
+                "rusak_ringan": rusak_ringan,
+                "rusak_berat": rusak_berat,
+                "keterangan": keterangan,
+                "jumlah": jumlah,
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: "Detail laporan berhasil diperbarui",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-laporan').DataTable().clear().draw();
+                $('#edit-laporan').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                    <td>${response.data.barang_id}</td>
+                        <td>${response.data.tgl_pembelian}</td>
+                        <td>${response.data.sumber_dana}</td>
+                        <td>${response.data.baik}</td>
+                        <td>${response.data.rusak_ringan}</td>
+                        <td>${response.data.rusak_berat}</td>
+                        <td>${response.data.keterangan}</td>
+                        <td>${response.data.jumlah}</td>
+                    </tr>
+                `;
+            },
+        })
+    })
+</script>
+
 <!-- Script Hapus Data Barang -->
 <script>
     function deleteDataBarang(e) {
@@ -601,46 +810,21 @@
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr.responseText);
-                        Swal.fire(
-                            'Gagal!',
-                            'Terjadi kesalahan saat menghapus data.',
-                            'error'
-                        );
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal Menghapus Barang',
+                            text: 'Barang ' + name + ' sudah dilaporkan dalam detail barang',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 5000
+                        })
                     }
                 });
             }
         });
     }
-</script>
-
-<!-- Script Tampilkan Data Ruangan YajraDataTables -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#tabel-ruangan').DataTable({
-            processing: true,
-            serverSide: true,
-            destroy: true,
-            columns: [{
-                    data: 'id',
-                    name: 'id'
-                },
-                {
-                    data: 'nama_ruang',
-                    name: 'nama_ruang'
-                },
-                {
-                    data: 'aksi',
-                    name: 'aksi',
-                    orderable: false,
-                    searchable: false
-                },
-            ],
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
-            }
-
-        });
-    });
 </script>
 
 <!-- Script Tambah Data Ruangan -->
@@ -737,7 +921,7 @@
                                 timerProgressBar: true,
                                 timer: 3000
                             })
-                            $('#tabel-ruangan').DataTable().ajax.reload();;
+                            $('#tabel-ruangan').DataTable().clear().draw();
                         } else {
                             Swal.fire(
                                 'Gagal!',
@@ -750,8 +934,121 @@
                         console.log(xhr.responseText);
                         Swal.fire({
                             icon: 'error',
-                            title: "Data ruangan " + name + " gagal dihapus",
-                            text: "Pastikan tidak ada barang yang ada di ruangan!",
+                            title: "Gagal Menghapus Ruangan",
+                            text: "Pastikan tidak terdapat barang di ruang " + name,
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 5000
+                        })
+                    }
+                });
+            }
+        });
+    }
+
+    function deleteDetailBarang(e) {
+        event.preventDefault();
+        let id = e.getAttribute('data-id');
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Detail barang ini akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/hapusdetailbar/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Detail barang berhasil dihapus",
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                timer: 3000
+                            })
+                            $('#tabel-laporan').DataTable().clear().draw();
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Gagal Menghapus Detail Barang",
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 5000
+                        })
+                    }
+                });
+            }
+        });
+    }
+
+    function deleteDataLaporan(e) {
+        event.preventDefault();
+        let id = e.getAttribute('data-id');
+        let name = e.getAttribute('data-name');
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Laporan " + name + " akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/hapusdatalaporan/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Berhasil Menghapus Laporan",
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                timer: 3000
+                            })
+                            $('#tabel-pelaporan').DataTable().clear().draw();
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Gagal Menghapus Laporan",
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
@@ -815,25 +1112,25 @@
                 //show success message
                 if (response.success) {
                     Swal.fire({
-                    icon: 'success',
-                    title: "Data ruangan berhasil diperbarui",
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timerProgressBar: true,
-                    timer: 3000
-                })
+                        icon: 'success',
+                        title: "Nama ruangan berhasil diperbarui",
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 3000
+                    })
                 } else {
                     Swal.fire({
-                    icon: 'warning',
-                    title: "Data ruangan sudah ada",
-                    text: "Mohon gunakan nama ruangan lainnya",
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timerProgressBar: true,
-                    timer: 5000
-                })
+                        icon: 'warning',
+                        title: "Data ruangan sudah ada",
+                        text: "Mohon gunakan nama ruangan lainnya",
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 5000
+                    })
                 }
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
@@ -851,6 +1148,8 @@
 
     })
 </script>
+
+<!-- Tampilkan Modal Cetak -->
 <script>
     // Tampilkan atau sembunyikan form bulan berdasarkan pilihan opsi
     $(document).ready(function() {
@@ -866,110 +1165,112 @@
                 ruangForm.hide();
                 monthForm.show();
                 downloadForm.attr('method', 'POST');
-                downloadForm.attr('action', '{{ route('cetak_laporan_bytanggal') }}');
+                downloadForm.attr('action', "{{ route('cetak_laporan_bytanggal') }}");
 
             } else if (selectedOption === 'by_barang') {
                 barangForm.show();
                 monthForm.hide();
                 ruangForm.hide();
                 downloadForm.attr('method', 'POST');
-                downloadForm.attr('action', '{{ route('cetak_laporan_bybarang') }}');
+                downloadForm.attr('action', "{{ route('cetak_laporan_bybarang') }}");
 
             } else if (selectedOption === 'by_ruang') {
                 barangForm.hide();
                 monthForm.hide();
                 ruangForm.show();
                 downloadForm.attr('method', 'POST');
-                downloadForm.attr('action', '{{ route('cetak_laporan_byruang') }}');
+                downloadForm.attr('action', "{{ route('cetak_laporan_byruang') }}");
 
             } else {
                 barangForm.hide();
                 monthForm.hide();
                 ruangForm.hide();
                 downloadForm.attr('method', 'GET');
-                downloadForm.attr('action', '{{ route('cetak_semua_laporan') }}');
+                downloadForm.attr('action', "{{ route('cetak_semua_laporan') }}");
             }
         });
     });
 </script>
+
+<!-- Menolak dan Menyetujui Laporan -->
 <script>
     function tolakLaporan(e) {
-    let id = e.getAttribute('data-id');
-    $.ajax({
-        url: '/pelaporan/tolak/' + id,
-        type: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(response) {
-            // Tampilkan pesan sukses
-            Swal.fire({
-                icon: 'success',
-                title: response.message,
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            });
+        let id = e.getAttribute('data-id');
+        $.ajax({
+            url: '/pelaporan/tolak/' + id,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                // Tampilkan pesan sukses
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                });
 
-            // Lakukan refresh atau reload tabel laporan
-            $('#tabel-pelaporan').DataTable().ajax.reload();
-        },
-        error: function(xhr, status, error) {
-            // Tampilkan pesan error
-            var errorMessage = xhr.responseJSON.message;
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal Menolak Laporan',
-                text: errorMessage,
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timerProgressBar: true,
-                timer: 3000
-            });
-        }
-    });
-}
+                // Lakukan refresh atau reload tabel laporan
+                $('#tabel-pelaporan').DataTable().ajax.reload();
+            },
+            error: function(xhr, status, error) {
+                // Tampilkan pesan error
+                var errorMessage = xhr.responseJSON.message;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal Menolak Laporan',
+                    text: errorMessage,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                });
+            }
+        });
+    }
 
-function setujuLaporan(e) {
-    let id = e.getAttribute('data-id');
-    $.ajax({
-        url: '/pelaporan/setuju/' + id,
-        type: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(response) {
-            // Tampilkan pesan sukses
-            Swal.fire({
-                icon: 'success',
-                title: response.message,
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            });
+    function setujuLaporan(e) {
+        let id = e.getAttribute('data-id');
+        $.ajax({
+            url: '/pelaporan/setuju/' + id,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                // Tampilkan pesan sukses
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                });
 
-            // Lakukan refresh atau reload tabel laporan
-            $('#tabel-pelaporan').DataTable().ajax.reload();
-        },
-        error: function(xhr, status, error) {
-            // Tampilkan pesan error
-            var errorMessage = xhr.responseJSON.message;
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal Menyetujui Laporan',
-                text: errorMessage,
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timerProgressBar: true,
-                timer: 3000
-            });
-        }
-    });
-}
-
+                // Lakukan refresh atau reload tabel laporan
+                $('#tabel-pelaporan').DataTable().ajax.reload();
+            },
+            error: function(xhr, status, error) {
+                // Tampilkan pesan error
+                var errorMessage = xhr.responseJSON.message;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal Menyetujui Laporan',
+                    text: errorMessage,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                });
+            }
+        });
+    }
 </script>
-

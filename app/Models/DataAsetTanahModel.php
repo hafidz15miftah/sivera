@@ -10,4 +10,13 @@ class DataAsetTanahModel extends Model
     use HasFactory;
 
     protected $table = 'tanah';
+
+    protected $fillable = [
+        'nama_obyek',
+        'alamat',
+        'no_sertifikat',
+        'luas',
+        'kondisi',
+        'keterangan',
+    ];
 }

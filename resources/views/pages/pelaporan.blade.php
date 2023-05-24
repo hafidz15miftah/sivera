@@ -5,8 +5,8 @@
     <div class="row page-titles mx-0">
         <div class="col p-md-0">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Verif Laporan</a></li>
-                <li class="breadcrumb-item active"><a href="/aset">Pelaporan</a></li>
+                <li class="breadcrumb-item"><a href="#">Pelaporan</a></li>
+                <li class="breadcrumb-item active"><a href="/pelaporan">Daftar Laporan</a></li>
             </ol>
         </div>
     </div>
@@ -17,7 +17,7 @@
     <!-- Modal Tambah Pelaporan -->
     <div class="modal fade" id="tambah-pelaporan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Buat Pelaporan</h5>
@@ -37,7 +37,13 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="file_pdf">File Pdf</label>
+                                    <label for="file_pdf">File Gambar Barang Rusak</label>
+                                    <input class="form-control" type="file" name="file_gambar" id="file_gambar" accept="image/*">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="file_pdf">File Berita Acara dalam PDF</label>
                                     <input class="form-control" type="file" name="file_pdf" id="file_pdf" accept="application/pdf">
                                 </div>
                             </div>
@@ -47,7 +53,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-success text-white" id="simpanPelaporan">Simpan</button>
+                    <button type="button" class="btn btn-success text-white" id="simpanPelaporan">Laporkan</button>
                 </div>
             </div>
         </div>
@@ -65,11 +71,11 @@
                             <table id="tabel-pelaporan" class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center">No</th>
-                                        <th style="text-align: center">Nama Laporan</th>
-                                        <th style="text-align: center">Tanggal Dilaporkan</th>
-                                        <th style="text-align: center">status</th>
-                                        <th style="text-align: center">Aksi</th>
+                                        <th style="text-align: center" width="2%">No</th>
+                                        <th style="text-align: center" width="30%">Nama Laporan</th>
+                                        <th style="text-align: center" width="19%">Tanggal Dilaporkan</th>
+                                        <th style="text-align: center" width="19%">Status</th>
+                                        <th style="text-align: center" width="30%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

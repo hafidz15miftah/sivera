@@ -14,6 +14,7 @@ class VerifikasiLaporanModel extends Model
     protected $fillable = [
         'nama_laporan',
         'tanggal_dilaporkan',
+        'gambar',
         'path',
         'status',
     ];

@@ -22,7 +22,6 @@ class LaporanModel extends Model
         'rusak_berat',
         'jumlah',
         'keterangan',
-        'gambar',
     ];
 
     // one to many

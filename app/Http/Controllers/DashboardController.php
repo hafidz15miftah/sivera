@@ -14,7 +14,6 @@ class DashboardController extends Controller
         $barang = DataBarangModel::count();
         $baik = LaporanModel::select(DB::raw('SUM(baik) as totBaik'))->first();
         $ruring = LaporanModel::select(DB::raw('SUM(rusak_ringan) as totRuring'))->first();
-
         $ruber = LaporanModel::select(DB::raw('SUM(rusak_berat) as totalRuber'))->first();
 
         $totalBaik = $baik->totBaik;
@@ -24,7 +23,7 @@ class DashboardController extends Controller
 
         $jumlahlaporan = VerifikasiLaporanModel::count();
         $disetujui = VerifikasiLaporanModel::where('status', '3')->count();
-        $ditinjau = VerifikasiLaporanModel::where('status', '2')->count();
+        $ditinjau = VerifikasiLaporanModel::where('status', '1')->where('status', '2')->count();
         $ditolak = VerifikasiLaporanModel::where('status', '0')->count();
 
         return view('pages.dashboard', compact('barang','totalBaik','totalRuring','totalRuber','jumlah', 'jumlahlaporan', 'disetujui', 'ditolak', 'ditinjau'));

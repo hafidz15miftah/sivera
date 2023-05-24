@@ -7,8 +7,7 @@
     <div class="col p-md-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
-            <li class="breadcrumb-item"><a href="#">Tabel</a></li>
-            <li class="breadcrumb-item active"><a href="/aset">Daftar Aset</a></li>
+            <li class="breadcrumb-item active"><a href="/aset">Daftar Tanah / Lahan</a></li>
         </ol>
     </div>
 </div>
@@ -21,7 +20,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Aset Tanah/Lahan</h4>
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration">
+                        <table id="tabel-tanah" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
                                     <th>Nama Obyek</th>

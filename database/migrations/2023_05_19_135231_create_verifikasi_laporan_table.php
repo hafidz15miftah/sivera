@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_laporan');
             $table->date('tanggal_dilaporkan');
+            $table->string('gambar');
             $table->string('path');
             $table->integer('status');
             $table->timestamps();
