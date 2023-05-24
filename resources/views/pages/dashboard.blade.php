@@ -10,7 +10,12 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Baik</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">{{ $totalBaik }}</h2>
+                        <h2 class="text-white">@if($totalBaik)
+                            {{ $totalBaik }}
+                            @else
+                            0
+                            @endif
+                        </h2>
                     </div>
                     <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-check-circle"></i></span>
                 </div>
@@ -21,7 +26,12 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Rusak Ringan</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">{{ $totalRuring }}</h2>
+                        <h2 class="text-white">@if($totalRuring)
+                            {{ $totalRuring }}
+                            @else
+                            0
+                            @endif
+                        </h2>
                     </div>
                     <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-warning"></i></span>
                 </div>
@@ -32,7 +42,12 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Rusak Berat</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">{{ $totalRuber }}</h2>
+                        <h2 class="text-white">@if($totalRuber)
+                            {{ $totalRuber }}
+                            @else
+                            0
+                            @endif
+                        </h2>
                     </div>
                     <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-times-circle"></i></span>
                 </div>
@@ -43,7 +58,12 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Jumlah</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">{{ $jumlah }}</h2>
+                        <h2 class="text-white">@if($jumlah)
+                            {{ $jumlah }}
+                            @else
+                            0
+                            @endif
+                        </h2>
                     </div>
                     <span class="float-right display-5 opacity-5 text-white"><i class="fa fa-pie-chart"></i></span>
                 </div>
@@ -56,7 +76,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title text-center">Grafik Kondisi Barang</h4>
-                    <canvas id="myChart"></canvas>
+                    <canvas id="chartBarang"></canvas>
                 </div>
             </div>
         </div>
@@ -64,7 +84,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title text-center">Grafik Kondisi Aset Tanah / Lahan</h4>
-                    <canvas id="myChart2"></canvas>
+                    <canvas id="chartLahan"></canvas>
                 </div>
             </div>
         </div>
@@ -100,7 +120,7 @@
 <!-- ChartJS Pie Barang -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var ctx = document.getElementById('myChart').getContext('2d');
+        var ctx = document.getElementById('chartBarang').getContext('2d');
         var totalBaik = '{{ $totalBaik }}';
         var totalRuring = '{{ $totalRuring }}';
         var totalRuber = '{{ $totalRuber }}';
@@ -119,6 +139,13 @@
 
         var options = {
             responsive: true,
+            plugins: {
+                labels: {
+                    render: 'percentage',
+                    fontColor: ['white', 'white', 'white'],
+                    precision: 2
+                }
+            }
         };
 
         new Chart(ctx, {
@@ -131,8 +158,8 @@
 
 <!-- ChartJS Pie - Aset Tanah -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-        var ctx = document.getElementById('myChart2').getContext('2d');
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('chartLahan').getContext('2d');
         var tbaik = '{{ $tbaik }}';
         var truring = '{{ $truring }}';
         var truber = '{{ $truber }}';
@@ -151,6 +178,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var options = {
             responsive: true,
+            plugins: {
+                labels: {
+                    render: 'percentage',
+                    fontColor: ['white', 'white', 'white'],
+                    precision: 2
+                }
+            }
         };
 
         new Chart(ctx, {

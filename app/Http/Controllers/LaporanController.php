@@ -66,7 +66,7 @@ class LaporanController extends Controller
                 ],
                 [
                     'barang_id.required' => 'Nama barang harus di pilih.',
-                    'barang_id.unique' => 'Barang sudah dilaporkan, silahkan gunakan fitur update.',
+                    'barang_id.unique' => 'Barang sudah dilaporkan, silahkan gunakan tombol Ubah pada barang tersebut.',
                     'tgl_pembelian.required' => 'Tanggal Pembelian harus diisi.',
                     'sumber_dana.required' => 'Sumber Dana harus diisi.',
                     'baik.required' => 'Kolom Baik harus diisi.',
@@ -104,7 +104,7 @@ class LaporanController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Laporan data Barang Berhasil Disimpan!',
+                'message' => 'Detail data Barang Berhasil Disimpan!',
             ]);
         }
     }
@@ -152,7 +152,7 @@ class LaporanController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Data barang berhasil diupdate!',
+            'message' => 'Detail barang berhasil diupdate!',
             'data' => $laporan
         ]);
     }

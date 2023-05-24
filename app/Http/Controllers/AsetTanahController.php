@@ -17,7 +17,7 @@ class AsetTanahController extends Controller
                 ->addColumn('aksi', function ($row) {
                     $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' onclick='lihatlahan(this)'><i class='fa fa-eye'></i>Lihat</button>";
                     $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' onclick='lihatdatalahan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
-                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteDataLahan(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_lahan' onclick='deleteDataLahan(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
 
                     return $tombol;
                 })
