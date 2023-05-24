@@ -20,6 +20,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Aset Tanah/Lahan</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-lahan"><i class="fa fa-plus"></i> Tambah Aset Tanah / Lahan</button>
+                    <a class="btn btn-success" style="color:white" href="{{url('cetak-aset')}}"><i class="fa fa-print"></i> Cetak Data Aset Tanah / Lahan</a>
                     <div class="table-responsive">
                         <table id="tabel-tanah" class="table table-striped table-bordered zero-configuration">
                             <thead>

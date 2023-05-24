@@ -68,6 +68,7 @@ Route::post('/cetak-berita-acara', [ExportLaporanContoller::class, 'cetak_berita
 
 //Route Untuk Mengakses Daftar Aset Tanah / Lahan
 Route::get('/lahan', [AsetTanahController::class, 'tampilkanLahan'])->name('tampilkanLahan')->middleware('auth','role:kaurumum');
+Route::get('/cetak-aset', [ExportLaporanContoller::class, 'cetak_semua_aset'])->name('cetak_semua_aset');
 Route::post('/simpanlahan', [AsetTanahController::class, 'simpanlahan'])->name('simpanlahan')->middleware('auth', 'role:kaurumum');
 Route::get('/lihatlahan/{id}', [AsetTanahController::class, 'lihatlahan'])->name('lihatlahan')->middleware('auth', 'role:kaurumum');
 Route::delete('/hapuslahan/{id}', [AsetTanahController::class, 'hapuslahan'])->name('hapuslahan')->middleware('auth', 'role:kaurumum');

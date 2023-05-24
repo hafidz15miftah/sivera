@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataAsetTanahModel;
 use App\Models\DataBarangModel;
 use App\Models\LaporanModel;
 use App\Models\Ruang;
@@ -15,8 +16,14 @@ class ExportLaporanContoller extends Controller
     public function cetak_semua_barang(){
         $barang = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->get();
         $nama = "SEMUA RUANGAN";
-        $data = Pdf::loadView('pdf.barang_pdf', ['data' => 'Daftar Inventaris Barang', 'barang' => $barang, 'nama' => $nama]);
+        $data = Pdf::loadView('pdf.lahan_pdf', ['data' => 'Daftar Inventaris Barang', 'barang' => $barang, 'nama' => $nama]);
         return $data->stream('semua-barang.pdf');
+    }
+
+    public function cetak_semua_aset(){
+        $lahan = DataAsetTanahModel::query()->get();
+        $data = Pdf::loadView('pdf.lahan_pdf', ['data' => 'Daftar Inventaris Barang', 'lahan' => $lahan]);
+        return $data->stream('semua-aset.pdf');
     }
 
     public function cetak_semua_laporan(){

@@ -24,7 +24,7 @@ class AsetTanahController extends Controller
                 })
                 ->editColumn('kondisi', function ($row) {
                     if ($row->kondisi == 'Baik') {
-                        return "<span class='badge badge-info text-center text-white' style='display: block; text-align: center;'>Baik</span>";
+                        return "<span class='badge badge-success text-center text-white' style='display: block; text-align: center;'>Baik</span>";
                     } elseif ($row->kondisi == 'Rusak Ringan') {
                         return "<span class='badge badge-warning text-center text-white' style='display: block; text-align: center;'>Rusak Ringan</span>";
                     } else {
