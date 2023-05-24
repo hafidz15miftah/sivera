@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('no_sertifikat');
             $table->float('luas');
             $table->enum('kondisi', ['Baik', 'Rusak Ringan', 'Rusak Berat']);
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();;
             $table->timestamps();
         });
     }

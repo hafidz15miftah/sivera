@@ -61,19 +61,16 @@
                             <option value="{{ $r->id }}" name="ruang_id" id="ruang_id">{{ $r->nama_ruang }}</option>
                             @endforeach
                         </select>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ruang_id"></div>
                     </div>
 
                     <div class="form-row">
                         <label for="kode_barang" class="col-form-label">Kode Barang:</label>
                         <input type="text" class="form-control" name="kode_barang" id="kode_barang" require>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode_barang"></div>
                     </div>
 
                     <div class="form-row">
                         <label for="nama_barang" class="col-form-label">Nama Barang:</label>
                         <input type="text" class="form-control" name="nama_barang" id="nama_barang" require>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_barang"></div>
                     </div>
                 </form>
             </div>

@@ -66,7 +66,7 @@ class LaporanController extends Controller
                 ],
                 [
                     'barang_id.required' => 'Nama barang harus di pilih.',
-                    'barang_id.unique' => 'Barang sudah dilaporkan, silahkan gunakan tombol Ubah pada barang tersebut.',
+                    'barang_id.unique' => 'Barang sudah dilaporkan, silahkan lakukan ubah data barang.',
                     'tgl_pembelian.required' => 'Tanggal Pembelian harus diisi.',
                     'sumber_dana.required' => 'Sumber Dana harus diisi.',
                     'baik.required' => 'Kolom Baik harus diisi.',

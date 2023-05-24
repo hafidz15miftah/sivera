@@ -19,9 +19,10 @@
 <!-- SweetAlert -->
 <script src="{{ asset('/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
-<!-- Script Tampilkan Data Barang YajraDataTables -->
+<!-- Script Tampilkan Data YajraDataTables -->
 <script type="text/javascript">
     $(document).ready(function() {
+        //Tabel Barang
         $('#tabel-barang').DataTable({
             processing: true,
             serverSide: true,
@@ -60,6 +61,7 @@
             table.draw();
         });
 
+        //Tabel Lahan/Tanah
         $('#tabel-tanah').DataTable({
             processing: true,
             serverSide: true,
@@ -96,6 +98,7 @@
             }
         })
 
+        //Tabel Ruangan
         $('#tabel-ruangan').DataTable({
             processing: true,
             serverSide: true,
@@ -121,6 +124,7 @@
 
         });
 
+        //Tabel Laporan Detail Barang
         $('#tabel-laporan').DataTable({
             processing: true,
             serverSide: true,
@@ -165,6 +169,7 @@
             }
         });
 
+        //Tabel Pelaporan
         $('#tabel-pelaporan').DataTable({
             processing: true,
             serverSide: true,
@@ -201,6 +206,107 @@
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
             }
         });
+    });
+</script>
+
+<!-- Script Tambah Data Aset Tanah / Lahan -->
+<script>
+    //button create post event
+    $('body').on('click', '#tambahlahan', function() {
+        //open modal
+        $('#tambah-lahan').modal('show');
+    });
+
+    //action create post
+    $('#simpanlahan').click(function(e) {
+        e.preventDefault();
+
+        //define variable
+        let nama_obyek = $('#nama_obyek').val();
+        let alamat = $('#alamat').val();
+        let no_sertifikat = $('#no_sertifikat').val();
+        let luas = $('#luas').val();
+        let kondisi = $('#kondisi').val();
+        let keterangan = $('#keterangan').val();
+
+        //ajax
+        $.ajax({
+            url: `{{url('/simpanlahan')}}`,
+            type: "POST",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "nama_obyek": nama_obyek,
+                "alamat": alamat,
+                "no_sertifikat": no_sertifikat,
+                "luas": luas,
+                "kondisi": kondisi,
+                "keterangan": keterangan,
+
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: "Data barang berhasil ditambahkan",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                //Reset Data Form Setelah Simpan Berhasil
+                $('#nama_obyek').val('');
+                $('#alamat').val('');
+                $('#no_sertifikat').val('');
+                $('#luas').val('');
+                $('#kondisi').prop('selectedIndex', 0);
+                $('#keterangan').val('');
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-tanah').DataTable().clear().draw();
+                $('#tambah-lahan').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.nama_obyek}</td>
+                        <td>${response.data.alamat}</td>
+                        <td>${response.data.no_sertifikat}</td>
+                        <td>${response.data.luas}</td>
+                        <td>${response.data.kondisi}</td>
+                        <td>${response.data.keterangan}</td>
+                    </tr>
+                `;
+            },
+            error: function(response) {
+                // Parse the JSON response
+                var errorData = JSON.parse(response.responseText);
+
+                // Access the errors array
+                var errors = errorData.errors;
+
+                // Get the error message
+                var errorMessage = errors;
+
+                Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: errorMessage,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+            }
+
+        });
+
     });
 </script>
 
@@ -568,6 +674,55 @@
                 $('#lihat-laporanbar #sumber_dana').text(response[0].sumber_dana);
                 $('#lihat-laporanbar #jumlah').text(response[0].jumlah);
                 $('#lihat-laporanbar #keterangan').text(response[0].keterangan);
+                document.getElementById("created_at").innerHTML = formattedDate;
+                document.getElementById("updated_at").innerHTML = updatedAtDate;
+            }
+        });
+    };
+
+    function lihatdatalahan(e) {
+        event.preventDefault();
+        var modal = document.getElementById("lihat-lahan");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatlahan")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+
+                //Mengubah created_at menjadi tanggal local
+                let createdAt = new Date(response[0].created_at);
+                let options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                };
+                let locale = 'id-ID';
+                let formattedDate = createdAt.toLocaleDateString(locale, options);
+
+                //Mengubah updated_at menjadi tanggal local
+                let updatedAt = new Date(response[0].updated_at);
+                let updatedAtDate = updatedAt.toLocaleDateString(locale, options);
+
+                //fill data to form
+                $('#lihat-lahan #id').text(response.id);
+                $('#lihat-lahan #nama_obyek').text(response[0].nama_obyek);
+                $('#lihat-lahan #alamat').text(response[0].alamat);
+                $('#lihat-lahan #no_sertifikat').text(response[0].no_sertifikat);
+                $('#lihat-lahan #luas').text(response[0].luas);
+                $('#lihat-lahan #kondisi').text(response[0].kondisi);
+                $('#lihat-lahan #keterangan').text(response[0].keterangan);
                 document.getElementById("created_at").innerHTML = formattedDate;
                 document.getElementById("updated_at").innerHTML = updatedAtDate;
             }
@@ -1020,6 +1175,63 @@
                                 timer: 3000
                             })
                             $('#tabel-pelaporan').DataTable().clear().draw();
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Gagal Menghapus Laporan",
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 5000
+                        })
+                    }
+                });
+            }
+        });
+    }
+
+    function deleteDataLahan(e) {
+        event.preventDefault();
+        let id = e.getAttribute('data-id');
+        let name = e.getAttribute('data-name');
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data lahan " + name + " akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/hapuslahan/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Berhasil Menghapus Data Lahan",
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                timer: 3000
+                            })
+                            $('#tabel-tanah').DataTable().clear().draw();
                         } else {
                             Swal.fire(
                                 'Gagal!',

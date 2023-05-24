@@ -44,7 +44,6 @@ Route::get('/bantuan', function() {
 
 //Route Untuk Mengakses Daftar Laporan
 Route::get('/pelaporan', [PelaporanController::class, 'tampilkanPelaporan'])->middleware('auth');
-Route::post('/simpanlaporan', [LaporanController::class, 'simpanLaporan'])->name('simpanLaporan')->middleware('auth', 'role:kaurumum');
 Route::post('/uploadPDF', [PelaporanController::class, 'uploadPDF'])->name('uploadPDF')->middleware('auth', 'role:kaurumum');
 Route::post('/pelaporan/setuju/{id}', [PelaporanController::class, 'setuju'])->name('setujui.pelaporan')->middleware('auth');
 Route::post('/pelaporan/tolak/{id}', [PelaporanController::class, 'tolak'])->name('tolak.pelaporan')->middleware('auth');
@@ -52,6 +51,7 @@ Route::delete('/hapusdatalaporan/{id}', [PelaporanController::class, 'hapuslapor
 
 //Route Untuk Mengakses Daftar Laporan Barang
 Route::get('/laporan-barang', [LaporanController::class, 'tampilkanLaporan'])->middleware('auth','role:kaurumum');
+Route::post('/simpanlaporan', [LaporanController::class, 'simpanLaporan'])->name('simpanLaporan')->middleware('auth', 'role:kaurumum');
 Route::get('/lihatdetailbar/{id}', [LaporanController::class, 'lihatlapbar'])->name('lihatlapbar')->middleware('auth', 'role:kaurumum');
 Route::delete('/hapusdetailbar/{id}', [LaporanController::class, 'hapuslapbar'])->name('hapuslapbar')->middleware('auth', 'role:kaurumum');
 Route::put('/updatedetailbar/{id}', [LaporanController::class, 'updatedetailbar'])->name('updatedetailbar')->middleware('auth', 'role:kaurumum');
@@ -64,7 +64,10 @@ Route::post('/cetak-laporan-byruang', [ExportLaporanContoller::class, 'cetak_lap
 Route::post('/cetak-berita-acara', [ExportLaporanContoller::class, 'cetak_berita_acara'])->name('cetak_berita_acara');
 
 //Route Untuk Mengakses Daftar Aset Tanah / Lahan
-Route::get('/tanah', [AsetTanahController::class, 'tampilkanLahan'])->name('tampilkanLahan')->middleware('auth','role:kaurumum');
+Route::get('/lahan', [AsetTanahController::class, 'tampilkanLahan'])->name('tampilkanLahan')->middleware('auth','role:kaurumum');
+Route::post('/simpanlahan', [AsetTanahController::class, 'simpanlahan'])->name('simpanlahan')->middleware('auth', 'role:kaurumum');
+Route::get('/lihatlahan/{id}', [AsetTanahController::class, 'lihatlahan'])->name('lihatlahan')->middleware('auth', 'role:kaurumum');
+Route::delete('/hapuslahan/{id}', [AsetTanahController::class, 'hapuslahan'])->name('hapuslahan')->middleware('auth', 'role:kaurumum');
 
 //Route Untuk Mengakses Daftar Pengguna
 Route::middleware(['auth:sanctum', 'verified','role:sekdes'])->get('/pengguna', [UserController::class, 'indekspengguna'])->name('pengguna');
@@ -74,7 +77,6 @@ Route::get('/pengguna', [UserController::class, 'tampilpengguna'])->name('tampil
 Route::get('/ruangan', [RuangController::class, 'tampilkanRuangan'])->name('tampilkanRuangan')->middleware('auth','role:kaurumum');
 Route::get('/lihatruangan/{id}', [RuangController::class, 'lihatruangan'])->name('lihatruangan')->middleware('auth', 'role:kaurumum');
 Route::put('/updateruangan/{id}', [RuangController::class, 'updateruangan'])->name('updateruangan')->middleware('auth', 'role:kaurumum');
-Route::get('/tambahruangan', [RuangController::class, 'tambahruangan'])->name('tambahruangan')->middleware('auth', 'role:kaurumum');
 Route::post('/simpanruangan', [RuangController::class, 'simpanruangan'])->name('simpanruangan')->middleware('auth', 'role:kaurumum');
 Route::delete('/hapusruangan/{id}', [RuangController::class, 'hapusruangan'])->name('hapusruangan')->middleware('auth', 'role:kaurumum');
 

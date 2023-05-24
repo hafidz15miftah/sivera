@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="/tanah" aria-expanded="false">
+                <a href="/lahan" aria-expanded="false">
                     <i class="fa fa-map"></i><span class="nav-text">Daftar Tanah / Lahan</span>
                 </a>
             </li>
