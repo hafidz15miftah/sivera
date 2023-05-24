@@ -88,6 +88,25 @@ class AsetTanahController extends Controller
         }
     }
 
+    public function updatelahan(Request $request, $id)
+    {
+        $lahan = DataAsetTanahModel::findorfail($id);
+
+        $lahan->nama_obyek = $request->input('nama_obyek');
+        $lahan->no_sertifikat = $request->input('no_sertifikat');
+        $lahan->luas = $request->input('luas');
+        $lahan->alamat = $request->input('alamat');
+        $lahan->kondisi = $request->input('kondisi');
+        $lahan->keterangan = $request->input('keterangan');
+        $lahan->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data lahan berhasil diupdate!',
+            'data' => $lahan
+        ]);
+    }
+
     public function hapuslahan(Request $request, $id)
     {
         $lahan = DataAsetTanahModel::findorfail($id);

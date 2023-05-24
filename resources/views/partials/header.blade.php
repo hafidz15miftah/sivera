@@ -22,12 +22,15 @@
                         <div class="dropdown-content-body">
                             <ul>
                                 <li>
-                                    <a href="/profil"><i class="icon-user"></i> <span>Profil</span></a>
+                                    <a href="/profil"><i class="icon-user"></i> <span>Profil Pengguna</span></a>
+                                </li>
+                                <li>
+                                    <a href="/ubahpassword"><i class="icon-key"></i> <span>Ubah Kata Sandi</span></a>
                                 </li>
 
                                 <hr class="my-2">
                                 <li>
-                                    <a href="javascript(0);" data-toggle="modal" data-target="#modalLogout"><i class="icon-user"></i> <span>Keluar</span></a>
+                                    <a href="javascript(0);" data-toggle="modal" data-target="#modalLogout"><i class="icon-power"></i> <span>Keluar</span></a>
                                 </li>
                             </ul>
                         </div>

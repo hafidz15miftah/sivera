@@ -193,7 +193,7 @@
             <div class="modal-body">
             <input type="hidden" id="id">
                 @csrf
-                <form id="add_barang">
+                <form id="edit_barang">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">

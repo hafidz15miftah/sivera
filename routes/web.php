@@ -36,6 +36,9 @@ Route::get('/sivera', function() {
 Route::get('/profil', function() {
     return view('pages.profile');
 });
+Route::get('/ubahpassword', function() {
+    return view('pages.changepassword');
+});
 
 //Route ke Halaman Pusat Bantuan
 Route::get('/bantuan', function() {
@@ -68,6 +71,7 @@ Route::get('/lahan', [AsetTanahController::class, 'tampilkanLahan'])->name('tamp
 Route::post('/simpanlahan', [AsetTanahController::class, 'simpanlahan'])->name('simpanlahan')->middleware('auth', 'role:kaurumum');
 Route::get('/lihatlahan/{id}', [AsetTanahController::class, 'lihatlahan'])->name('lihatlahan')->middleware('auth', 'role:kaurumum');
 Route::delete('/hapuslahan/{id}', [AsetTanahController::class, 'hapuslahan'])->name('hapuslahan')->middleware('auth', 'role:kaurumum');
+Route::put('/updatelahan/{id}', [AsetTanahController::class, 'updatelahan'])->name('updatelahan')->middleware('auth', 'role:kaurumum');
 
 //Route Untuk Mengakses Daftar Pengguna
 Route::middleware(['auth:sanctum', 'verified','role:sekdes'])->get('/pengguna', [UserController::class, 'indekspengguna'])->name('pengguna');

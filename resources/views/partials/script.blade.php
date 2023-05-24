@@ -783,7 +783,8 @@
                 //show success message
                 Swal.fire({
                     icon: 'success',
-                    title: "Data barang berhasil diperbarui",
+                    title: 'Berhasil Memperbarui Data',
+                    text: "Data barang berhasil diperbarui",
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
@@ -809,6 +810,7 @@
     })
 </script>
 
+<!-- Script Update Detail Data Barang -->
 <script>
     function updateDetailBarang(e) {
         event.preventDefault();
@@ -875,7 +877,8 @@
                 //show success message
                 Swal.fire({
                     icon: 'success',
-                    title: "Detail laporan berhasil diperbarui",
+                    title: 'Berhasil Memperbarui Data',
+                    text: "Detail barang berhasil diperbarui",
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
@@ -898,6 +901,97 @@
                         <td>${response.data.rusak_berat}</td>
                         <td>${response.data.keterangan}</td>
                         <td>${response.data.jumlah}</td>
+                    </tr>
+                `;
+            },
+        })
+    })
+</script>
+
+<!-- Script Update Data Lahan -->
+<script>
+    function updatedatalahan(e) {
+        event.preventDefault();
+        var modal = document.getElementById("edit-lahan");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatlahan")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                //fill data to form
+                $('#edit-lahan #id').val(response[0].id);
+                $('#edit-lahan #nama_obyek').val(response[0].nama_obyek);
+                $('#edit-lahan #alamat').val(response[0].alamat);
+                $('#edit-lahan #no_sertifikat').val(response[0].no_sertifikat);
+                $('#edit-lahan #luas').val(response[0].luas);
+                $('#edit-lahan #kondisi').val(response[0].kondisi);
+                $('#edit-lahan #keterangan').val(response[0].keterangan);
+            }
+        });
+    };
+
+    $('#updatelahan').click(function(e) {
+        e.preventDefault();
+
+        let id = $('#edit-lahan #id').val();
+        let nama_obyek = $('#edit-lahan #nama_obyek').val();
+        let alamat = $('#edit-lahan #alamat').val();
+        let no_sertifikat = $('#edit-lahan #no_sertifikat').val();
+        let luas = $('#edit-lahan #luas').val();
+        let kondisi = $('#edit-lahan #kondisi').val();
+        let keterangan = $('#edit-lahan #keterangan').val();
+
+        $.ajax({
+            url: `{{url("/updatelahan")}}/` + id,
+            type: "PUT",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "nama_obyek": nama_obyek,
+                "alamat": alamat,
+                "no_sertifikat": no_sertifikat,
+                "luas": luas,
+                "kondisi": kondisi,
+                "keterangan": keterangan,
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: "Berhasil Memperbarui Data",
+                    text: 'Data lahan berhasil diperbarui',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-lahan').DataTable().clear().draw();
+                $('#edit-lahan').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                    <td>${response.data.nama_obyek}</td>
+                        <td>${response.data.alamat}</td>
+                        <td>${response.data.no_sertifikat}</td>
+                        <td>${response.data.luas}</td>
+                        <td>${response.data.kondisi}</td>
+                        <td>${response.data.keterangan}</td>
                     </tr>
                 `;
             },
@@ -1309,7 +1403,8 @@
                 if (response.success) {
                     Swal.fire({
                         icon: 'success',
-                        title: "Nama ruangan berhasil diperbarui",
+                        title: 'Berhasil Memperbarui Data',
+                        text: "Nama ruangan berhasil diperbarui",
                         toast: true,
                         position: 'top-end',
                         showConfirmButton: false,
