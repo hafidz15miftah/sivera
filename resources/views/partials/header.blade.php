@@ -26,15 +26,35 @@
                                 </li>
 
                                 <hr class="my-2">
-                                <form id="formlogout" action="{{route('logout')}}" method="POST">
-                                @csrf
-                                <li><a href="javascript:;" onclick="document.getElementById('formlogout').submit();"><i class="icon-key"></i>Keluar</a></li>
-                                </form>
+                                <li>
+                                    <a href="javascript(0);" data-toggle="modal" data-target="#modalLogout"><i class="icon-user"></i> <span>Keluar</span></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Logout -->
+<div class="modal fade" id="modalLogout">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Keluar</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">Apakah Anda yakin akan keluar dari SIVERA?</div>
+            <div class="modal-footer">
+                <button type="button" style="color:white" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <form id="formlogout" action="{{route('logout')}}" method="POST">
+                    @csrf
+                    <button type="button" class="btn btn-primary" onclick="document.getElementById('formlogout').submit();">Keluar Akun</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
