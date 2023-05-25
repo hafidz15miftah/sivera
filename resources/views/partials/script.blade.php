@@ -1565,3 +1565,31 @@
         });
     }
 </script>
+
+<script>
+    $(document).ready(function() {
+        var showToast = "{{ session('showToast') ?? false }}";
+        if (showToast) {
+            var error = "{{ session('error') }}";
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error
+            });
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        var tampilkanBerhasil = "{{ session('tampilkanBerhasil') ?? false }}";
+        if (tampilkanBerhasil) {
+            var successMessage = "{{ session('success') }}";
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: successMessage
+            });
+        }
+    });
+</script>

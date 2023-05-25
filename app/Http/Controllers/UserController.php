@@ -19,4 +19,6 @@ class UserController extends Controller
         $users = DataPenggunaModel::join('roles', 'roles.id', '=', 'users.role_id')->get();
         return view('pages.datatablepengguna', ['users' => $users]);
     }
+
+    
 }

@@ -5,8 +5,8 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportLaporanContoller;
 use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelaporanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\UserController;
 use App\Models\LaporanModel;
@@ -33,12 +33,8 @@ Route::get('/sivera', function() {
 });
 
 //Route ke Halaman Profil
-Route::get('/profil', function() {
-    return view('pages.profile');
-});
-Route::get('/ubahpassword', function() {
-    return view('pages.changepassword');
-});
+Route::get('/profil', [ProfileController::class, 'lihatprofil'])->name('lihatprofil');
+Route::post('/editprofil/{id}', [ProfileController::class, 'editprofil'])->name('editprofil');
 
 //Route ke Halaman Pusat Bantuan
 Route::get('/bantuan', function() {

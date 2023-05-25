@@ -24,9 +24,6 @@
                                 <li>
                                     <a href="/profil"><i class="icon-user"></i> <span>Profil Pengguna</span></a>
                                 </li>
-                                <li>
-                                    <a href="/ubahpassword"><i class="icon-key"></i> <span>Ubah Kata Sandi</span></a>
-                                </li>
 
                                 <hr class="my-2">
                                 <li>

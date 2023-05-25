@@ -16,7 +16,7 @@ class ExportLaporanContoller extends Controller
     public function cetak_semua_barang(){
         $barang = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->get();
         $nama = "SEMUA RUANGAN";
-        $data = Pdf::loadView('pdf.lahan_pdf', ['data' => 'Daftar Inventaris Barang', 'barang' => $barang, 'nama' => $nama]);
+        $data = Pdf::loadView('pdf.barang_pdf', ['data' => 'Daftar Inventaris Barang', 'barang' => $barang, 'nama' => $nama]);
         return $data->stream('semua-barang.pdf');
     }
 

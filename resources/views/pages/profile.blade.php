@@ -6,7 +6,7 @@
     <div class="col p-md-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">Profil</a></li>
-            <li class="breadcrumb-item active"><a href="/profil">Data Pengguna</a></li>
+            <li class="breadcrumb-item active"><a href="/profil">Profil Pengguna</a></li>
         </ol>
     </div>
 </div>
@@ -16,27 +16,41 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Pengguna</h4>
+                <h4 class="card-title">Profil Pengguna</h4>
                 <div class="basic-form">
-                    <form>
+                    <form action="{{ route('editprofil', ['id' => Auth::user()->id]) }}" method="POST">
+                        @csrf
+                        @foreach ($user as $u)
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Nama</label>
-                                <input type="email" class="form-control" placeholder="{{auth()->user()->name}}">
+                                <input type="text" class="form-control" value="{{$u -> name }}" name="name">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>NIP</label>
-                                <input type="password" class="form-control" placeholder="Masukkan NIP...">
+                                <input type="number" class="form-control" value="{{$u -> nip }}" name="nip">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Alamat</label>
-                            <input type="text" class="form-control" placeholder="Masukkan Alamat...">
+                            <input type="text" class="form-control" value="{{$u -> alamat }}" name="alamat">
                         </div>
                         <div class="form-group">
                             <label>Alamat Email</label>
-                            <input type="text" class="form-control" placeholder="Email">
+                            <input type="email" class="form-control" value="{{$u -> email }}" name="email">
                         </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="current_password">Kata Sandi Saat Ini</label>
+                                <input type="password" id="password" name="password" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="new_password">Kata Sandi Baru</label>
+                                <input type="password" id="new_password" name="new_password" class="form-control">
+                            </div>
+                        </div>
+                        @endforeach
                         <button type="submit" class="btn btn-dark">Simpan</button>
                     </form>
                 </div>
