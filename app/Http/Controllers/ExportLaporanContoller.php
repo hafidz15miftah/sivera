@@ -6,6 +6,7 @@ use App\Models\DataAsetTanahModel;
 use App\Models\DataBarangModel;
 use App\Models\LaporanModel;
 use App\Models\Ruang;
+use App\Models\VerifikasiLaporanModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +25,26 @@ class ExportLaporanContoller extends Controller
         $stiker = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->get();
         $data = Pdf::loadView('pdf.kode_barang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');;
         return $data->stream('cetak-stiker-all.pdf');
+    }
+
+    public function cetak_stiker_one(Request $request){
+        $selectedBarang =  $request->input('selected_barang');
+        $stiker = DataBarangModel::select(
+            'barangs.kode_barang',
+            'barangs.nama_barang',
+            'ruangs.nama_ruang',
+        )
+        ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
+        ->where('.barang_id', '=', $selectedBarang)
+        ->get();
+        $data = Pdf::loadView('pdf.kode_barang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');;
+        return $data->stream('cetak-stiker-bybarang.pdf');
+    }
+
+    public function cetak_verifikasi_all(){
+        $verifikasi = VerifikasiLaporanModel::all();
+        $data = Pdf::loadView('pdf.laporan_pdf', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A5');;
+        return $data->stream('cetak-verifikasi-all.pdf');
     }
 
     public function cetak_semua_aset(){
@@ -156,6 +177,6 @@ class ExportLaporanContoller extends Controller
 
         $data = Pdf::loadView('pdf.berita_acara', ['data' => 'Daftar Inventaris Barang', 'berita' => $berita, 'rusak_ringan' => $rusak_ringan, 'rusak_berat' => $rusak_berat])->setPaper('A4', 'potrait');
         // $data->render();
-        return $data->download('berita_acara.pdf', ['Attachment' => false]);
+        return $data->stream('berita_acara.pdf', ['Attachment' => false]);
     }
 }

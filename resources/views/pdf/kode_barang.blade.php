@@ -9,7 +9,7 @@
 
 <style>
     body {
-        font-size: 11px;
+        font-size: 13px;
         font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -38,19 +38,19 @@
                 @foreach($stiker as $key => $b)
                 <table border="1" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td rowspan="4"><img src="images/cilacap.png" width="75px"></td>
-                        <td colspan="2" class="center-text">BARANG MILIK PEMERINTAH DESA KEDAWUNG</td>
+                        <td rowspan="4" class="center-text" style="width: 80px; height: 80px"><img src="images/cilacap.png" width="50px"></td>
+                        <td colspan="2" class="center-text" style="width: 600px;">BARANG MILIK PEMERINTAH DESA KEDAWUNG</td>
                     </tr>
                     <tr>
-                        <th>Nama Barang</th>
+                        <th style="width: 100px;">Nama Barang</th>
                         <td>{{ $b->nama_barang }}</td>
                     </tr>
                     <tr>
-                        <th>Kode Barang</th>
+                        <th style="width: 100px;">Kode Barang</th>
                         <td>{{ $b->kode_barang }}</td>
                     </tr>
                     <tr>
-                        <th>Ruang</th>
+                        <th style="width: 100px;">Ruang</th>
                         <td>{{ $b->nama_ruang }}</td>
                     </tr>
                 </table>

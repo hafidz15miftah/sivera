@@ -29,12 +29,59 @@
         .ttd {
             text-align: right;
         }
+
+        .kop-surat {
+            margin-bottom: 30px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            border-bottom: 3px solid #000;
+            padding-bottom: 10px;
+        }
+
+        .logo {
+            float: left;
+            margin-right: 20px;
+        }
+
+        .logo img {
+            width: 80px;
+        }
+
+        .pemkab-name {
+            margin: 2;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .desa-name {
+            margin: 4;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .desa-address {
+            margin: 0;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-    <h2 style="justify-content: center; text-align: center; font-family: 'Times New Roman', Times, serif;">BERITA ACARA BARANG RUSAK</h2>
-    <P style="text-indent: 30px; font-size: 14px; font-family: 'Times New Roman', Times, serif;"> Pada hari ini {{ Carbon\Carbon::now()->locale('id')->translatedFormat('l') }}, tanggal {{ Carbon\Carbon::now()->locale('id')->translatedFormat('d M Y') }} telah dilaksanakan
-    inventarisasi ulang atas aset/barang yang ada di Pemerintah Desa Kedawung, Kecamatan Kroya, Kabupaten Cilacap, Provinsi Jawa Tengah. Adapun hasil inventarisasi mengenai keberadaan barang di bawah ini diyakini RUSAK :</P>
+    <div class="kop-surat">
+        <div class="logo">
+        <img src="images/cilacap.png">
+        </div>
+        <div class="desa-info">
+            <h1 class="pemkab-name">PEMERINTAH KABUPATEN CILACAP</h1>
+            <h1 class="pemkab-name">KECAMATAN KROYA</h1>
+            <h1 class="desa-name">DESA KEDAWUNG</h1>
+            <p class="desa-address">Jl. Jend. A. Yani Desa Kedawung, Kecamatan Kroya, Kabupaten Cilacap, Jawa Tengah 53282</p>
+        </div>
+    </div>
+    <h2 style="text-align: center; font-family: Arial, sans-serif">BERITA ACARA BARANG RUSAK</h2>
+    <p style="text-indent: 30px; font-size: 14px; font-family: Arial, sans-serif">
+        Pada hari ini {{ Carbon\Carbon::now()->locale('id')->translatedFormat('l') }},
+        tanggal {{ Carbon\Carbon::now()->locale('id')->translatedFormat('d M Y') }} telah dilaksanakan inventarisasi ulang atas aset/barang yang ada di Pemerintah Desa Kedawung, Kecamatan Kroya, Kabupaten Cilacap, Provinsi Jawa Tengah. Adapun hasil inventarisasi mengenai keberadaan barang di bawah ini diyakini RUSAK:
+    </p>
 
     <br>
     <table>

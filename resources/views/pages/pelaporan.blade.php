@@ -67,6 +67,7 @@
                         <h4 class="card-title">Daftar Pelaporan</h4>
                         <button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#tambah-pelaporan"><i class="fa fa-plus"></i> Tambah Pelaporan</button>
+                            <a class="btn btn-success" style="color:white" href="{{url('cetak-semua-verifikasi')}}"><i class="fa fa-print"></i> Cetak Barang</a>
                         <div class="table-responsive">
                             <table id="tabel-pelaporan" class="table table-striped table-bordered zero-configuration">
                                 <thead>

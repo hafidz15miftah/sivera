@@ -2,11 +2,11 @@
 <html>
 
 <head>
-    <title>Laporan Barang Rusak</title>
+    <title>Laporan Barang Rusak Terverifikasi</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         table {
@@ -28,30 +28,36 @@
 </head>
 
 <body>
-    <h2 style="justify-content: center; text-align: center">DAFTAR PELAPORAN BARANG RUSAK</h2>
-    <h2 style="justify-content: center; text-align: center">TAHUN {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
+    <h2 style="justify-content: center; text-align: center">REKAP PELAPORAN BARANG RUSAK</h2>
+    <h2 style="justify-content: center; text-align: center">{{ strtoupper(\Carbon\Carbon::now()->translatedFormat('M')) }} {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
     <hr>
-    <h3>RUANGAN: {{ $nama }}</h3>
     <table>
         <thead>
             <tr>
-                <th style="border: 1px solid #000; background-color: white;">NO</th>
-                <th style="border: 1px solid #000; background-color: white;">NAMA BARANG</th>
-                <th style="border: 1px solid #000; background-color: white;">KODE BARANG</th>
-                <th style="border: 1px solid #000; background-color: white;">NAMA RUANGAN</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">NO</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">NAMA LAPORAN</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">TANGGAL LAPORAN</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">STATUS</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($barang as $b)
+            @foreach ($verifikasi as $b)
             <tr>
-                <td style="border: 1px solid #000;">{{ $loop->iteration }}</td>
-                <td style="border: 1px solid #000;  width: 30%;">{{ $b->nama_barang }}</td>
-                <td style="border: 1px solid #000;">{{ $b->kode_barang }}</td>
-                <td style="border: 1px solid #000;">{{ $b->nama_ruang }}</td>
+                <td style="border: 1px solid #000; text-align: center;">{{ $loop->iteration }}</td>
+                <td style="border: 1px solid #000;">{{ $b->nama_laporan }}</td>
+                <td style="border: 1px solid #000; text-align: center;">{{ $b->tanggal_dilaporkan }}</td>
+                <td style="border: 1px solid #000;">@if($b->status == 0)
+                    Ditolak
+                    @elseif($b->status == 1)
+                    Menunggu Verifikasi Sekretaris Desa
+                    @elseif($b->status == 2)
+                    Menunggu Persetujuan Kepala Desa
+                    @else
+                    Disetujui
+                    @endif</td>
             </tr>
-        @endforeach
+            @endforeach
         </tbody>
     </table>
 </body>
-
 </html>

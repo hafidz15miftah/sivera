@@ -5,6 +5,10 @@
 <script src="js/styleSwitcher.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- DataTable -->
+<script src="/plugins/tables/js/jquery.dataTables.min.js"></script>
+<script src="/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
 
 <!-- Chartjs -->
@@ -12,10 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels"></script>
 <!-- Circle progress -->
 <script src="/plugins/circle-progress/circle-progress.min.js"></script>
-<!-- DataTable -->
-<script src="/plugins/tables/js/jquery.dataTables.min.js"></script>
-<script src="/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
-<script src="/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
 <!-- SweetAlert -->
 <script src="{{ asset('/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
@@ -37,7 +38,7 @@
                 },
                 {
                     data: 'nama_ruang',
-                    name: 'nama_ruang'
+                    name: 'nama_ruang',
                 },
                 {
                     data: 'aksi',
@@ -109,7 +110,7 @@
                 },
                 {
                     data: 'nama_ruang',
-                    name: 'nama_ruang'
+                    name: 'nama_ruang',
                 },
                 {
                     data: 'aksi',
@@ -131,15 +132,21 @@
             destroy: true,
             columns: [{
                     data: 'kode_barang',
-                    name: 'kode_barang'
+                    name: 'kode_barang',
+                    orderable: false,
+                    searchable: false
                 },
                 {
                     data: 'nama_barang',
-                    name: 'nama_barang'
+                    name: 'nama_barang',
+                    orderable: false,
+                    searchable: false
                 },
                 {
                     data: 'nama_ruang',
-                    name: 'nama_ruang'
+                    name: 'nama_ruang',
+                    orderable: false,
+                    searchable: false
                 },
                 {
                     data: 'baik',
