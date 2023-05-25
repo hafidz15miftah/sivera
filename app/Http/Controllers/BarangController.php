@@ -32,8 +32,8 @@ class BarangController extends Controller
             return DataTables::of($barang)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' onclick='lihatdata(this)'><i class='fa fa-eye'></i>Lihat</button>";
-                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' onclick='lihatdatabarang(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
+                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' style='margin-right: 3px;' onclick='lihatdata(this)'><i class='fa fa-eye'></i>Lihat</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-right: 3px;' onclick='lihatdatabarang(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
                     $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteDataBarang(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
 
                     return $tombol;

@@ -71,10 +71,10 @@
                             <table id="tabel-pelaporan" class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center" width="2%">No</th>
-                                        <th style="text-align: center" width="30%">Nama Laporan</th>
-                                        <th style="text-align: center" width="19%">Tanggal Dilaporkan</th>
-                                        <th style="text-align: center" width="19%">Status</th>
+                                        <th style="text-align: center">No</th>
+                                        <th style="text-align: center">Nama Laporan</th>
+                                        <th style="text-align: center">Tanggal Dilaporkan</th>
+                                        <th style="text-align: center" width="20%">Status</th>
                                         <th style="text-align: center" width="30%">Aksi</th>
                                     </tr>
                                 </thead>

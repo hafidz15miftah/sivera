@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Tunggono',
             'email' => 'kaurumum@gmail.com',
-            'nip' => '0',
+            'nip' => '',
             'alamat' => 'Jl. Mangga',
             'password' => Hash::make('tes'),
             'role_id' => 2,
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'H. Warso',
             'email' => 'kepdes@gmail.com',
-            'nip' => '0',
+            'nip' => '',
             'alamat' => 'Jl. Jeruk Manis',
             'password' => Hash::make('tes'),
             'role_id' => 3,

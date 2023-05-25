@@ -52,9 +52,9 @@ class PelaporanController extends Controller
                             $tombol .= "<button data-id='$row->id' class='btn btn-danger btn-sm text-white' onclick='tolakLaporan(this)'><i class='fa fa-times'></i>Tolak</button>";
                         }
                     } else {
-                        $tombol = "<a href='" . asset('storage/' . $row->path) . "' target='_blank' class='btn btn-primary btn-sm text-white'><i class='fa fa-eye'></i>Lihat</a>";
-                        $tombol .= "<a href='" . asset('storage/' . $row->gambar) . "' target='_blank' class='btn btn-success btn-sm text-white'><i class='fa fa-picture-o'></i>Gambar</a>";
-                        $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_laporan' onclick='deleteDataLaporan(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
+                        $tombol = "<a href='" . asset('storage/' . $row->path) . "' target='_blank' class='btn btn-primary btn-sm text-white' style='margin-right: 3px;'><i class='fa fa-eye'></i>Lihat</a>";
+                        $tombol .= "<a href='" . asset('storage/' . $row->gambar) . "' target='_blank' class='btn btn-success btn-sm text-white' style='margin-right: 3px;'><i class='fa fa-picture-o'></i>Gambar</a>";
+                        $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_laporan' onclick='deleteDataLaporan(this)' class='btn btn-danger btn-sm' style='margin-right: 3px;'><i class='fa fa-trash'></i>Hapus</button>";
                     }
 
                     return $tombol;

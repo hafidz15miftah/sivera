@@ -25,10 +25,10 @@
                         <table id="tabel-barang" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th width="35%">Nama Barang</th>
-                                    <th width="20%">Kode Barang</th>
-                                    <th width="20%">Ruang</th>
-                                    <th width="25%">Aksi</th>
+                                    <th width="35%" class="text-center">Nama Barang</th>
+                                    <th width="20%" class="text-center">Kode Barang</th>
+                                    <th width="20%" class="text-center">Ruang</th>
+                                    <th width="25%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

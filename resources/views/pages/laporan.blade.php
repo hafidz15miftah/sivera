@@ -302,14 +302,14 @@
                         <table id="tabel-laporan" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th>Kode Barang</th>
-                                    <th>Nama Barang</th>
-                                    <th>Ruang</th>
-                                    <th>Kondisi Baik</th>
-                                    <th>Kondisi Rusak Ringan</th>
-                                    <th>Kondisi Rusak Berat</th>
-                                    <th>Jumlah</th>
-                                    <th>Aksi</th>
+                                    <th class="text-center">Kode Barang</th>
+                                    <th class="text-center">Nama Barang</th>
+                                    <th class="text-center">Ruang</th>
+                                    <th class="text-center">Kondisi Baik</th>
+                                    <th class="text-center">Kondisi Rusak Ringan</th>
+                                    <th class="text-center">Kondisi Rusak Berat</th>
+                                    <th class="text-center">Jumlah</th>
+                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

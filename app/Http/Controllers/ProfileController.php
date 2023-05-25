@@ -23,7 +23,6 @@ class ProfileController extends Controller
     public function editprofil(Request $request, $id)
     {
         $validated = Validator::make($request->all(), [
-            'nip' => 'required',
             'email' => 'required|unique:users,email,'.$id,
             'name' => 'required',
             'alamat' => 'required',
@@ -31,7 +30,6 @@ class ProfileController extends Controller
             'new_password' => 'nullable|min:5',
         ], [
             'name.required' => 'Nama harus diisi',
-            'nip.required' => 'NIP harus diisi',
             'email.required' => 'Email harus diisi',
             'email.unique' => 'Email sudah digunakan',
             'alamat.required' => 'Alamat harus diisi',

@@ -38,9 +38,9 @@ class LaporanController extends Controller
             return DataTables::of($laporan)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' onclick='lihatlapbar(this)'><i class='fa fa-eye'></i>Lihat</button>";
-                    $tombol .= "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' onclick='updateDetailBarang(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
-                    $tombol .= "<button data-id='$row->id' class='btn btn-danger btn-sm text-white' onclick='deleteDetailBarang(this)'><i class='fa fa-trash'></i>Hapus</button>";
+                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' style='width:50px;' onclick='lihatlapbar(this)'><i class='fa fa-eye'></i>Lihat</button>";
+                    $tombol .= "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-top: 3px; width:50px;' onclick='updateDetailBarang(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
+                    $tombol .= "<button data-id='$row->id' class='btn btn-danger btn-sm text-white' style='margin-top: 3px; width:50px;' onclick='deleteDetailBarang(this)'><i class='fa fa-trash'></i>Hapus</button>";
 
                     return $tombol;
                 })

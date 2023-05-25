@@ -24,9 +24,9 @@
                         <table id="tabel-ruangan" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th>ID Ruang</th>
-                                    <th>Nama Ruang</th>
-                                    <th>Aksi</th>
+                                    <th class="text-center">ID Ruang</th>
+                                    <th class="text-center">Nama Ruang</th>
+                                    <th class="text-center" width="20%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

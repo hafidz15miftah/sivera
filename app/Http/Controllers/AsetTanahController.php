@@ -16,8 +16,8 @@ class AsetTanahController extends Controller
             return DataTables::of($lahan)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' onclick='lihatdatalahan(this)'><i class='fa fa-eye'></i>Lihat</button>";
-                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' onclick='updatedatalahan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
+                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' style='margin-right: 3px;' onclick='lihatdatalahan(this)'><i class='fa fa-eye'></i>Lihat</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-right: 3px;' onclick='updatedatalahan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
                     $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_obyek' onclick='deleteDataLahan(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
 
                     return $tombol;

@@ -23,7 +23,7 @@ class RuangController extends Controller
             return DataTables::of($ruang)
             ->addIndexColumn()
             ->addColumn('aksi', function ($row) {
-                $tombol = "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' onclick='lihatruangan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
+                $tombol = "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-right: 3px;' onclick='lihatruangan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
                 $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_ruang' onclick='deleteDataRuangan(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
 
                 return $tombol;

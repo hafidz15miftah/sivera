@@ -25,12 +25,12 @@
                         <table id="tabel-tanah" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th>Nama Obyek</th>
-                                    <th>Alamat</th>
-                                    <th>No. Sertifikat</th>
-                                    <th>Luas</th>
-                                    <th>Kondisi</th>
-                                    <th>Aksi</th>
+                                    <th class="text-center">Nama Obyek</th>
+                                    <th class="text-center">Alamat</th>
+                                    <th class="text-center">No. Sertifikat</th>
+                                    <th class="text-center">Luas</th>
+                                    <th class="text-center">Kondisi</th>
+                                    <th width="28%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
