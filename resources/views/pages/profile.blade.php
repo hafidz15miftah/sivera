@@ -27,7 +27,7 @@
                                 <input type="text" class="form-control" value="{{$u -> name }}" name="name">
                             </div>
                             <div class="form-group col-md-6">
-                                <label>NIP</label>
+                                <label>NIP / NIPD / NIKD</label>
                                 <input type="number" class="form-control" value="{{$u -> nip }}" name="nip">
                             </div>
                         </div>

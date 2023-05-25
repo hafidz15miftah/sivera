@@ -21,14 +21,15 @@
                     <h4 class="card-title">Daftar Barang</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-barang"><i class="fa fa-plus"></i> Tambah Barang</button>
                     <a class="btn btn-success" style="color:white" href="{{url('cetakbarang')}}"><i class="fa fa-print"></i> Cetak Barang</a>
+                    <a class="btn btn-warning" style="color:white" href="{{url('cetak-semua-stiker')}}"><i class="fa fa-print"></i> Cetak Stiker</a>
                     <div class="table-responsive">
                         <table id="tabel-barang" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th width="35%" class="text-center">Nama Barang</th>
+                                    <th width="25%" class="text-center">Nama Barang</th>
                                     <th width="20%" class="text-center">Kode Barang</th>
-                                    <th width="20%" class="text-center">Ruang</th>
-                                    <th width="25%" class="text-center">Aksi</th>
+                                    <th width="25%" class="text-center">Ruang</th>
+                                    <th width="30%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

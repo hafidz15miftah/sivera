@@ -4,7 +4,7 @@
             <li class="nav-label">MENU UTAMA</li>
             <li>
                 <a href="/dashboard" aria-expanded="false">
-                    <i class="fa fa-home"></i><span class="nav-text">Dasbor</span>
+                    <i class="fa fa-home"></i><span class="nav-text">Beranda</span>
                 </a>
             </li>
             @if(auth()->user()->role_id == 1)

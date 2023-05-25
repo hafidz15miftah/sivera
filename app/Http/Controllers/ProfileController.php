@@ -62,6 +62,6 @@ class ProfileController extends Controller
             $user->password = Hash::make($request->new_password);
         }
         $user->save();
-        return redirect()->route('index')->with(['success' => 'Profil berhasil diupdate', 'tampilkanBerhasil' => true]);
+        return redirect()->route('lihatprofil')->with(['tampilkanBerhasil' => true]);
     }
 }

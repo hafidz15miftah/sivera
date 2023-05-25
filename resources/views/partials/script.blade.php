@@ -1573,7 +1573,12 @@
             var error = "{{ session('error') }}";
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
+                title: 'Gagal Mengubah Kata Sandi',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 3000,
                 text: error
             });
         }
@@ -1587,8 +1592,13 @@
             var successMessage = "{{ session('success') }}";
             Swal.fire({
                 icon: 'success',
-                title: 'Success',
-                text: successMessage
+                title: 'Berhasil Mengubah Profil',
+                text: 'Data profil berhasil diperbarui',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 3000,
             });
         }
     });

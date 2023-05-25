@@ -20,6 +20,12 @@ class ExportLaporanContoller extends Controller
         return $data->stream('semua-barang.pdf');
     }
 
+    public function cetak_stiker_all(){
+        $stiker = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->get();
+        $data = Pdf::loadView('pdf.kode_barang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');;
+        return $data->stream('cetak-stiker-all.pdf');
+    }
+
     public function cetak_semua_aset(){
         $lahan = DataAsetTanahModel::query()->get();
         $data = Pdf::loadView('pdf.lahan_pdf', ['data' => 'Daftar Inventaris Barang', 'lahan' => $lahan]);

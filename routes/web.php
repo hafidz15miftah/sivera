@@ -56,6 +56,7 @@ Route::delete('/hapusdetailbar/{id}', [LaporanController::class, 'hapuslapbar'])
 Route::put('/updatedetailbar/{id}', [LaporanController::class, 'updatedetailbar'])->name('updatedetailbar')->middleware('auth', 'role:kaurumum');
 //Route untuk Melakukan Export / Cetak Data Barang
 Route::get('/cetakbarang', [ExportLaporanContoller::class, 'cetak_semua_barang']);
+Route::get('/cetak-semua-stiker', [ExportLaporanContoller::class, 'cetak_stiker_all'])->name('cetak_stiker_all');
 Route::get('/cetak-laporan', [ExportLaporanContoller::class, 'cetak_semua_laporan'])->name('cetak_semua_laporan');
 Route::post('/cetak-laporan-bybarang', [ExportLaporanContoller::class, 'cetak_laporan_bybarang'])->name('cetak_laporan_bybarang');
 Route::post('/cetak-laporan-bytanggal', [ExportLaporanContoller::class, 'cetak_laporan_bytanggal'])->name('cetak_laporan_bytanggal');
