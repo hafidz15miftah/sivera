@@ -620,6 +620,104 @@
     });
 </script>
 
+<!-- Script Tambah Data Pengguna -->
+<script>
+    //button create post event
+    $('body').on('click', '#simpanpengguna', function() {
+        //open modal
+        $('#tambah-pengguna').modal('show');
+    });
+
+    //action create post
+    $('#simpanpengguna').click(function(e) {
+        e.preventDefault();
+
+        //define variable
+        let name = $('#name').val();
+        let nip = $('#nip').val();
+        let email = $('#email').val();
+        let alamat = $('#alamat').val();
+        let password = $('#password').val();
+        let role_id = $('#role_id').val();
+
+        //ajax
+        $.ajax({
+            url: `{{url('/pengguna/simpan')}}`,
+            type: "POST",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "name": name,
+                "nip": nip,
+                "email": email,
+                "alamat": alamat,
+                "password": password,
+                "role_id": role_id,
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: "Pengguna sistem berhasil ditambahkan",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                //Reset Data Form Setelah Simpan Berhasil
+                $('#role_id').prop('selectedIndex', 0);
+                $('#name').val('');
+                $('#nip').val('');
+                $('#email').val('');
+                $('#alamat').val('');
+                $('#password').val('');
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-pengguna').DataTable().clear().draw();
+                $('#tambah-pengguna').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.name}</td>
+                        <td>${response.data.nip}</td>
+                        <td>${response.data.alamat}</td>
+                        <td>${response.data.email}</td>
+                        <td>${response.data.password}</td>
+                        <td>${response.data.role_id}</td>
+                    </tr>
+                `;
+            },
+            error: function(response) {
+                // Parse the JSON response
+                var errorData = JSON.parse(response.responseText);
+
+                // Access the errors array
+                var errors = errorData.errors;
+
+                // Get the error message
+                var errorMessage = errors;
+
+                Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: errorMessage,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+            }
+        });
+    });
+</script>
+
 <!-- Script Lihat Data Barang -->
 <script>
     function lihatdata(e) {

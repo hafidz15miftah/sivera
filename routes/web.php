@@ -67,8 +67,9 @@ Route::delete('/hapuslahan/{id}', [AsetTanahController::class, 'hapuslahan'])->n
 Route::put('/updatelahan/{id}', [AsetTanahController::class, 'updatelahan'])->name('updatelahan')->middleware('auth', 'role:kaurumum');
 
 //Route Untuk Mengakses Daftar Pengguna
-Route::middleware(['auth:sanctum', 'verified','role:sekdes'])->get('/pengguna', [UserController::class, 'indekspengguna'])->name('pengguna');
 Route::get('/pengguna', [UserController::class, 'tampilpengguna'])->name('tampilpengguna')->middleware('auth','role:sekdes');
+Route::post('/pengguna/simpan', [UserController::class, 'simpanpengguna'])->name('simpanpengguna')->middleware('auth', 'role:sekdes');
+Route::delete('/pengguna/hapus/{id}', [UserController::class, 'hapuspengguna'])->name('hapuspengguna')->middleware('auth', 'role:sekdes');
 
 //Route Untuk Mengakses Daftar Ruangan
 Route::get('/ruangan', [RuangController::class, 'tampilkanRuangan'])->name('tampilkanRuangan')->middleware('auth','role:kaurumum');
@@ -91,10 +92,4 @@ Route::get('/pengguna', [UserController::class, 'tampilkanPengguna'])->name('tam
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('index')->middleware('auth', 'verified');
-
-//Route Untuk Membuka Halaman Dasbor
-// Route::get('/dashboard', function () {
-//     return view('pages.dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 require __DIR__.'/auth.php';

@@ -1,4 +1,4 @@
-<title>Daftar Aset Tanah/Lahan &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
+<title>Aset Tanah/Lahan &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 @extends('layouts.app-layout')
 
 @section('content')
@@ -7,7 +7,7 @@
     <div class="col p-md-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
-            <li class="breadcrumb-item active"><a href="/aset">Daftar Tanah / Lahan</a></li>
+            <li class="breadcrumb-item active"><a href="/aset">Aset Tanah / Lahan</a></li>
         </ol>
     </div>
 </div>
@@ -18,7 +18,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Daftar Aset Tanah/Lahan</h4>
+                    <h4 class="card-title">Aset Tanah/Lahan</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-lahan"><i class="fa fa-plus"></i> Tambah Aset Tanah / Lahan</button>
                     <a class="btn btn-warning" style="color:white" href="{{url('lahan/cetak/semua')}}"><i class="fa fa-print"></i> Cetak Data Aset Tanah / Lahan</a>
                     <div class="table-responsive">

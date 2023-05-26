@@ -11,7 +11,7 @@
             <li class="nav-label">FUNGSIONAL SISTEM</li>
             <li>
                 <a href="/pengguna" aria-expanded="false">
-                    <i class="fa fa-users"></i><span class="nav-text">Pengguna</span>
+                    <i class="icon-people menu-icon"></i><span class="nav-text">Daftar Pengguna</span>
                 </a>
             </li>
             @endif
@@ -25,7 +25,7 @@
                 <ul aria-expanded="false">
                     <li><a href="/ruangan">Data Ruangan</a></li>
                     <li><a href="/barang">Daftar Barang</a></li>
-                    <li><a href="/detail">Laporan Detail Barang</a></li>
+                    <li><a href="/detail">Detail Barang dan Laporan</a></li>
                 </ul>
             </li>
             <li>

@@ -14,15 +14,18 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
+     * 
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
     protected $fillable = [
         'name',
         'email',
         'nip',
         'alamat',
         'password',
+        'role_id'
     ];
 
     /**
@@ -43,4 +46,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'role_id', 'id');
+    }
 }

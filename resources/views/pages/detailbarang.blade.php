@@ -1,12 +1,13 @@
-<title>Laporan Detail Barang &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
+<title>Detail Barang dan Laporan &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 @extends('layouts.app-layout')
 
 @section('content')
 <div class="row page-titles mx-0">
     <div class="col p-md-0">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Cetak Data</a></li>
-            <li class="breadcrumb-item active"><a href="/laporan-barang">Laporan Data Barang</a></li>
+        <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
+            <li class="breadcrumb-item"><a href="#">Aset Barang</a></li>
+            <li class="breadcrumb-item active"><a href="/barang">Detail Barang dan Laporan</a></li>
         </ol>
     </div>
 </div>
@@ -294,7 +295,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Laporan Detail Barang</h4>
+                    <h4 class="card-title">Detail Barang dan Laporan</h4>
                     <button type="button" class="btn btn-primary" style="color:white" data-toggle="modal" data-target="#tambah-laporan"><i class="fa fa-plus"></i> Tambah Detail Barang</button>
                     <button class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#downloadModal"><i class="fa fa-print"></i> Cetak Laporan Barang</button>
                     <button class="btn btn-danger" style="color:white" data-toggle="modal" data-target="#BeritaAcaraModal"><i class="fa fa-print"></i> Cetak Berita Acara</button>

@@ -7,6 +7,7 @@
     <div class="col p-md-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
+            <li class="breadcrumb-item"><a href="#">Aset Barang</a></li>
             <li class="breadcrumb-item active"><a href="/barang">Daftar Barang</a></li>
         </ol>
     </div>

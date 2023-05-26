@@ -60,7 +60,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Daftar Pelaporan</h4>
+                    <h4 class="card-title">Daftar Laporan</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-pelaporan"><i class="fa fa-plus"></i> Tambah Pelaporan</button>
                     @if (Auth::user()->role_id == 2)
                     <a class="btn btn-warning" style="color:white" href="{{ url('pelaporan/cetak/bulanan') }}"><i class="fa fa-print"></i> Laporan Bulan Ini</a>

@@ -7,6 +7,7 @@
     <div class="col p-md-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
+            <li class="breadcrumb-item"><a href="#">Aset Barang</a></li>
             <li class="breadcrumb-item active"><a href="/ruangan">Data Ruangan</a></li>
         </ol>
     </div>
@@ -75,20 +76,20 @@
                 </button>
             </div>
             <div class="modal-body">
-            <input type="hidden" id="id">
+                <input type="hidden" id="id">
                 @csrf
                 <form id="edit_ruangan">
-                <form>
-                    <div class="form-group">
-                        <label for="nama_ruang" class="col-form-label">Nama Ruangan:</label>
-                        <input type="text" class="form-control" data-id="" name="nama_ruang" id="nama_ruang" require>
-                        <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_ruang"></div>
-                    </div>
-                </form>
+                    <form>
+                        <div class="form-group">
+                            <label for="nama_ruang" class="col-form-label">Nama Ruangan:</label>
+                            <input type="text" class="form-control" data-id="" name="nama_ruang" id="nama_ruang" require>
+                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_ruang"></div>
+                        </div>
+                    </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="updateruangan" >Update</button>
+                <button type="button" class="btn btn-primary" id="updateruangan">Update</button>
             </div>
         </div>
     </div>

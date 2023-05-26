@@ -47,7 +47,7 @@ class LaporanController extends Controller
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
-        return view('pages.laporan', compact('barang', 'ruang'));
+        return view('pages.detailbarang', compact('barang', 'ruang'));
     }
 
     public function simpanLaporan(Request $request)
