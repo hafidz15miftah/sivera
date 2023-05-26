@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\VerifikasiLaporanModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -158,10 +159,15 @@ class PelaporanController extends Controller
 
     public function hapuslaporan(Request $request, $id)
     {
-        $laporan = VerifikasiLaporanModel::findorfail($id);
+        $laporan = VerifikasiLaporanModel::findOrFail($id);
         if ($request->ajax()) {
             if ($laporan) {
+                // Menghapus file terkait
+                Storage::delete($laporan->url); // Ganti "url" dengan atribut yang menyimpan URL pada model laporan Anda
+                
+                // Menghapus data laporan
                 $laporan->delete();
+                
                 return response()->json([
                     'success' => true,
                     'message' => 'Data laporan ' . $laporan->nama_laporan . ' berhasil dihapus.'
@@ -172,6 +178,6 @@ class PelaporanController extends Controller
                 'message' => 'Data tidak ditemukan.'
             ]);
         }
-    }
+    }    
 
 }
