@@ -37,7 +37,7 @@
                                 <p>Halaman yang Anda cari tidak tersedia, pastikan alamat yang Anda masukkan benar</p>
                                 <form class="mt-5 mb-5">
                                     
-                                    <div class="text-center mb-4 mt-4"><a href="/dashboard" class="btn btn-primary">Kembali ke Dasbor</a>
+                                    <div class="text-center mb-4 mt-4"><a href="/dashboard" class="btn btn-primary">Kembali ke Halaman Awal</a>
                                     </div>
                                 </form>
                                 <div class="text-center">

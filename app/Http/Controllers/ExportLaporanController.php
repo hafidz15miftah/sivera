@@ -11,16 +11,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ExportLaporanContoller extends Controller
+class ExportLaporanController extends Controller
 {
-    //Cetak Semua Barang
-    public function cetak_semua_barang(){
-        $barang = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->get();
-        $nama = "SEMUA RUANGAN";
-        $data = Pdf::loadView('pdf.barang_pdf', ['data' => 'Daftar Inventaris Barang', 'barang' => $barang, 'nama' => $nama]);
-        return $data->stream('semua-barang.pdf');
-    }
-
     public function cetak_stiker_all(){
         $stiker = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->get();
         $data = Pdf::loadView('pdf.kode_barang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');;

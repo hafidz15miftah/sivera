@@ -20,8 +20,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Barang</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-barang"><i class="fa fa-plus"></i> Tambah Barang</button>
-                    <a class="btn btn-success" style="color:white" href="{{url('cetakbarang')}}"><i class="fa fa-print"></i> Cetak Barang</a>
-                    <a class="btn btn-warning" style="color:white" href="{{url('cetak-semua-stiker')}}"><i class="fa fa-print"></i> Cetak Stiker</a>
+                    <a class="btn btn-success" style="color:white" href="{{url('cetak-semua-stiker')}}"><i class="fa fa-print"></i> Cetak Stiker</a>
                     <div class="table-responsive">
                         <table id="tabel-barang" class="table table-striped table-bordered zero-configuration">
                             <thead>
@@ -120,7 +119,7 @@
                 <form id="edit_barang">
                 <div class="form-row">
                         <label for="ruang" class="col-form-label">Ruang:</label>
-                        <select class="form-control" id="ruang_id" name="ruang" require>
+                        <select class="form-control" id="ruang_id" name="ruang" require disabled>
                             <option value="">Silahkan Pilih ...</option>
                             @foreach($ruang as $r)
                             <option value="{{ $r->id }}" name="ruang_id" id="ruang_id">{{ $r->nama_ruang }}</option>
