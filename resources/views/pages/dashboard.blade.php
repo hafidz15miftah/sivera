@@ -1,4 +1,4 @@
-<title>Dasbor &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
+<title>Beranda &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 @extends('layouts.app-layout')
 
 @section('content')

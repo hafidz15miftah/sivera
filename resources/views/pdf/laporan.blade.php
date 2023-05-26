@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,7 @@
     <style>
         table {
             border-collapse: collapse;
+            font-size: 12px; /* ukuran teks dalam tabel */
         }
         table, th, td {
             border: 1px solid black;
@@ -19,28 +19,52 @@
             background-color: #ffffff00;
             color: black;
         }
+
+        .nama-ruang {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .cetak-info {
+            font-family: Arial, sans-serif;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 10px;
+        }
+        .judul {
+            font-size: 18px; /* ukuran teks judul */
+            text-align: center;
+        }
+        .tahun {
+            font-size: 18px; /* ukuran teks tahun */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h2 style="justify-content: center; text-align: center">DAFTAR INVENTARIS BARANG</h2>
-    <h2 style="justify-content: center; text-align: center">TAHUN 2023</h2>
+    <h2 class="judul">DAFTAR INVENTARIS BARANG</h2>
+    <h2 class="tahun">TAHUN 2023</h2>
+    <hr>
+    <h3 class="nama-ruang">SEMUA RUANGAN</h3>
     <hr>
     <br>
     <table>
         <tr>
-            <th rowspan="2" style="text-align: center; width: 1%">NO</th>
-            <th rowspan="2" style="width: 10%">NAMA BARANG</th>
-            <th rowspan="2" style="width: 1%">TANGGAL PEMBELIAN</th>
-            <th rowspan="2" style="text-align: center; width: 1%">JUMLAH BARANG</th>
-            <th colspan="3" style="text-align: center">KONDISI</th>
-            <th rowspan="2" style="text-align: center">KODE BARANG</th>
-            <th rowspan="2" style="text-align: center">RUANGAN</th>
-            <th rowspan="2" style="text-align: center">KETERANGAN</th>
+            <th rowspan="2" style="text-align: center; width: 5%">NO</th>
+            <th rowspan="2" style="width: 270px">NAMA BARANG</th>
+            <th rowspan="2" style="width: 100px">TANGGAL PEMBELIAN</th>
+            <th rowspan="2" style="text-align: center; width: 100px">KODE BARANG</th>
+            <th rowspan="2" style="text-align: center; width: 150px">RUANG</th>
+            <th colspan="3" style="text-align: center; width: 15%">KONDISI</th>
+            <th rowspan="2" style="text-align: center; width: 75px">JUMLAH BARANG</th>
+
+
         </tr>
         <tr>
-            <th>BAIK</th>
-            <th>RUSAK RINGAN</th>
-            <th>RUSAK BERAT</th>
+            <th style="width: 20px">BAIK</th>
+            <th style="width: 20px">RUSAK RINGAN</th>
+            <th style="width: 20px">RUSAK BERAT</th>
         </tr>
 
         @foreach ($laporan as $l)
@@ -48,17 +72,17 @@
             <td style="text-align: center">{{ $loop->iteration }}</td>
             <td>{{ $l->nama_barang }}</td>
             <td style="text-align: center">{{ \Carbon\Carbon::parse($l->tgl_pembelian)->locale('id')->translatedFormat('d/m/Y') }}</td>
-            <td style="text-align: center">{{ $l->jumlah }}</td>
+            <td style="text-align: center">{{ $l->kode_barang }}</td>
+            <td style="text-align: center">{{ $l->nama_ruang }}</td>
             {{-- kondisi --}}
             <td style="text-align: center">{{ $l->baik }}</td>
             <td style="text-align: center">{{ $l->rusak_ringan }}</td>
             <td style="text-align: center">{{ $l->rusak_berat }}</td>
             {{-- end kondisi  --}}
-            <td style="text-align: center">{{ $l->kode_barang }}</td>
-            <td style="text-align: center">{{ $l->nama_ruang }}</td>
-            <td style="text-align: left">{{ $l->keterangan }}</td>
+            <td style="text-align: center">{{ $l->jumlah }}</td>
         </tr>
         @endforeach
     </table>
+    <div class="cetak-info">Dicetak oleh Sistem Inventaris Barang dan Aset Desa - SIVERA pada {{ \Carbon\Carbon::now() }}</div>
 </body>
 </html>
