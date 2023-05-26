@@ -21,28 +21,18 @@
                     <h4 class="card-title">Daftar Pengguna</h4>
                     <a class="btn btn-primary" id="tambahpengguna" style="color:white" href="javascript:void(0)"><i class="fa fa-plus"></i> Tambah Pengguna</a>
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered zero-configuration">
+                        <table id="tabel-pengguna" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th>Tanggal Dibuat</th>
                                     <th>Nama</th>
                                     <th>NIP</th>
                                     <th>Alamat</th>
                                     <th>Email</th>
                                     <th>Jabatan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($users as $u)
-                                <tr>
-                                    <td>{{$u->created_at}}</td>
-                                    <td>{{$u->name}}</td>
-                                    <td>{{$u->nip}}</td>
-                                    <td>{{$u->alamat}}</td>
-                                    <td>{{$u->email}}</td>
-                                    <td>{{$u->role_name}}</td>
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
                     </div>

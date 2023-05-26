@@ -86,6 +86,7 @@ Route::delete('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->na
 Route::get('/cetak-semua-stiker', [ExportLaporanController::class, 'cetak_stiker_all'])->name('cetak_stiker_all')->middleware('auth','role:kaurumum');
 
 //Route AuthController Untuk Login
+Route::get('/pengguna', [UserController::class, 'tampilkanPengguna'])->name('tampilkanPengguna');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('index')->middleware('auth', 'verified');

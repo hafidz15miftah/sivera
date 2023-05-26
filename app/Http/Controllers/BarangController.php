@@ -20,19 +20,14 @@ class BarangController extends Controller
     {
         $ruang = Ruang::all();
         if (request()->ajax()) {
-            $barang = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->select('barangs.id', 'barangs.kode_barang', 'barangs.nama_barang', 'barangs.updated_at', 'barangs.ruang_id', 'ruangs.nama_ruang');
+            $barang = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->select('barangs.id', 'barangs.kode_barang', 'barangs.nama_barang', 'barangs.updated_at', 'barangs.ruang_id', 'ruangs.nama_ruang')->get();
             return DataTables::of($barang)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
                     $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' style='margin-right: 3px;' onclick='lihatdata(this)'><i class='fa fa-eye'></i>Lihat</button>";
                     $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-right: 3px;' onclick='lihatdatabarang(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
                     $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteDataBarang(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
-
                     return $tombol;
-                })
-                ->editColumn('updated_at', function ($dataupdate) {
-                    $formatdataupdate = Carbon::createFromFormat('Y-m-d H:i:s', $dataupdate->updated_at)->format('d-m-Y H:i:s');
-                    return $formatdataupdate;
                 })
                 ->rawColumns(['aksi'])
                 ->make(true);

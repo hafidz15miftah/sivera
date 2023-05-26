@@ -133,20 +133,14 @@
             columns: [{
                     data: 'kode_barang',
                     name: 'kode_barang',
-                    orderable: false,
-                    searchable: false
                 },
                 {
                     data: 'nama_barang',
                     name: 'nama_barang',
-                    orderable: false,
-                    searchable: false
                 },
                 {
                     data: 'nama_ruang',
                     name: 'nama_ruang',
-                    orderable: false,
-                    searchable: false
                 },
                 {
                     data: 'baik',
@@ -212,6 +206,44 @@
             ],
             order: [
                 [2, 'desc']
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+        });
+
+        //Tampilkan Tabel Pengguna
+        $('#tabel-pengguna').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'nip',
+                    name: 'nip'
+                },
+                {
+                    data: 'alamat',
+                    name: 'alamat',
+                },
+                {
+                    data: 'email',
+                    name: 'email',
+                },
+                {
+                    data: 'role_name',
+                    name: 'role_name',
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
+                }
             ],
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
