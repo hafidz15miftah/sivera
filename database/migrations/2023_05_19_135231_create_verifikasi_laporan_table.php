@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('gambar');
             $table->string('path');
             $table->integer('status');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

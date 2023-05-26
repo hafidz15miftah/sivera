@@ -118,7 +118,7 @@ class PelaporanController extends Controller
         return back()->with('error', 'File PDF dan Gambar tidak ditemukan.');
     }
 
-    public function tolak($id)
+    public function tolak(Request $request, $id)
     {
         $laporan = VerifikasiLaporanModel::findOrFail($id);
 
@@ -126,6 +126,7 @@ class PelaporanController extends Controller
 
         //Mengubah status menjadi 0 (Ditolak)
         $laporan->status = 0;
+        $laporan->keterangan = $request->input('keterangan');
         $laporan->save();
 
         // Berikan respons yang sesuai (misalnya menggunakan JSON response)

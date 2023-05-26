@@ -43,7 +43,7 @@ class ExportLaporanContoller extends Controller
 
     public function cetak_verifikasi_all(){
         $verifikasi = VerifikasiLaporanModel::all();
-        $data = Pdf::loadView('pdf.laporan_pdf', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A5');;
+        $data = Pdf::loadView('pdf.laporan_pdf', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A4');;
         return $data->stream('cetak-verifikasi-all.pdf');
     }
 
@@ -177,6 +177,6 @@ class ExportLaporanContoller extends Controller
 
         $data = Pdf::loadView('pdf.berita_acara', ['data' => 'Daftar Inventaris Barang', 'berita' => $berita, 'rusak_ringan' => $rusak_ringan, 'rusak_berat' => $rusak_berat])->setPaper('A4', 'potrait');
         // $data->render();
-        return $data->stream('berita_acara.pdf', ['Attachment' => false]);
+        return $data->download('berita_acara.pdf', ['Attachment' => false]);
     }
 }

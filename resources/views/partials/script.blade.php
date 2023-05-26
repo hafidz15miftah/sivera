@@ -200,6 +200,10 @@
                     name: 'status'
                 },
                 {
+                    data: 'keterangan',
+                    name: 'keterangan'
+                },
+                {
                     data: 'aksi',
                     name: 'aksi',
                     orderable: false,
@@ -1492,41 +1496,61 @@
 
 <!-- Menolak dan Menyetujui Laporan -->
 <script>
-    function tolakLaporan(e) {
+        function tolakLaporan(e) {
         let id = e.getAttribute('data-id');
-        $.ajax({
-            url: '/pelaporan/tolak/' + id,
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Tampilkan pesan sukses
-                Swal.fire({
-                    icon: 'success',
-                    title: response.message,
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timerProgressBar: true,
-                    timer: 3000
-                });
 
-                // Lakukan refresh atau reload tabel laporan
-                $('#tabel-pelaporan').DataTable().ajax.reload();
-            },
-            error: function(xhr, status, error) {
-                // Tampilkan pesan error
-                var errorMessage = xhr.responseJSON.message;
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal Menolak Laporan',
-                    text: errorMessage,
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timerProgressBar: true,
-                    timer: 3000
+        Swal.fire({
+            title: 'Tolak Laporan',
+            text: 'Masukkan keterangan penolakan laporan',
+            icon: 'info',
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Tolak',
+            cancelButtonText: 'Batal',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: () => !Swal.isLoading(),
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let keterangan = result.value;
+
+                $.ajax({
+                    url: '/pelaporan/tolak/' + id,
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        keterangan: keterangan // Mengirim keterangan ke server
+                    },
+                    success: function(response) {
+                        // Tampilkan pesan sukses
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 3000
+                        });
+
+                        // Lakukan refresh atau reload tabel laporan
+                        $('#tabel-pelaporan').DataTable().ajax.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Tampilkan pesan error
+                        var errorMessage = xhr.responseJSON.message;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal Menolak Laporan',
+                            text: errorMessage,
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 3000
+                        });
+                    }
                 });
             }
         });
@@ -1534,39 +1558,51 @@
 
     function setujuLaporan(e) {
         let id = e.getAttribute('data-id');
-        $.ajax({
-            url: '/pelaporan/setuju/' + id,
-            type: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Tampilkan pesan sukses
-                Swal.fire({
-                    icon: 'success',
-                    title: response.message,
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timerProgressBar: true,
-                    timer: 3000
-                });
 
-                // Lakukan refresh atau reload tabel laporan
-                $('#tabel-pelaporan').DataTable().ajax.reload();
-            },
-            error: function(xhr, status, error) {
-                // Tampilkan pesan error
-                var errorMessage = xhr.responseJSON.message;
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal Menyetujui Laporan',
-                    text: errorMessage,
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timerProgressBar: true,
-                    timer: 3000
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Anda yakin akan menyetujui laporan ini?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Setuju',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/pelaporan/setuju/' + id,
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        // Tampilkan pesan sukses
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 3000
+                        });
+
+                        // Lakukan refresh atau reload tabel laporan
+                        $('#tabel-pelaporan').DataTable().ajax.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Tampilkan pesan error
+                        var errorMessage = xhr.responseJSON.message;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal Menyetujui Laporan',
+                            text: errorMessage,
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 3000
+                        });
+                    }
                 });
             }
         });

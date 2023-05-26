@@ -62,7 +62,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Pelaporan</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-pelaporan"><i class="fa fa-plus"></i> Tambah Pelaporan</button>
-                    <a class="btn btn-success" style="color:white" href="{{url('cetak-semua-verifikasi')}}"><i class="fa fa-print"></i> Cetak Barang</a>
+                    <a class="btn btn-success" style="color:white" href="{{url('cetak-semua-verifikasi')}}"><i class="fa fa-print"></i> Cetak Pelaporan</a>
                     <div class="table-responsive">
                         <table id="tabel-pelaporan" class="table table-striped table-bordered zero-configuration">
                             <thead>
@@ -71,7 +71,8 @@
                                     <th style="text-align: center">Nama Laporan</th>
                                     <th style="text-align: center">Tanggal Dilaporkan</th>
                                     <th style="text-align: center" width="20%">Status</th>
-                                    <th style="text-align: center" width="30%">Aksi</th>
+                                    <th style="text-align: center">Keterangan</th>
+                                    <th style="text-align: center" width="35%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

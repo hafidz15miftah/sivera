@@ -83,6 +83,6 @@
         </tr>
         @endforeach
     </table>
-    <div class="cetak-info">Dicetak oleh Sistem Inventaris Barang dan Aset Desa - SIVERA pada {{ \Carbon\Carbon::now() }}</div>
+    <div class="cetak-info">Dicetak oleh Sistem Informasi Inventaris Barang dan Aset Desa - SIVERA pada {{ \Carbon\Carbon::now() }}</div>
 </body>
 </html>
