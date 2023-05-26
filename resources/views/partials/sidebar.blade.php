@@ -35,7 +35,7 @@
             </li>
             <li class="nav-label">CETAK DATA</li>
             <li>
-                <a href="/laporan-barang" aria-expanded="false">
+                <a href="/detail" aria-expanded="false">
                     <i class="fa fa-check-square"></i><span class="nav-text">Laporan Detail Barang</span>
                 </a>
             </li>

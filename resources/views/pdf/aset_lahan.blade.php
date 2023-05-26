@@ -24,13 +24,57 @@
         th {
             background-color: #f2f2f2;
         }
+
+        .kop-surat {
+            margin-bottom: 30px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            border-bottom: 3px solid #000;
+            padding-bottom: 10px;
+        }
+
+        .logo {
+            float: left;
+            margin-right: 20px;
+        }
+
+        .logo img {
+            width: 80px;
+        }
+
+        .pemkab-name {
+            margin: 2;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .desa-name {
+            margin: 4;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .desa-address {
+            margin: 0;
+            font-size: 14px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="kop-surat">
+        <div class="logo">
+            <img src="images/cilacap.png">
+        </div>
+        <div class="desa-info">
+            <h1 class="pemkab-name">PEMERINTAH KABUPATEN CILACAP</h1>
+            <h1 class="pemkab-name">KECAMATAN KROYA</h1>
+            <h1 class="desa-name">DESA KEDAWUNG</h1>
+            <p class="desa-address">Jl. Jend. A. Yani Desa Kedawung, Kecamatan Kroya, Kabupaten Cilacap, Jawa Tengah 53282</p>
+        </div>
+    </div>
     <h2 style="justify-content: center; text-align: center">DAFTAR ASET TANAH / LAHAN</h2>
     <h2 style="justify-content: center; text-align: center">TAHUN {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
-    <hr>
     <table>
         <thead>
             <tr>

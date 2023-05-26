@@ -73,7 +73,7 @@
         </div>
     </div>
     <h2 style="justify-content: center; text-align: center">REKAP PELAPORAN BARANG RUSAK</h2>
-    <h2 style="justify-content: center; text-align: center">{{ strtoupper(\Carbon\Carbon::now()->translatedFormat('M')) }} {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
+    <h2 style="justify-content: center; text-align: center">TAHUN {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
     <table>
         <thead>
             <tr>

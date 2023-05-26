@@ -8,6 +8,7 @@ use App\Models\LaporanModel;
 use App\Models\Ruang;
 use App\Models\VerifikasiLaporanModel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,8 +16,8 @@ class ExportLaporanController extends Controller
 {
     public function cetak_stiker_all(){
         $stiker = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->get();
-        $data = Pdf::loadView('pdf.kode_barang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');;
-        return $data->stream('cetak-stiker-all.pdf');
+        $data = Pdf::loadView('pdf.stiker_kodebarang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');;
+        return $data->stream('semua-stiker.pdf');
     }
 
     public function cetak_stiker_one(Request $request){
@@ -29,20 +30,31 @@ class ExportLaporanController extends Controller
         ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
         ->where('.barang_id', '=', $selectedBarang)
         ->get();
-        $data = Pdf::loadView('pdf.kode_barang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');;
-        return $data->stream('cetak-stiker-bybarang.pdf');
+        $data = Pdf::loadView('pdf.stiker_kodebarang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');;
+        return $data->stream('stiker-perbarang.pdf');
     }
 
-    public function cetak_verifikasi_all(){
-        $verifikasi = VerifikasiLaporanModel::all();
-        $data = Pdf::loadView('pdf.laporan_pdf', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A4');;
-        return $data->stream('cetak-verifikasi-all.pdf');
+    public function cetak_laporan_perbulan()
+    {
+        $bulanIni = Carbon::now()->format('m'); // Mendapatkan nilai bulan saat ini dalam format 'mm'
+        $verifikasi = VerifikasiLaporanModel::whereMonth('tanggal_dilaporkan', $bulanIni)->get();
+        $data = Pdf::loadView('pdf.pelaporan_bulanan', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A4');
+        return $data->stream('laporan-bulanan.pdf');
     }
+
+    public function cetak_laporan_pertahun()
+    {
+        $tahunIni = Carbon::now()->format('Y'); // Mendapatkan nilai tahun saat ini dalam format 'YYYY'
+        $verifikasi = VerifikasiLaporanModel::whereYear('tanggal_dilaporkan', $tahunIni)->get();
+        $data = Pdf::loadView('pdf.pelaporan_tahunan', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A4');
+        return $data->stream('laporan-tahunan.pdf');
+    }
+    
 
     public function cetak_semua_aset(){
         $lahan = DataAsetTanahModel::query()->get();
-        $data = Pdf::loadView('pdf.lahan_pdf', ['data' => 'Daftar Inventaris Barang', 'lahan' => $lahan]);
-        return $data->stream('semua-aset.pdf');
+        $data = Pdf::loadView('pdf.aset_lahan', ['data' => 'Daftar Inventaris Barang', 'lahan' => $lahan]);
+        return $data->stream('semua-lahan.pdf');
     }
 
     public function cetak_semua_laporan(){
@@ -63,7 +75,7 @@ class ExportLaporanController extends Controller
         ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
         ->get();
         $data = Pdf::loadView('pdf.laporan', ['data' => 'Daftar Inventaris Barang', 'laporan' => $laporan])->setPaper('A4', 'landscape');
-        return $data->stream('laporan.pdf');
+        return $data->stream('detailbarang.pdf');
     }
 
     public function cetak_laporan_bybarang(Request $request){
@@ -85,8 +97,8 @@ class ExportLaporanController extends Controller
         ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
         ->where('laporan.barang_id', '=', $selectedBarang)
         ->get();
-        $data = Pdf::loadView('pdf.laporan', ['data' => 'Daftar Inventaris Barang', 'laporan' => $laporan])->setPaper('A4', 'landscape');
-        return $data->stream('laporan.pdf');
+        $data = Pdf::loadView('pdf.detail_barang', ['data' => 'Daftar Inventaris Barang', 'laporan' => $laporan])->setPaper('A4', 'landscape');
+        return $data->stream('detailbarang.pdf');
     }
 
     public function cetak_laporan_bytanggal(Request $request){
@@ -110,8 +122,8 @@ class ExportLaporanController extends Controller
         ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
         ->whereDate('laporan.tgl_pembelian', '=', $selectedDate)
         ->get();
-        $data = Pdf::loadView('pdf.laporan', ['data' => 'Daftar Inventaris Barang', 'laporan' => $laporan])->setPaper('A4', 'landscape');
-        return $data->stream('laporan.pdf');
+        $data = Pdf::loadView('pdf.detail_barang', ['data' => 'Daftar Inventaris Barang', 'laporan' => $laporan])->setPaper('A4', 'landscape');
+        return $data->stream('detailbarang.pdf');
     }
 
 //Cetak Barang berdasarkan ruangan 
@@ -138,8 +150,8 @@ class ExportLaporanController extends Controller
 
         $ruang = Ruang::findorFail($ruangan);
 
-        $data = Pdf::loadView('pdf.laporanbyruang', ['data' => 'Daftar Inventaris Barang', 'laporan' => $laporan, 'nama_ruangan' => $ruang])->setPaper('A4', 'landscape');
-        return $data->stream('laporan.pdf');
+        $data = Pdf::loadView('pdf.detail_barang_ruang', ['data' => 'Daftar Inventaris Barang', 'laporan' => $laporan, 'nama_ruangan' => $ruang])->setPaper('A4', 'landscape');
+        return $data->stream('detailbarang.pdf');
     }
 
     public function cetak_berita_acara(Request $request){
