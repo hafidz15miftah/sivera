@@ -13,11 +13,26 @@
             <ul class="clearfix">
                 <li class="icons dropdown">
                     <div class="user-img c-pointer position-relative" data-toggle="dropdown">
-                        <img src="images/user/1.png" height="40" width="40" alt="">
+                        <img src="images/user.png" height="100" width="100" alt="">
                     </div>
                     <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                         <div class="dropdown-content-body">
                             <ul>
+                                <li class="text-center">
+                                    <span>{{ Auth::user()->name }}</span>
+                                </li>
+                                <li class="text-center">
+                                    <span>
+                                        @if (Auth::user()->role_id == 1)
+                                        Sekretaris Desa
+                                        @elseif (Auth::user()->role_id == 2)
+                                        Kepala Urusan Umum dan Perencanaan
+                                        @else
+                                        Kepala Desa
+                                        @endif
+                                    </span>
+                                </li>
+                                <hr class="my-2">
                                 <li>
                                     <a href="/profil"><i class="icon-user"></i> <span>Profil Pengguna</span></a>
                                 </li>
