@@ -63,8 +63,8 @@
                     <h4 class="card-title">Daftar Pelaporan</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-pelaporan"><i class="fa fa-plus"></i> Tambah Pelaporan</button>
                     @if (Auth::user()->role_id == 2)
-                    <a class="btn btn-success" style="color:white" href="{{ url('pelaporan/cetak/bulanan') }}"><i class="fa fa-print"></i> Laporan Bulan Ini</a>
-                    <a class="btn btn-success" style="color:white" href="{{ url('pelaporan/cetak/tahunan') }}"><i class="fa fa-print"></i> Laporan Tahun Ini</a>
+                    <a class="btn btn-warning" style="color:white" href="{{ url('pelaporan/cetak/bulanan') }}"><i class="fa fa-print"></i> Laporan Bulan Ini</a>
+                    <a class="btn btn-warning" style="color:white" href="{{ url('pelaporan/cetak/tahunan') }}"><i class="fa fa-print"></i> Laporan Tahun Ini</a>
                     @endif
                     <div class="table-responsive">
                         <table id="tabel-pelaporan" class="table table-striped table-bordered zero-configuration">

@@ -4,7 +4,7 @@
             <li class="nav-label">MENU UTAMA</li>
             <li>
                 <a href="/dashboard" aria-expanded="false">
-                    <i class="fa fa-home"></i><span class="nav-text">Beranda</span>
+                    <i class="icon-home menu-icon"></i><span class="nav-text">Beranda</span>
                 </a>
             </li>
             @if(auth()->user()->role_id == 1)
@@ -16,40 +16,34 @@
             </li>
             @endif
             @if(auth()->user()->role_id == 2)
-            <li class="nav-label">BASIS DATA</li>
-            <li>
-                <a href="/ruangan" aria-expanded="false">
-                    <i class="fa fa-database"></i><span class="nav-text">Data Ruangan</span>
-                </a>
-            </li>
             <li class="nav-label">FUNGSIONAL SISTEM</li>
             <li>
-                <a href="/barang" aria-expanded="false">
-                    <i class="fa fa-book"></i><span class="nav-text">Daftar Barang</span>
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="icon-tag menu-icon"></i><span class="nav-text">Aset Barang</span>
                 </a>
+                <ul aria-expanded="false">
+                    <li><a href="/ruangan">Data Ruangan</a></li>
+                    <li><a href="/barang">Daftar Barang</a></li>
+                    <li><a href="/detail">Laporan Detail Barang</a></li>
+                </ul>
             </li>
             <li>
                 <a href="/lahan" aria-expanded="false">
-                    <i class="fa fa-map"></i><span class="nav-text">Daftar Tanah / Lahan</span>
-                </a>
-            </li>
-            <li class="nav-label">CETAK DATA</li>
-            <li>
-                <a href="/detail" aria-expanded="false">
-                    <i class="fa fa-check-square"></i><span class="nav-text">Laporan Detail Barang</span>
+                    <i class="icon-map menu-icon"></i><span class="nav-text">Aset Tanah / Lahan</span>
                 </a>
             </li>
             @endif
             <li class="nav-label">PELAPORAN</li>
             <li>
                 <a href="/pelaporan" aria-expanded="false">
-                    <i class="fa fa-bullhorn"></i><span class="nav-text">Daftar Laporan</span>
+                    <i class="icon-cursor menu-icon"></i><span class="nav-text">Daftar Laporan</span>
                 </a>
             </li>
             <li class="nav-label">LAINNYA</li>
             <li>
                 <a href="/sivera" aria-expanded="false">
-                    <i class="fa fa-info-circle"></i><span class="nav-text">Tentang Sivera</span>
+                    <i class="icon-info menu-icon"></i><span class="nav-text">Tentang Sivera</span>
                 </a>
             </li>
         </ul>

@@ -15,9 +15,6 @@
                     <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                         <img src="images/user/1.png" height="40" width="40" alt="">
                     </div>
-                    <div>
-                        <p class="mb-2">{{ Auth::user()->name }}</p>
-                    </div>
                     <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                         <div class="dropdown-content-body">
                             <ul>

@@ -20,7 +20,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Daftar Aset Tanah/Lahan</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-lahan"><i class="fa fa-plus"></i> Tambah Aset Tanah / Lahan</button>
-                    <a class="btn btn-success" style="color:white" href="{{url('lahan/cetak/semua')}}"><i class="fa fa-print"></i> Cetak Data Aset Tanah / Lahan</a>
+                    <a class="btn btn-warning" style="color:white" href="{{url('lahan/cetak/semua')}}"><i class="fa fa-print"></i> Cetak Data Aset Tanah / Lahan</a>
                     <div class="table-responsive">
                         <table id="tabel-tanah" class="table table-striped table-bordered zero-configuration">
                             <thead>
@@ -28,7 +28,7 @@
                                     <th class="text-center">Nama Obyek</th>
                                     <th class="text-center">Alamat</th>
                                     <th class="text-center">No. Sertifikat</th>
-                                    <th class="text-center">Luas</th>
+                                    <th class="text-center">Luas (m<sup>2</sup>)</th>
                                     <th class="text-center">Kondisi</th>
                                     <th width="28%" class="text-center">Aksi</th>
                                 </tr>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="luas" class="col-form-label">Luas:</label>
+                                <label for="luas" class="col-form-label">Luas (m<sup>2</sup>):</label>
                                 <input class="form-control" type="number" min="0" placeholder="0" name="luas" id="luas" require>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="luas" class="col-form-label">Luas:</label>
+                                <label for="luas" class="col-form-label">Luas (m<sup>2</sup>):</label>
                                 <input class="form-control" type="number" min="0" placeholder="0" name="luas" id="luas" require>
                             </div>
                         </div>
@@ -198,7 +198,7 @@
                 <p><strong>Nama Obyek:</strong> <span id="nama_obyek"></span></p>
                 <p><strong>Alamat:</strong> <span id="alamat"></span></p>
                 <p><strong>No. Sertifikat:</strong> <span id="no_sertifikat"></span></p>
-                <p><strong>Luas:</strong> <span id="luas"></span></p>
+                <p><strong>Luas (m<sup>2</sup>):</strong> <span id="luas"></span></p>
                 <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
                 <p><strong>Keterangan:</strong> <span id="keterangan"></span></p>
                 <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>

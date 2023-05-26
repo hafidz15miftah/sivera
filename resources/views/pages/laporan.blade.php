@@ -296,8 +296,8 @@
                 <div class="card-body">
                     <h4 class="card-title">Laporan Detail Barang</h4>
                     <button type="button" class="btn btn-primary" style="color:white" data-toggle="modal" data-target="#tambah-laporan"><i class="fa fa-plus"></i> Tambah Detail Barang</button>
-                    <button class="btn btn-success" style="color:white" data-toggle="modal" data-target="#downloadModal"><i class="fa fa-print"></i> Cetak Laporan Barang</button>
-                    <button class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#BeritaAcaraModal"><i class="fa fa-print"></i> Cetak Berita Acara</button>
+                    <button class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#downloadModal"><i class="fa fa-print"></i> Cetak Laporan Barang</button>
+                    <button class="btn btn-danger" style="color:white" data-toggle="modal" data-target="#BeritaAcaraModal"><i class="fa fa-print"></i> Cetak Berita Acara</button>
                     <div class="table-responsive">
                         <table id="tabel-laporan" class="table table-striped table-bordered zero-configuration">
                             <thead>

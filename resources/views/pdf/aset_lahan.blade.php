@@ -82,7 +82,7 @@
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">NAMA OBYEK</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">ALAMAT</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">NO SERTIFIKAT</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">LUAS</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">LUAS (m<sup>2</sup>)</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">KONDISI</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">KETERANGAN</th>
             </tr>
