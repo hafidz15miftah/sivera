@@ -14,6 +14,7 @@
 <!-- Chartjs -->
 <script src="/plugins/chart.js/Chart.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-labels"></script>
+
 <!-- Circle progress -->
 <script src="/plugins/circle-progress/circle-progress.min.js"></script>
 
