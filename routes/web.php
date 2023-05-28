@@ -75,9 +75,9 @@ Route::delete('/hapuslahan/{id}', [AsetTanahController::class, 'hapuslahan'])->n
 Route::put('/updatelahan/{id}', [AsetTanahController::class, 'updatelahan'])->name('updatelahan')->middleware('auth', 'role:kaurumum');
 
 //Route Untuk Mengakses Daftar Pengguna
-Route::get('/pengguna', [UserController::class, 'tampilpengguna'])->name('tampilpengguna')->middleware('auth','role:sekdes');
-Route::post('/pengguna/simpan', [UserController::class, 'simpanpengguna'])->name('simpanpengguna')->middleware('auth', 'role:sekdes');
-Route::delete('/pengguna/hapus/{id}', [UserController::class, 'hapuspengguna'])->name('hapuspengguna')->middleware('auth', 'role:sekdes');
+Route::get('/pengguna', [UserController::class, 'tampilkanPengguna'])->name('tampilkanPengguna')->middleware('auth','role:kepdes');
+Route::post('/pengguna/simpan', [UserController::class, 'simpanpengguna'])->name('simpanpengguna')->middleware('auth', 'role:kepdes');
+Route::delete('/pengguna/hapus/{id}', [UserController::class, 'hapuspengguna'])->name('hapuspengguna')->middleware('auth', 'role:kepdes');
 
 //Route Untuk Mengakses Daftar Ruangan
 Route::get('/ruangan', [RuangController::class, 'tampilkanRuangan'])->name('tampilkanRuangan')->middleware('auth','role:kaurumum');
@@ -92,11 +92,10 @@ Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('ta
 Route::get('/lihatdata/{id}', [BarangController::class, 'lihatdata'])->name('lihatdata')->middleware('auth', 'role:kaurumum');
 Route::put('/updatebarang/{id}', [BarangController::class, 'updatebarang'])->name('updatebarang')->middleware('auth', 'role:kaurumum');
 Route::post('/simpanbarang', [BarangController::class, 'simpanbarang'])->name('simpanbarang')->middleware('auth', 'role:kaurumum');
-Route::delete('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->name('hapusbarang')->middleware('auth','role:kaurumum');;
+Route::delete('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->name('hapusbarang')->middleware('auth','role:kaurumum');
 Route::get('/barang/cetak/stiker', [ExportLaporanController::class, 'cetak_stiker_all'])->name('cetak_stiker_all')->middleware('auth','role:kaurumum');
 
 //Route AuthController Untuk Login
-Route::get('/pengguna', [UserController::class, 'tampilkanPengguna'])->name('tampilkanPengguna');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('index')->middleware('auth', 'verified');

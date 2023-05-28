@@ -7,7 +7,7 @@
                     <i class="icon-home menu-icon"></i><span class="nav-text">Beranda</span>
                 </a>
             </li>
-            @if(auth()->user()->role_id == 1)
+            @if(auth()->user()->role_id == 3)
             <li class="nav-label">FUNGSIONAL SISTEM</li>
             <li>
                 <a href="/pengguna" aria-expanded="false">

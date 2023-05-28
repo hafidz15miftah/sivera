@@ -54,7 +54,7 @@ class PelaporanController extends Controller
                             $tombol .= "<button data-id='$row->id' class='btn btn-danger btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;' onclick='tolakLaporan(this)'><i class='fa fa-times'></i>Tolak</button>";
                         }
                     } elseif ($role_id == 3) {
-                        $tombol = "<a href='" . asset('storage/' . $row->path) . "' target='_blank' class='btn btn-primary btn-sm text-white'><i class='fa fa-eye'></i>Lihat</a>";
+                        $tombol = "<a href='" . asset('storage/' . $row->path) . "' target='_blank' class='btn btn-primary btn-sm text-white' style='margin-top: 3px; width:200px;><i class='fa fa-eye'></i>Lihat</a>";
                         if ($row->status == 2) {
                             $tombol .= "<a href='" . asset('storage/' . $row->gambar) . "' target='_blank' class='btn btn-warning btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;'><i class='fa fa-picture-o'></i>Gambar</a>";
                             $tombol .= "<button data-id='$row->id' class='btn btn-success btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;' onclick='setujuLaporan(this)'><i class='fa fa-check'></i>Setuju</button>";
