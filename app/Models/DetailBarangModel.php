@@ -2,25 +2,24 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\KondisiController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LaporanModel extends Model
+class DetailBarangModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'laporan';
+    protected $table = 'details';
 
     protected $fillable = [
-        'kode_laporan',
         'barang_id',
         'ruang_id',
-        'tgl_pembelian',
-        'sumber_dana',
-        'baik',
-        'rusak_ringan',
-        'rusak_berat',
-        'jumlah',
+        'info_id',
+        'tgl_perolehan',
+        'merk',
+        'sumber',
+        'harga',
         'keterangan',
     ];
 
@@ -31,5 +30,9 @@ class LaporanModel extends Model
 
     public function ruang(){
         return $this->belongsTo(Ruang::class, 'ruang_id', 'id');
+    }
+
+    public function info(){
+        return $this->belongsTo(KondisiBarangModel::class, 'info_id', 'id');
     }
 }

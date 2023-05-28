@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailBarangModel;
+use App\Models\KondisiBarangModel;
 use App\Models\VerifikasiLaporanModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,6 +15,7 @@ class PelaporanController extends Controller
 {
     public function tampilkanPelaporan()
     {
+        $info = KondisiBarangModel::all();
 
         if (request()->ajax()) {
 
@@ -24,7 +27,6 @@ class PelaporanController extends Controller
             } elseif (Auth::user()->role_id == 3) {
                 $laporan = VerifikasiLaporanModel::where('status', 2)->get();
             }
-
             return DataTables::of($laporan)
                 ->addIndexColumn()
                 ->addColumn('DT_RowIndex', function ($row) {
@@ -39,23 +41,26 @@ class PelaporanController extends Controller
                     $tombol = '';
 
                     if ($role_id == 1) {
-                        $tombol = "<a href='" . asset('storage/' . $row->path) . "' target='_blank' class='btn btn-primary btn-sm text-white'><i class='fa fa-eye'></i>Lihat</a>";
+                        $tombol = "<a href='" . asset('storage/' . $row->path) . "' target='_blank' class='btn btn-primary btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;'><i class='fa fa-eye'></i>Lihat</a>";
                         if ($row->status == 1) {
-                            $tombol .= "<a href='" . asset('storage/' . $row->gambar) . "' target='_blank' class='btn btn-success btn-sm text-white'><i class='fa fa-picture-o'></i>Gambar</a>";
-                            $tombol .= "<button data-id='$row->id' class='btn btn-success btn-sm text-white' onclick='setujuLaporan(this)'><i class='fa fa-check'></i>Setuju</button>";
-                            $tombol .= "<button data-id='$row->id' class='btn btn-danger btn-sm text-white' onclick='tolakLaporan(this)'><i class='fa fa-times'></i>Tolak</button>";
+                            $tombol .= "<a href='" . asset('storage/' . $row->gambar) . "' target='_blank' class='btn btn-warning btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;'><i class='fa fa-picture-o'></i>Gambar</a>";
+                            $tombol .= "<button data-id='$row->id' class='btn btn-success btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;' onclick='setujuLaporan(this)'><i class='fa fa-check'></i>Setuju</button>";
+                            $tombol .= "<button data-id='$row->id' class='btn btn-danger btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;' onclick='tolakLaporan(this)'><i class='fa fa-times'></i>Tolak</button>";
                         }
                     } elseif ($role_id == 3) {
                         $tombol = "<a href='" . asset('storage/' . $row->path) . "' target='_blank' class='btn btn-primary btn-sm text-white'><i class='fa fa-eye'></i>Lihat</a>";
                         if ($row->status == 2) {
-                            $tombol .= "<a href='" . asset('storage/' . $row->gambar) . "' target='_blank' class='btn btn-success btn-sm text-white'><i class='fa fa-picture-o'></i>Gambar</a>";
-                            $tombol .= "<button data-id='$row->id' class='btn btn-success btn-sm text-white' onclick='setujuLaporan(this)'><i class='fa fa-check'></i>Setuju</button>";
-                            $tombol .= "<button data-id='$row->id' class='btn btn-danger btn-sm text-white' onclick='tolakLaporan(this)'><i class='fa fa-times'></i>Tolak</button>";
+                            $tombol .= "<a href='" . asset('storage/' . $row->gambar) . "' target='_blank' class='btn btn-warning btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;'><i class='fa fa-picture-o'></i>Gambar</a>";
+                            $tombol .= "<button data-id='$row->id' class='btn btn-success btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;' onclick='setujuLaporan(this)'><i class='fa fa-check'></i>Setuju</button>";
+                            $tombol .= "<button data-id='$row->id' class='btn btn-danger btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;' onclick='tolakLaporan(this)'><i class='fa fa-times'></i>Tolak</button>";
                         }
                     } else {
-                        $tombol = "<a href='" . asset('storage/' . $row->path) . "' target='_blank' class='btn btn-primary btn-sm text-white' style='margin-right: 3px;'><i class='fa fa-eye'></i>Lihat</a>";
-                        $tombol .= "<a href='" . asset('storage/' . $row->gambar) . "' target='_blank' class='btn btn-success btn-sm text-white' style='margin-right: 3px;'><i class='fa fa-picture-o'></i>Gambar</a>";
-                        $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_laporan' onclick='deleteDataLaporan(this)' class='btn btn-danger btn-sm' style='margin-right: 3px;'><i class='fa fa-trash'></i>Hapus</button>";
+                        $tombol = "<a href='" . asset('storage/' . $row->path) . "' target='_blank' class='btn btn-primary btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;'><i class='fa fa-eye'></i>Lihat</a>";
+                        $tombol .= "<a href='" . asset('storage/' . $row->gambar) . "' target='_blank' class='btn btn-warning btn-sm text-white' style='margin-top: 3px; width:200px; text-align: center;'><i class='fa fa-picture-o'></i>Gambar</a>";
+                        $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_laporan' onclick='deleteDataLaporan(this)' class='btn btn-danger btn-sm' style='margin-top: 3px; width:200px; text-align: center;'><i class='fa fa-trash'></i>Hapus</button>";
+                        if ($row->status == 3) {
+                            $tombol .= "<button data-id='$row->id' class='btn btn-success btn-sm text-white' style='margin-top: 3px; width:200; text-align: center;' onclick='setujuLaporan(this)'><i class='fa fa-check'></i>Penanganan Selesai</button>";
+                        }
                     }
 
                     return $tombol;
@@ -67,6 +72,8 @@ class PelaporanController extends Controller
                         return "<span class='badge badge-warning text-center text-white' style='display: block; text-align: center;'>Diverifikasi Sekretaris Desa</span>";
                     } elseif ($row->status == 3) {
                         return "<span class='badge badge-success text-center text-white' style='display: block; text-align: center'>Disetujui Kepala Desa</span>";
+                    } elseif ($row->status == 4) {
+                        return "<span class='badge badge-success text-center text-white' style='display: block; text-align: center'>Penanganan Selesai</span>";
                     } else {
                         return "<span class='badge badge-danger text-center text-white' style='display: block; text-align: center;'>Ditolak</span>";
                     }
@@ -74,16 +81,18 @@ class PelaporanController extends Controller
                 ->rawColumns(['status_html', 'aksi'])
                 ->make(true);
         }
-        return view('pages.pelaporan');
+        return view('pages.pelaporan', compact('info'));
     }
 
     public function uploadPDF(Request $request)
     {
         $validatedData = $request->validate([
+            'detail_id' => 'required|unique:laporans,detail_id', 
             'nama_laporan' => 'required',
             'file_gambar' => 'required|mimes:jpeg,png|max:8192', //Hanya menerima file gambar dengan ukuran maks 8 MB
             'file_pdf' => 'required|mimes:pdf|max:2048', // Hanya menerima file PDF dengan ukuran maksimum 2MB
         ], [
+            'detail_id.unique' => 'Kode barang sudah pernah melakukan pelaporan barang rusak',
             'nama_laporan.required' => 'Nama laporan harus diisi',
             'file_gambar' => 'Silahkan upload gambar barang rusak',
             'file_pdf' => 'Silahkan upload file PDF'
@@ -99,8 +108,10 @@ class PelaporanController extends Controller
             // Proses selanjutnya dengan data file yang diunggah...
 
             // Contoh: Simpan data ke database
+
             $data = new VerifikasiLaporanModel();
             $data->nama_laporan = $validatedData['nama_laporan'];
+            $data->detail_id = $request->input('detail_id');
             $data->path = $filePath;
             $data->gambar = $fileGambar;
             $data->tanggal_dilaporkan = Carbon::now();
@@ -143,10 +154,15 @@ class PelaporanController extends Controller
 
         // Lakukan logika untuk menyetujui laporan
 
-        if (Auth::user()->role_id == 1) {  //jika usernya Sekdes
+        if (Auth::user()->role_id == 1) {
+            // jika usernya Sekdes
             $laporan->status = 2;
-        } elseif (Auth::user()->role_id == 3) { //jika usernya Kades
+        } elseif (Auth::user()->role_id == 3) {
+            // jika usernya Kades
             $laporan->status = 3;
+        } elseif (Auth::user()->role_id == 2) {
+            // jika usernya Kaur
+            $laporan->status = 4;
         }
         $laporan->save();
 
@@ -162,8 +178,6 @@ class PelaporanController extends Controller
         $laporan = VerifikasiLaporanModel::findOrFail($id);
         if ($request->ajax()) {
             if ($laporan) {
-                // Menghapus file terkait
-                Storage::delete($laporan->url); // Ganti "url" dengan atribut yang menyimpan URL pada model laporan Anda
                 
                 // Menghapus data laporan
                 $laporan->delete();

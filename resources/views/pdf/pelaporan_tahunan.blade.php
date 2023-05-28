@@ -24,6 +24,7 @@
         th {
             background-color: #f2f2f2;
         }
+
         .kop-surat {
             margin-bottom: 30px;
             text-align: center;
@@ -61,9 +62,9 @@
 </head>
 
 <body>
-<div class="kop-surat">
+    <div class="kop-surat">
         <div class="logo">
-        <img src="images/cilacap.png">
+            <img src="images/cilacap.png">
         </div>
         <div class="desa-info">
             <h1 class="pemkab-name">PEMERINTAH KABUPATEN CILACAP</h1>
@@ -90,19 +91,22 @@
                 <td style="border: 1px solid #000; text-align: center;">{{ $loop->iteration }}</td>
                 <td style="border: 1px solid #000;">{{ $b->nama_laporan }}</td>
                 <td style="border: 1px solid #000; text-align: center;">{{ \Carbon\Carbon::parse($b->tanggal_dilaporkan)->locale('id')->translatedFormat('d/m/Y') }}</td>
-                <td style="border: 1px solid #000;">@if($b->status == 0)
+                <td style="border: 1px solid #000; text-align: center;">@if($b->status == 0)
                     Ditolak
                     @elseif($b->status == 1)
                     Menunggu Verifikasi Sekretaris Desa
                     @elseif($b->status == 2)
                     Menunggu Persetujuan Kepala Desa
-                    @else
+                    @elseif($b->status == 3)
                     Disetujui
+                    @else
+                    Penanganan Selesai
                     @endif</td>
-                    <td style="border: 1px solid #000;">{{ $b->keterangan }}</td>
+                <td style="border: 1px solid #000;">{{ $b->keterangan }}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
 </body>
+
 </html>

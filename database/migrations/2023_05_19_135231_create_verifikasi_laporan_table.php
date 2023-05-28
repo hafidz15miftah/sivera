@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('verifikasi_laporan', function (Blueprint $table) {
+        Schema::create('laporans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('detail_id')->constrained();
             $table->string('nama_laporan');
             $table->date('tanggal_dilaporkan');
             $table->string('gambar');
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('verifikasi_laporan');
+        Schema::dropIfExists('laporans');
     }
 };

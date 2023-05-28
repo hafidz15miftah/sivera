@@ -10,8 +10,8 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Baik</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">@if($totalBaik)
-                            {{ $totalBaik }}
+                        <h2 class="text-white">@if($bbaik)
+                            {{ $bbaik }}
                             @else
                             0
                             @endif
@@ -26,8 +26,8 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Rusak Ringan</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">@if($totalRuring)
-                            {{ $totalRuring }}
+                        <h2 class="text-white">@if($bruring)
+                            {{ $bruring }}
                             @else
                             0
                             @endif
@@ -42,8 +42,8 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Rusak Berat</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">@if($totalRuber)
-                            {{ $totalRuber }}
+                        <h2 class="text-white">@if($bruber)
+                            {{ $bruber }}
                             @else
                             0
                             @endif
@@ -58,8 +58,8 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Jumlah</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">@if($jumlah)
-                            {{ $jumlah }}
+                        <h2 class="text-white">@if($bbarang)
+                            {{ $bbarang }}
                             @else
                             0
                             @endif
@@ -121,9 +121,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var ctx = document.getElementById('chartBarang').getContext('2d');
-        var totalBaik = '{{ $totalBaik }}';
-        var totalRuring = '{{ $totalRuring }}';
-        var totalRuber = '{{ $totalRuber }}';
+        var totalBaik = '{{ $bbaik }}';
+        var totalRuring = '{{ $bruring }}';
+        var totalRuber = '{{ $bruber }}';
 
         var data = {
             labels: ['Baik', 'Rusak Ringan', 'Rusak Berat'],

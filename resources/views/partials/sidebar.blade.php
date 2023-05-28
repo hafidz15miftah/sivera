@@ -25,6 +25,7 @@
                 <ul aria-expanded="false">
                     <li><a href="/ruangan">Data Ruangan</a></li>
                     <li><a href="/barang">Daftar Barang</a></li>
+                    <li><a href="/kondisi">Detail Kondisi Barang</a></li>
                     <li><a href="/detail">Detail Barang dan Laporan</a></li>
                 </ul>
             </li>

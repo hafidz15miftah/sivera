@@ -46,8 +46,8 @@
                         <td>{{ $b->nama_barang }}</td>
                     </tr>
                     <tr>
-                        <th style="width: 100px;">Kode Barang</th>
-                        <td>{{ $b->kode_barang }}</td>
+                        <th style="width: 100px;">ID Barang</th>
+                        <td>{{ $b->kode_detail }}</td>
                     </tr>
                     <tr>
                         <th style="width: 100px;">Ruang</th>

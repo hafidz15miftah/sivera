@@ -20,7 +20,7 @@ class BarangController extends Controller
     {
         $ruang = Ruang::all();
         if (request()->ajax()) {
-            $barang = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->select('barangs.id', 'barangs.kode_barang', 'barangs.nama_barang', 'barangs.updated_at', 'barangs.ruang_id', 'ruangs.nama_ruang')->get();
+            $barang = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->select('barangs.id', 'barangs.kode_barang', 'barangs.nama_barang', 'barangs.ruang_id', 'ruangs.nama_ruang')->get();
             return DataTables::of($barang)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
@@ -90,7 +90,7 @@ class BarangController extends Controller
                 'nama_barang.required' => 'Nama barang harus diisi.',
                 'kode_barang.required' => 'Kode barang harus diisi.',
                 'kode_barang.unique' => 'Kode barang sudah digunakan.',
-                'ruang_id.required' => 'Ruang harus dipilih.',
+                'jumlah.required' => 'Jumlah barang harus diisi.',
             ]
         );
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,10 +66,11 @@
         }
     </style>
 </head>
+
 <body>
     <div class="kop-surat">
         <div class="logo">
-        <img src="images/cilacap.png">
+            <img src="images/cilacap.png">
         </div>
         <div class="desa-info">
             <h1 class="pemkab-name">PEMERINTAH KABUPATEN CILACAP</h1>
@@ -89,43 +91,44 @@
             <tr>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">NO</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">NAMA BARANG</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">KODE BARANG</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">MERK</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">ID BARANG</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">TAHUN PEROLEH</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">JUMLAH</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">RUANGAN</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">KETERANGAN</th>
             </tr>
         </thead>
         <tbody>
-        @foreach ($berita as $b)
-        <tr>
-            <td style="border: 1px solid #000; background-color: white;">{{ $loop->iteration }}</td>
-            <td style="border: 1px solid #000; background-color: white;">{{ $b->nama_barang }}</td>
-            <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->kode_barang }}</td>
-            <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ \Carbon\Carbon::parse($b->tgl_pembelian)->locale('id')->translatedFormat('Y') }}</td>
-            <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $rusak_ringan + $rusak_berat }}</td>
-            <td style="border: 1px solid #000; background-color: white;">{{ $b->nama_ruang }}</td>
-            <td style="border: 1px solid #000; background-color: white;">{{ $b->keterangan }}</td>
-        </tr>
-        @endforeach
-        <tr>
-            <td colspan="7" style="border: none" class="ttd"></td>
-        </tr>
-        <tr>
-            <td colspan="7" style="border: none" class="ttd"></td>
-        </tr>
-        <tr>
-            <td colspan="5" style="border: none; text-align: center" class="ttd"></td>
-            <td colspan="2" style="border: none; text-align: center" class="ttd">Kepala Urusan Umum dan Perencanaan</td>
-        </tr>
-        <tr>
-            <td colspan="5" style="border: none" class="ttd"></td>
-        </tr>
-        <tr>
-            <td colspan="5" style="border: none; text-align: center" class="ttd"></td>
-            <td colspan="2" style="border: none; text-align: center; text-decoration: underline" class="ttd"><strong>{{ Auth::user()->name }}</strong></td>
-        </tr>
+            @foreach ($berita as $b)
+            <tr>
+                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $loop->iteration }}</td>
+                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->nama_barang }}</td>
+                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->merk }}</td>
+                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->kode_detail }}</td>
+                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ \Carbon\Carbon::parse($b->tgl_perolehan)->locale('id')->translatedFormat('Y') }}</td>
+                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->nama_ruang }}</td>
+                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->keterangan }}</td>
+            </tr>
+            @endforeach
+            <tr>
+                <td colspan="7" style="border: none" class="ttd"></td>
+            </tr>
+            <tr>
+                <td colspan="7" style="border: none" class="ttd"></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="border: none; text-align: center" class="ttd"></td>
+                <td colspan="2" style="border: none; text-align: center" class="ttd">Kepala Urusan Umum dan Perencanaan</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="border: none" class="ttd"></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="border: none; text-align: center" class="ttd"></td>
+                <td colspan="2" style="border: none; text-align: center; text-decoration: underline" class="ttd"><strong>{{ Auth::user()->name }}</strong></td>
+            </tr>
         </tbody>
     </table>
 </body>
+
 </html>

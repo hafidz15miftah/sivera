@@ -24,6 +24,15 @@
             <div class="modal-body">
                 <form id="add_pelaporan" enctype="multipart/form-data">
                     @csrf
+                    <div class="form-group">
+                        <label for="barang_id">Pilih ID Barang:</label>
+                        <select class="form-control" name="detail_id" id="detail_id" required>
+                            <option value="">Silahkan Pilih ...</option>
+                            @foreach ($info as $i)
+                            <option value="{{ $i->id }}">{{ $i->kode_detail }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">

@@ -4,6 +4,7 @@ use App\Http\Controllers\AsetTanahController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportLaporanController;
+use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\ProfileController;
@@ -44,6 +45,13 @@ Route::post('/pelaporan/tolak/{id}', [PelaporanController::class, 'tolak'])->nam
 Route::delete('/hapusdatalaporan/{id}', [PelaporanController::class, 'hapuslaporan'])->name('hapuslaporan')->middleware('auth', 'role:kaurumum');
 Route::get('/pelaporan/cetak/bulanan', [ExportLaporanController::class, 'cetak_laporan_perbulan'])->name('cetak_laporan_perbulan')->middleware('auth','role:kaurumum');
 Route::get('/pelaporan/cetak/tahunan', [ExportLaporanController::class, 'cetak_laporan_pertahun'])->name('cetak_laporan_pertahun')->middleware('auth','role:kaurumum');
+
+//Route untuk Mengakses Kondisi Barang
+Route::get('/kondisi', [KondisiController::class, 'tampilkanKondisi'])->middleware('auth','role:kaurumum');
+Route::post('/kondisi/simpan', [KondisiController::class, 'simpankondisi'])->name('simpankondisi')->middleware('auth','role:kaurumum');
+Route::delete('/kondisi/hapus/{id}', [KondisiController::class, 'hapuskondisi'])->name('hapuskondisi')->middleware('auth', 'role:kaurumum');
+Route::get('/kondisi/lihat/{id}', [KondisiController::class, 'lihatkondisi'])->name('lihatkondisi')->middleware('auth', 'role:kaurumum');
+Route::put('/kondisi/update/{id}', [KondisiController::class, 'updatekondisi'])->name('updatekondisi')->middleware('auth', 'role:kaurumum');
 
 //Route Untuk Mengakses Daftar Laporan Barang
 Route::get('/detail', [LaporanController::class, 'tampilkanLaporan'])->middleware('auth','role:kaurumum');

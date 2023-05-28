@@ -15,6 +15,7 @@ class DataBarangModel extends Model
     protected $fillable = [
         'kode_barang',
         'nama_barang',
+        'jumlah',
         'ruang_id'
 ];
 

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataBarangModel;
-use App\Models\LaporanModel;
+use App\Models\DetailBarangModel;
+use App\Models\KondisiBarangModel;
 use App\Models\Ruang;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,23 +16,23 @@ class LaporanController extends Controller
     public function tampilkanLaporan()
     {
         $barang = DataBarangModel::all();
+        $info = KondisiBarangModel::all();
         $ruang = Ruang::all();
-
         if (request()->ajax()) {
-            $laporan = LaporanModel::select(
-                'laporan.id',
-                'laporan.tgl_pembelian',
-                'laporan.sumber_dana',
-                'laporan.baik',
-                'laporan.rusak_ringan',
-                'laporan.rusak_berat',
-                'laporan.jumlah',
-                'laporan.keterangan',
-                'barangs.kode_barang',
+            $laporan = DetailBarangModel::select(
+                'details.id',
+                'details.tgl_perolehan',
+                'details.merk',
+                'details.sumber',
+                'details.harga',
+                'details.keterangan',
+                'infos.kode_detail',
+                'infos.kondisi',
                 'barangs.nama_barang',
                 'ruangs.nama_ruang'
             )
-                ->join('barangs', 'laporan.barang_id', '=', 'barangs.id')
+                ->join('infos', 'details.info_id', '=', 'infos.id')
+                ->join('barangs', 'infos.barang_id', '=', 'barangs.id')
                 ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
                 ->get();
             return DataTables::of($laporan)
@@ -44,10 +44,13 @@ class LaporanController extends Controller
 
                     return $tombol;
                 })
+                ->editColumn('tgl_perolehan', function ($row) {
+                    return \Carbon\Carbon::parse($row->tgl_perolehan)->locale('id')->translatedFormat('l, d F Y');
+                })
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
-        return view('pages.detailbarang', compact('barang', 'ruang'));
+        return view('pages.detailbarang', compact('barang', 'info', 'ruang'));
     }
 
     public function simpanLaporan(Request $request)
@@ -56,23 +59,15 @@ class LaporanController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'barang_id' => 'required|unique:laporan,barang_id',
-                    'tgl_pembelian' => 'required',
-                    'sumber_dana' => 'required',
-                    'baik' => 'required|numeric',
-                    'rusak_ringan' => 'required|numeric',
-                    'rusak_berat' => 'required|numeric',
-                    'keterangan' => 'nullable|min:4',
+                    'info_id' => 'required|unique:details,info_id',
+                    'tgl_perolehan' => 'required',
+                    'sumber' => 'required',
                 ],
                 [
-                    'barang_id.required' => 'Nama barang harus di pilih.',
-                    'barang_id.unique' => 'Barang sudah dilaporkan, silahkan lakukan ubah data barang.',
-                    'tgl_pembelian.required' => 'Tanggal Pembelian harus diisi.',
-                    'sumber_dana.required' => 'Sumber Dana harus diisi.',
-                    'baik.required' => 'Kolom Baik harus diisi.',
-                    'rusak_ringan.required' => 'Kolom Rusak Ringan harus diisi.',
-                    'rusak_berat.required' => 'Kolom Rusak Berat harus diisi.',
-                    'keterangan.min' => 'Keterangan harus memiliki setidaknya :min karakter.',
+                    'info_id.required' => 'Kode barang harus di pilih.',
+                    'info_id.unique' => 'Kode barang sudah dilaporkan, silahkan melakukan ubah data pada tabel data.',
+                    'tgl_perolehan.required' => 'Tanggal perolehan harus diisi.',
+                    'sumber.required' => 'Sumber perolehan harus dipilih.',
                 ]
             );
 
@@ -86,21 +81,21 @@ class LaporanController extends Controller
                 ], 422);
             }
 
-            $barang = DataBarangModel::findorFail($request->barang_id);
-            // Membuat Data
+            $kondisiBarang = KondisiBarangModel::findOrFail($request->info_id);
+
+            // Create Data
             $data = [
-                'barang_id' => $barang->id,
-                'ruang_id' => $barang->ruang_id,
-                'tgl_pembelian' => $request->tgl_pembelian,
-                'sumber_dana' => $request->sumber_dana,
-                'baik' => $request->baik,
-                'rusak_ringan' => $request->rusak_ringan,
-                'rusak_berat' => $request->rusak_berat,
-                'jumlah' => $request->baik + $request->rusak_ringan + $request->rusak_berat,
+                'info_id' => $kondisiBarang->id,
+                'barang_id' => $kondisiBarang->barang_id,
+                'ruang_id' => $kondisiBarang->ruang_id,
+                'tgl_perolehan' => $request->tgl_perolehan,
+                'merk' => $request->merk,
+                'sumber' => $request->sumber,
+                'harga' => $request->harga,
                 'keterangan' => $request->keterangan,
             ];
 
-            LaporanModel::create($data);
+            DetailBarangModel::create($data);
 
             return response()->json([
                 'success' => true,
@@ -112,7 +107,7 @@ class LaporanController extends Controller
     //Untuk menghapus detail barang
     public function hapuslapbar(Request $request, $id)
     {
-        $barang = LaporanModel::findorfail($id);
+        $barang = DetailBarangModel::findorfail($id);
         if ($request->ajax()) {
             if ($barang) {
                 $barang->delete();
@@ -130,23 +125,22 @@ class LaporanController extends Controller
 
     public function lihatlapbar($id)
     {
-        $laporan = LaporanModel::findorfail($id);
+        $laporan = DetailBarangModel::findorfail($id);
         $ruang = Ruang::where('id', $laporan->ruang_id)->pluck('nama_ruang');
         $namabar = DataBarangModel::where('id', $laporan->barang_id)->pluck('nama_barang');
-        $kodbar = DataBarangModel::where('id', $laporan->barang_id)->pluck('kode_barang');
-        return response()->json([$laporan, $ruang, $namabar, $kodbar]);
+        $kodbar = KondisiBarangModel::where('id', $laporan->info_id)->pluck('kode_detail');
+        $kondisi = KondisiBarangModel::where('id', $laporan->info_id)->pluck('kondisi');
+        return response()->json([$laporan, $ruang, $namabar, $kodbar, $kondisi]);
     }
 
     public function updatedetailbar(Request $request, $id)
     {
-        $laporan = LaporanModel::findorfail($id);
-        
-        $laporan->tgl_pembelian = $request->input('tgl_pembelian');
-        $laporan->sumber_dana = $request->input('sumber_dana');
-        $laporan->baik = $request->input('baik');
-        $laporan->rusak_ringan = $request->input('rusak_ringan');
-        $laporan->rusak_berat = $request->input('rusak_berat');
-        $laporan->jumlah = $request->baik + $request->rusak_ringan + $request->rusak_berat;
+        $laporan = DetailBarangModel::findorfail($id);
+
+        $laporan->tgl_perolehan = $request->input('tgl_perolehan');
+        $laporan->sumber = $request->input('sumber');
+        $laporan->merk = $request->input('merk');
+        $laporan->harga = $request->input('harga');
         $laporan->keterangan = $request->input('keterangan');
         $laporan->save();
 

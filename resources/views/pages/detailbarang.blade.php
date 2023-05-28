@@ -5,7 +5,7 @@
 <div class="row page-titles mx-0">
     <div class="col p-md-0">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
+            <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
             <li class="breadcrumb-item"><a href="#">Aset Barang</a></li>
             <li class="breadcrumb-item active"><a href="/barang">Detail Barang dan Laporan</a></li>
         </ol>
@@ -32,7 +32,7 @@
                             <option value="all">Semua Data</option>
                             <option value="by_barang">Berdasarkan Barang</option>
                             <option value="by_ruang">Berdasarkan Ruang</option>
-                            <option value="by_month">Berdasarkan Tanggal Pembelian</option>
+                            <option value="by_month">Berdasarkan Tanggal Perolehan</option>
                         </select>
                     </div>
                     <div id="barangForm" style="display: none;">
@@ -59,7 +59,7 @@
                     </div>
                     <div id="monthForm" style="display: none;">
                         <div class="form-group">
-                            <label for="selectedMonth">Pilih Tanggal Pembelian:</label>
+                            <label for="selectedMonth">Pilih Tanggal Perolehan:</label>
                             <input type="date" class="form-control" id="selectedMonth" name="selected_date">
                         </div>
                     </div>
@@ -85,11 +85,11 @@
                     @csrf
                     <div id="">
                         <div class="form-group">
-                            <label for="">Pilih Barang:</label>
+                            <label for="">Pilih ID Barang:</label>
                             <select class="form-control" id="downloadOption" name="barang_dipilih">
                                 <option value="">Silahkan Pilih ...</option>
-                                @foreach ($barang as $b)
-                                <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
+                                @foreach ($info as $i)
+                                <option value="{{ $i->id }}">{{ $i->kode_detail }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -116,25 +116,25 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="nama_barang">Nama Barang</label>
-                                <select class="form-control" id="barang_id" name="barang_id" require>
+                                <label for="nama_barang">Kode Barang</label>
+                                <select class="form-control" id="info_id" name="info_id" require>
                                     <option value="">Silahkan Pilih ...</option>
-                                    @foreach ($barang as $r)
-                                    <option value="{{ $r->id }}">{{ $r->nama_barang }}</option>
+                                    @foreach ($info as $i)
+                                    <option value="{{ $i->id }}">{{ $i->kode_detail }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="tgl_pembelian">Tanggal Pembelian</label>
-                                <input class="form-control" type="date" name="tgl_pembelian" id="tgl_pembelian">
+                                <label for="tgl_perolehan">Tanggal Perolehan</label>
+                                <input class="form-control" type="date" name="tgl_perolehan" id="tgl_perolehan">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="sumber_dana">Sumber Dana</label>
-                                <select class="form-control" id="sumber_dana" name="sumber_dana" require>
+                                <label for="sumber">Sumber</label>
+                                <select class="form-control" id="sumber" name="sumber" require>
                                     <option value="" selected disabled>Silahkan Pilih ...</option>
                                     <option value="Anggaran Dana Desa">Anggaran Dana Desa</option>
                                     <option value="Hibah">Hibah</option>
@@ -144,22 +144,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="baik">Baik</label>
-                                <input class="form-control" type="number" min="0" placeholder="0" name="baik" id="baik">
+                                <label for="merk">Merk</label>
+                                <input type="text" class="form-control" name="merk" id="merk">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="rusak_ringan">Rusak Ringan</label>
-                                <input class="form-control" type="number" min="0" placeholder="0" name="rusak_ringan" id="rusak_ringan">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="rusak_berat">Rusak Berat</label>
-                                <input class="form-control" type="number" min="0" placeholder="0" name="rusak_berat" id="rusak_berat">
+                                <label for="harga">Harga (Rp)</label>
+                                <input class="form-control" type="number" min="0" placeholder="0" name="harga" id="harga">
                             </div>
                         </div>
                     </div>
@@ -172,7 +166,6 @@
                         </div>
                     </div>
                 </form>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
@@ -192,31 +185,31 @@
                 </button>
             </div>
             <div class="modal-body">
-            <input type="hidden" id="id">
+                <input type="hidden" id="id">
                 @csrf
                 <form id="edit_barang">
-                    <div class="row">
+                <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="nama_barang">Nama Barang</label>
-                                <select class="form-control" id="barang_id" name="barang_id" require disabled>
+                                <label for="nama_barang">Kode Barang</label>
+                                <select class="form-control" id="info_id" name="info_id" require disabled>
                                     <option value="">Silahkan Pilih ...</option>
-                                    @foreach ($barang as $r)
-                                    <option value="{{ $r->id }}">{{ $r->nama_barang }}</option>
+                                    @foreach ($info as $i)
+                                    <option value="{{ $i->id }}">{{ $i->kode_detail }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="tgl_pembelian">Tanggal Pembelian</label>
-                                <input class="form-control" type="date" name="tgl_pembelian" id="tgl_pembelian">
+                                <label for="tgl_perolehan">Tanggal Perolehan</label>
+                                <input class="form-control" type="date" name="tgl_perolehan" id="tgl_perolehan">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="sumber_dana">Sumber Dana</label>
-                                <select class="form-control" id="sumber_dana" name="sumber_dana" require>
+                                <label for="sumber">Sumber</label>
+                                <select class="form-control" id="sumber" name="sumber" require>
                                     <option value="" selected disabled>Silahkan Pilih ...</option>
                                     <option value="Anggaran Dana Desa">Anggaran Dana Desa</option>
                                     <option value="Hibah">Hibah</option>
@@ -226,22 +219,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="baik">Baik</label>
-                                <input class="form-control" type="number" min="0" placeholder="0" name="baik" id="baik">
+                                <label for="merk">Merk</label>
+                                <input type="text" class="form-control" name="merk" id="merk">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="rusak_ringan">Rusak Ringan</label>
-                                <input class="form-control" type="number" min="0" placeholder="0" name="rusak_ringan" id="rusak_ringan">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="rusak_berat">Rusak Berat</label>
-                                <input class="form-control" type="number" min="0" placeholder="0" name="rusak_berat" id="rusak_berat">
+                                <label for="harga">Harga (Rp)</label>
+                                <input class="form-control" type="number" min="0" placeholder="0" name="harga" id="harga">
                             </div>
                         </div>
                     </div>
@@ -254,7 +241,6 @@
                         </div>
                     </div>
                 </form>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
@@ -273,12 +259,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
             </div>
             <div class="modal-body">
-                <p><strong>Kode Barang:</strong> <span id="kode_barang"></span></p>
+                <p><strong>Kode Barang:</strong> <span id="kode_detail"></span></p>
                 <p><strong>Nama Barang:</strong> <span id="nama_barang"></span></p>
+                <p><strong>Merk:</strong> <span id="merk"></span></p>
+                <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
                 <p><strong>Ruang:</strong> <span id="ruang_id"></span></p>
-                <p><strong>Sumber Dana:</strong> <span id="sumber_dana"></span></p>
-                <p><strong>Tanggal Pembelian:</strong> <span id="tgl_pembelian"></span></p>
-                <p><strong>Jumlah:</strong> <span id="jumlah"></span></p>
+                <p><strong>Sumber:</strong> <span id="sumber"></span></p>
+                <p><strong>Tanggal Perolehan:</strong> <span id="tgl_perolehan"></span></p>
+                <p><strong>Harga (Rp):</strong> <span id="harga"></span></p>
                 <p><strong>Keterangan:</strong> <span id="keterangan"></span></p>
                 <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>
                 <p><strong>Terakhir Diubah:</strong> <span id="updated_at"></span></p>
@@ -303,13 +291,11 @@
                         <table id="tabel-laporan" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Kode Barang</th>
+                                    <th class="text-center">ID Barang</th>
                                     <th class="text-center">Nama Barang</th>
                                     <th class="text-center">Ruang</th>
-                                    <th class="text-center">Kondisi Baik</th>
-                                    <th class="text-center">Kondisi Rusak Ringan</th>
-                                    <th class="text-center">Kondisi Rusak Berat</th>
-                                    <th class="text-center">Jumlah</th>
+                                    <th class="text-center">Tanggal Perolehan</th>
+                                    <th class="text-center">Sumber</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>

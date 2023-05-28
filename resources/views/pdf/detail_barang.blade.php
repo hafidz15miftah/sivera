@@ -8,6 +8,7 @@
         table {
             border-collapse: collapse;
             font-size: 12px; /* ukuran teks dalam tabel */
+            margin: 0 auto;
         }
         table, th, td {
             border: 1px solid black;
@@ -44,42 +45,41 @@
 </head>
 <body>
     <h2 class="judul">DAFTAR INVENTARIS BARANG</h2>
-    <h2 class="tahun">TAHUN 2023</h2>
+    <h2 class="tahun">TAHUN {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
     <hr>
-    <h3 class="nama-ruang">SEMUA RUANGAN</h3>
+    <h3 class="nama-ruang">PEMERINTAH DESA KEDAWUNG</h3>
     <hr>
     <br>
     <table>
         <tr>
-            <th rowspan="2" style="text-align: center; width: 5%">NO</th>
-            <th rowspan="2" style="width: 270px">NAMA BARANG</th>
-            <th rowspan="2" style="width: 100px">TANGGAL PEMBELIAN</th>
-            <th rowspan="2" style="text-align: center; width: 100px">KODE BARANG</th>
-            <th rowspan="2" style="text-align: center; width: 150px">RUANG</th>
-            <th colspan="3" style="text-align: center; width: 15%">KONDISI</th>
-            <th rowspan="2" style="text-align: center; width: 75px">JUMLAH BARANG</th>
-
-
-        </tr>
-        <tr>
-            <th style="width: 20px">BAIK</th>
-            <th style="width: 20px">RUSAK RINGAN</th>
-            <th style="width: 20px">RUSAK BERAT</th>
+            <th style="text-align: center; width: 5%">NO</th>
+            <th style="text-align: center; width: 100px">ID BARANG</th>
+            <th style="text-align: center; width: 80px">TANGGAL PEROLEHAN</th>
+            <th style="text-align: center; width: 100px">RUANG</th>
+            <th style="text-align: center; width: 100px">KONDISI</th>
+            <th style="text-align: center; width: 200px">NAMA BARANG</th>
+            <th style="text-align: center; width: 100px">MERK</th>
+            <th style="text-align: center; width: 150px">SUMBER</th>
         </tr>
 
         @foreach ($laporan as $l)
         <tr>
             <td style="text-align: center">{{ $loop->iteration }}</td>
+            <td style="text-align: center">{{ $l->kode_detail }}</td>
+            <td style="text-align: center">{{ \Carbon\Carbon::parse($l->tgl_perolehan)->locale('id')->translatedFormat('d/m/Y') }}</td>
+            <th style="text-align: center">{{ $l->nama_ruang }}</th>
+            <td>
+                @if($l->kondisi == 1)
+                    Baik
+                @elseif($l->kondisi == 2)
+                    Rusak Ringan
+                @else
+                    Rusak Berat
+                @endif
+            </td>
             <td>{{ $l->nama_barang }}</td>
-            <td style="text-align: center">{{ \Carbon\Carbon::parse($l->tgl_pembelian)->locale('id')->translatedFormat('d/m/Y') }}</td>
-            <td style="text-align: center">{{ $l->kode_barang }}</td>
-            <td style="text-align: center">{{ $l->nama_ruang }}</td>
-            {{-- kondisi --}}
-            <td style="text-align: center">{{ $l->baik }}</td>
-            <td style="text-align: center">{{ $l->rusak_ringan }}</td>
-            <td style="text-align: center">{{ $l->rusak_berat }}</td>
-            {{-- end kondisi  --}}
-            <td style="text-align: center">{{ $l->jumlah }}</td>
+            <td>{{ $l->merk }}</td>
+            <td style="text-align: center">{{ $l->sumber }}</td>
         </tr>
         @endforeach
     </table>

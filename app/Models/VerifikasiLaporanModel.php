@@ -9,13 +9,18 @@ class VerifikasiLaporanModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'verifikasi_laporan';
+    protected $table = 'laporans';
 
     protected $fillable = [
+        'detail_id',
         'nama_laporan',
         'tanggal_dilaporkan',
         'gambar',
         'path',
         'status',
     ];
+
+    public function detail(){
+        return $this->belongsTo(DetailBarangModel::class, 'detail_id', 'id');
+    }
 }

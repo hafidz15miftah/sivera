@@ -62,6 +62,45 @@
             table.draw();
         });
 
+        $('#tabel-kondisi').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [{
+                    data: 'nama_barang',
+                    name: 'nama_barang'
+                },
+                {
+                    data: 'kode_detail',
+                    name: 'kode_detail'
+                },
+                {
+                    data: 'nama_ruang',
+                    name: 'nama_ruang',
+                },
+                {
+                    data: 'kondisi',
+                    name: 'kondisi',
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            columnDefs: [
+                // targets may be classes
+                {
+                    targets: [1],
+                    searchable: false
+                }
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+        });
+
         //Tabel Lahan/Tanah
         $('#tabel-tanah').DataTable({
             processing: true,
@@ -131,8 +170,8 @@
             serverSide: true,
             destroy: true,
             columns: [{
-                    data: 'kode_barang',
-                    name: 'kode_barang',
+                    data: 'kode_detail',
+                    name: 'kode_detail',
                 },
                 {
                     data: 'nama_barang',
@@ -143,20 +182,12 @@
                     name: 'nama_ruang',
                 },
                 {
-                    data: 'baik',
-                    name: 'baik'
+                    data: 'tgl_perolehan',
+                    name: 'tgl_perolehan'
                 },
                 {
-                    data: 'rusak_ringan',
-                    name: 'rusak_ringan'
-                },
-                {
-                    data: 'rusak_berat',
-                    name: 'rusak_berat'
-                },
-                {
-                    data: 'jumlah',
-                    name: 'jumlah'
+                    data: 'sumber',
+                    name: 'sumber'
                 },
                 {
                     data: 'aksi',
@@ -217,8 +248,7 @@
             processing: true,
             serverSide: true,
             destroy: true,
-            columns: [
-                {
+            columns: [{
                     data: 'name',
                     name: 'name'
                 },
@@ -353,42 +383,42 @@
     });
 </script>
 
-<!-- Script Tambah Data Barang -->
+<!-- Script Tambah Data Kondisi Aset -->
 <script>
     //button create post event
-    $('body').on('click', '#tambahbarang', function() {
+    $('body').on('click', '#tambahkondisi', function() {
         //open modal
-        $('#tambah-barang').modal('show');
+        $('#tambah-kondisi').modal('show');
     });
 
     //action create post
-    $('#simpanbarang').click(function(e) {
+    $('#simpankondisi').click(function(e) {
         e.preventDefault();
 
         //define variable
-        let ruang_id = $('#ruang_id').val();
-        let kode_barang = $('#kode_barang').val();
-        let nama_barang = $('#nama_barang').val();
+        let kode_detail = $('#kode_detail').val();
+        let kondisi = $('#kondisi').val();
+        let barang_id = $('#barang_id').val();
 
         //ajax
         $.ajax({
-            url: `{{url('/simpanbarang')}}`,
+            url: `{{url('/kondisi/simpan')}}`,
             type: "POST",
             cache: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                "ruang_id": ruang_id,
-                "kode_barang": kode_barang,
-                "nama_barang": nama_barang,
+                "kode_detail": kode_detail,
+                "kondisi": kondisi,
+                "barang_id": barang_id,
             },
             success: function(response) {
 
                 //show success message
                 Swal.fire({
                     icon: 'success',
-                    title: "Data barang berhasil ditambahkan",
+                    title: "Data kondisi berhasil ditambahkan",
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
@@ -397,20 +427,22 @@
                 })
 
                 //Reset Data Form Setelah Simpan Berhasil
-                $('#kode_barang').val('');
-                $('#nama_barang').val('');
+                $('#kode_detail').val('');
+                $('#kondisi').prop('selectedIndex', 0);
+                $('#barang_id').prop('selectedIndex', 0);
                 $('#ruang_id').prop('selectedIndex', 0);
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
-                $('#tabel-barang').DataTable().clear().draw();
-                $('#tambah-barang').modal('hide');
+                $('#tabel-kondisi').DataTable().clear().draw();
+                $('#tambah-kondisi').modal('hide');
 
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
-                        <td>${response.data.ruang}</td>
-                        <td>${response.data.kode_barang}</td>
-                        <td>${response.data.nama_barang}</td>
+                        <td>${response.data.kode_detail}</td>
+                        <td>${response.data.kondisi}</td>
+                        <td>${response.data.ruang_id}</td>
+                        <td>${response.data.barang_id}</td>
                     </tr>
                 `;
             },
@@ -441,25 +473,110 @@
     });
 </script>
 
-<!-- Script Tambah Data Laporan -->
+<!-- Script Tambah Data Barang -->
 <script>
     //button create post event
-    $('body').on('click', '#simpanLaporan', function() {
+    $('body').on('click', '#tambahbarang', function() {
         //open modal
-        $('#tambah-laporan').modal('show');
+        $('#tambah-barang').modal('show');
     });
 
+    //action create post
+    $('#simpanbarang').click(function(e) {
+        e.preventDefault();
+
+        //define variable
+        let ruang_id = $('#ruang_id').val();
+        let kode_barang = $('#kode_barang').val();
+        let nama_barang = $('#nama_barang').val();
+        let jumlah = $('#jumlah').val();
+
+        //ajax
+        $.ajax({
+            url: `{{url('/simpanbarang')}}`,
+            type: "POST",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "ruang_id": ruang_id,
+                "kode_barang": kode_barang,
+                "nama_barang": nama_barang,
+                "jumlah": jumlah,
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: "Data barang berhasil ditambahkan",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                //Reset Data Form Setelah Simpan Berhasil
+                $('#kode_barang').val('');
+                $('#nama_barang').val('');
+                $('#jumlah').val('');
+                $('#ruang_id').prop('selectedIndex', 0);
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-barang').DataTable().clear().draw();
+                $('#tambah-barang').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.ruang}</td>
+                        <td>${response.data.kode_barang}</td>
+                        <td>${response.data.nama_barang}</td>
+                        <td>${response.data.jumlah}</td>
+                    </tr>
+                `;
+            },
+            error: function(response) {
+                // Parse the JSON response
+                var errorData = JSON.parse(response.responseText);
+
+                // Access the errors array
+                var errors = errorData.errors;
+
+                // Get the error message
+                var errorMessage = errors;
+
+                Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: errorMessage,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+            }
+
+        });
+
+    });
+</script>
+
+<!-- Script Tambah Detail Data Barang -->
+<script>
     //action create post
     $('#simpanLaporan').click(function(e) {
         e.preventDefault();
 
         //define variable
-        let barang_id = $('#barang_id').val();
-        let tgl_pembelian = $('#tgl_pembelian').val();
-        let sumber_dana = $('#sumber_dana').val();
-        let baik = $('#baik').val();
-        let rusak_ringan = $('#rusak_ringan').val();
-        let rusak_berat = $('#rusak_berat').val();
+        let info_id = $('#info_id').val();
+        let tgl_perolehan = $('#tgl_perolehan').val();
+        let sumber = $('#sumber').val();
+        let merk = $('#merk').val();
+        let harga = $('#harga').val();
         let keterangan = $('#keterangan').val();
 
         //ajax
@@ -471,12 +588,11 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                "barang_id": barang_id,
-                "tgl_pembelian": tgl_pembelian,
-                "sumber_dana": sumber_dana,
-                "baik": baik,
-                "rusak_ringan": rusak_ringan,
-                "rusak_berat": rusak_berat,
+                "info_id": info_id,
+                "tgl_perolehan": tgl_perolehan,
+                "sumber": sumber,
+                "merk": merk,
+                "harga": harga,
                 "keterangan": keterangan,
             },
             success: function(response) {
@@ -493,12 +609,11 @@
                 })
 
                 //Reset Data Form Setelah Simpan Berhasil
-                $('#barang_id').prop('selectedIndex', 0);
-                $('#sumber_dana').val('');
-                $('#tgl_pembelian').val('');
-                $('#baik').val('');
-                $('#rusak_ringan').val('');
-                $('#rusak_berat').val('');
+                $('#info_id').prop('selectedIndex', 0);
+                $('#tgl_perolehan').val('');
+                $('#sumber').val('');
+                $('#merk').val('');
+                $('#harga').val('');
                 $('#keterangan').val('');
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
@@ -508,12 +623,11 @@
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
-                        <td>${response.data.barang_id}</td>
-                        <td>${response.data.sumber_dana}</td>
-                        <td>${response.data.tgl_pembelian}</td>
-                        <td>${response.data.baik}</td>
-                        <td>${response.data.rusak_ringan}</td>
-                        <td>${response.data.rusak_berat}</td>
+                        <td>${response.data.info_id}</td>
+                        <td>${response.data.sumber}</td>
+                        <td>${response.data.tgl_perolehan}</td>
+                        <td>${response.data.merk}</td>
+                        <td>${response.data.harga}</td>
                         <td>${response.data.keterangan}</td>
                     </tr>
                 `;
@@ -589,6 +703,7 @@
                 // Post Data
                 let post = `
                 <tr id="index_${response.data.id}">
+                <td>${response.data.detail_id}</td>
                     <td>${response.data.nama_laporan}</td>
                     <td>${response.data.file_pdf}</td>
                     <td>${response.data.file_gambar}</td>
@@ -798,21 +913,32 @@
                 let locale = 'id-ID';
                 let formattedDate = createdAt.toLocaleDateString(locale, options);
 
+                var kondisiNames = {
+                    1: "Baik",
+                    2: "Rusak Ringan",
+                    3: "Rusak Berat"
+                };
+
+                var kondisiText = kondisiNames[response[4]] || "Dalam Perbaikan";
+
                 //Mengubah updated_at menjadi tanggal local
                 let updatedAt = new Date(response[0].updated_at);
                 let updatedAtDate = updatedAt.toLocaleDateString(locale, options);
 
                 //fill data to form
                 $('#lihat-laporanbar #id').text(response.id);
-                $('#lihat-laporanbar #kode_barang').text(response[3]);
+                $('#lihat-laporanbar #kode_detail').text(response[3]);
                 $('#lihat-laporanbar #nama_barang').text(response[2]);
                 $('#lihat-laporanbar #ruang_id').text(response[1]);
-                $('#lihat-laporanbar #tgl_pembelian').text(new Date(response[0].tgl_pembelian).toLocaleDateString('id-ID', {
+                $('#lihat-laporanbar #kondisi').text(kondisiText);
+                $('#lihat-laporanbar #tgl_perolehan').text(new Date(response[0].tgl_perolehan).toLocaleDateString('id-ID', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
                 }));
-                $('#lihat-laporanbar #sumber_dana').text(response[0].sumber_dana);
+                $('#lihat-laporanbar #merk').text(response[0].merk);
+                $('#lihat-laporanbar #sumber').text(response[0].sumber);
+                $('#lihat-laporanbar #harga').text(response[0].harga);
                 $('#lihat-laporanbar #jumlah').text(response[0].jumlah);
                 $('#lihat-laporanbar #keterangan').text(response[0].keterangan);
                 document.getElementById("created_at").innerHTML = formattedDate;
@@ -951,6 +1077,88 @@
     })
 </script>
 
+<!-- Script Update Data Kondisi -->
+<script>
+    function ubahdatakondisi(e) {
+        event.preventDefault();
+        var modal = document.getElementById("edit-kondisi");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/kondisi/lihat")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                //fill data to form
+                $('#edit-kondisi #id').val(response[0].id);
+                $('#edit-kondisi #barang_id').val(response[0].barang_id);
+                $('#edit-laporan #ruang_id').val(response[0].ruang_id);
+                $('#edit-kondisi #kode_detail').val(response[0].kode_detail);
+                $('#edit-kondisi #kondisi').val(response[0].kondisi);
+            }
+        });
+    };
+
+    $('#updatekondisi').click(function(e) {
+        e.preventDefault();
+        let id = $('#edit-kondisi #id').val();
+        let ruang_id = $('#edit-kondisi #ruang_id').val();
+        let barang_id = $('#edit-kondisi #barang_id').val();
+        let kode_detail = $('#edit-kondisi #kode_detail').val();
+        let kondisi = $('#edit-kondisi #kondisi').val();
+
+        $.ajax({
+            url: `/kondisi/update/` + id,
+            type: "PUT",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "barang_id": barang_id,
+                "ruang_id": ruang_id,
+                "kode_detail": kode_detail,
+                "kondisi": kondisi,
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil Memperbarui Data',
+                    text: "Data barang berhasil diperbarui",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-kondisi').DataTable().clear().draw();
+                $('#edit-kondisi').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                    <td>${response.data.barang_id}</td>
+                        <td>${response.data.ruang_id}</td>
+                        <td>${response.data.kode_detail}</td>
+                        <td>${response.data.kondisi}</td>
+                    </tr>
+                `;
+            },
+        })
+    })
+</script>
+
 <!-- Script Update Detail Data Barang -->
 <script>
     function updateDetailBarang(e) {
@@ -972,12 +1180,11 @@
             success: function(response) {
                 //fill data to form
                 $('#edit-laporan #id').val(response[0].id);
-                $('#edit-laporan #barang_id').val(response[0].barang_id);
-                $('#edit-laporan #tgl_pembelian').val(response[0].tgl_pembelian);
-                $('#edit-laporan #sumber_dana').val(response[0].sumber_dana);
-                $('#edit-laporan #baik').val(response[0].baik);
-                $('#edit-laporan #rusak_ringan').val(response[0].rusak_ringan);
-                $('#edit-laporan #rusak_berat').val(response[0].rusak_berat);
+                $('#edit-laporan #info_id').val(response[0].info_id);
+                $('#edit-laporan #tgl_perolehan').val(response[0].tgl_perolehan);
+                $('#edit-laporan #sumber').val(response[0].sumber);
+                $('#edit-laporan #merk').val(response[0].merk);
+                $('#edit-laporan #harga').val(response[0].harga);
                 $('#edit-laporan #keterangan').val(response[0].keterangan);
             }
         });
@@ -987,13 +1194,11 @@
         e.preventDefault();
 
         let id = $('#edit-laporan #id').val();
-        let barang_id = $('#edit-laporan #barang_id').val();
-        let tgl_pembelian = $('#edit-laporan #tgl_pembelian').val();
-        let sumber_dana = $('#edit-laporan #sumber_dana').val();
-        let baik = $('#edit-laporan #baik').val();
-        let rusak_ringan = $('#edit-laporan #rusak_ringan').val();
-        let rusak_berat = $('#edit-laporan #rusak_berat').val();
-        let jumlah = $('#edit-laporan #jumlah').val();
+        let info_id = $('#edit-laporan #info_id').val();
+        let tgl_perolehan = $('#edit-laporan #tgl_perolehan').val();
+        let sumber = $('#edit-laporan #sumber').val();
+        let merk = $('#edit-laporan #merk').val();
+        let harga = $('#edit-laporan #harga').val();
         let keterangan = $('#edit-laporan #keterangan').val();
 
         $.ajax({
@@ -1004,14 +1209,12 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                "barang_id": barang_id,
-                "tgl_pembelian": tgl_pembelian,
-                "sumber_dana": sumber_dana,
-                "baik": baik,
-                "rusak_ringan": rusak_ringan,
-                "rusak_berat": rusak_berat,
+                "info_id": info_id,
+                "tgl_perolehan": tgl_perolehan,
+                "sumber": sumber,
+                "merk": merk,
+                "harga": harga,
                 "keterangan": keterangan,
-                "jumlah": jumlah,
             },
             success: function(response) {
 
@@ -1034,13 +1237,11 @@
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
-                    <td>${response.data.barang_id}</td>
-                        <td>${response.data.tgl_pembelian}</td>
-                        <td>${response.data.sumber_dana}</td>
-                        <td>${response.data.baik}</td>
-                        <td>${response.data.rusak_ringan}</td>
-                        <td>${response.data.rusak_berat}</td>
-                        <td>${response.data.keterangan}</td>
+                    <td>${response.data.info_id}</td>
+                        <td>${response.data.tgl_perolehan}</td>
+                        <td>${response.data.sumber}</td>
+                        <td>${response.data.merk}</td>
+                        <td>${response.data.harga}</td>
                         <td>${response.data.jumlah}</td>
                     </tr>
                 `;
@@ -1188,6 +1389,67 @@
                             icon: 'error',
                             title: 'Gagal Menghapus Barang',
                             text: 'Barang ' + name + ' sudah dilaporkan dalam detail barang',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 5000
+                        })
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+<!-- Script Hapus Data Barang -->
+<script>
+    function deleteDataKondisi(e) {
+        event.preventDefault();
+        let id = e.getAttribute('data-id');
+        let name = e.getAttribute('data-name');
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data kondisi " + name + " akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/kondisi/hapus/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Data " + name + " berhasil dihapus",
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                timer: 3000
+                            })
+                            $('#tabel-kondisi').DataTable().clear().draw();
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal Menghapus Barang',
+                            text: 'Kondisi barang ' + name + ' sudah dilaporkan dalam detail barang',
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
@@ -1626,7 +1888,7 @@
 
 <!-- Menolak dan Menyetujui Laporan -->
 <script>
-        function tolakLaporan(e) {
+    function tolakLaporan(e) {
         let id = e.getAttribute('data-id');
 
         Swal.fire({
