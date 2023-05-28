@@ -70,7 +70,7 @@
             <h1 class="pemkab-name">PEMERINTAH KABUPATEN CILACAP</h1>
             <h1 class="pemkab-name">KECAMATAN KROYA</h1>
             <h1 class="desa-name">DESA KEDAWUNG</h1>
-            <p class="desa-address">Jl. Jend. A. Yani Desa Kedawung, Kecamatan Kroya, Kabupaten Cilacap, Jawa Tengah 53282</p>
+            <p class="desa-address">Jl. Jend. A. Yani No. 11 Desa Kedawung, Kec. Kroya Telepon (0282) 494397 Kode Pos 53282</p>
         </div>
     </div>
     <h2 style="justify-content: center; text-align: center">REKAP PELAPORAN BARANG RUSAK</h2>
@@ -79,6 +79,7 @@
         <thead>
             <tr>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">NO</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">ID BARANG</th>               
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">NAMA LAPORAN</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">TANGGAL LAPORAN</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">STATUS</th>
@@ -89,6 +90,7 @@
             @foreach ($verifikasi as $b)
             <tr>
                 <td style="border: 1px solid #000; text-align: center;">{{ $loop->iteration }}</td>
+                <td style="border: 1px solid #000;">{{ $b->kode_detail }}</td>
                 <td style="border: 1px solid #000;">{{ $b->nama_laporan }}</td>
                 <td style="border: 1px solid #000; text-align: center;">{{ \Carbon\Carbon::parse($b->tanggal_dilaporkan)->locale('id')->translatedFormat('d/m/Y') }}</td>
                 <td style="border: 1px solid #000; text-align: center;">@if($b->status == 0)

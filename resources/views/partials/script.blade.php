@@ -213,6 +213,10 @@
                     searchable: false
                 },
                 {
+                    data: 'kode_detail',
+                    name: 'kode_detail'
+                },
+                {
                     data: 'nama_laporan',
                     name: 'nama_laporan'
                 },
@@ -703,7 +707,7 @@
                 // Post Data
                 let post = `
                 <tr id="index_${response.data.id}">
-                <td>${response.data.detail_id}</td>
+                <td>${response.data.info_id}</td>
                     <td>${response.data.nama_laporan}</td>
                     <td>${response.data.file_pdf}</td>
                     <td>${response.data.file_gambar}</td>

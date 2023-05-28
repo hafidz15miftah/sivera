@@ -76,7 +76,7 @@
             <h1 class="pemkab-name">PEMERINTAH KABUPATEN CILACAP</h1>
             <h1 class="pemkab-name">KECAMATAN KROYA</h1>
             <h1 class="desa-name">DESA KEDAWUNG</h1>
-            <p class="desa-address">Jl. Ahmad Yani Nomor 11 Desa Kedawung, Kec. Kroya Telepon (0282) 494397 Kode Pos 53282</p>
+            <p class="desa-address">Jl. Jend. A. Yani No. 11 Desa Kedawung, Kec. Kroya Telepon (0282) 494397 Kode Pos 53282</p>
         </div>
     </div>
     <h2 style="text-align: center; font-family: Arial, sans-serif">BERITA ACARA BARANG RUSAK</h2>

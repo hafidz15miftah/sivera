@@ -94,23 +94,8 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title text-center">Informasi Laporan Terkini</h4>
-                    <div class="active-member">
-                        <div class="table-responsive">
-                            <table class="table table-xs mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Nama Laporan</th>
-                                        <th>Tanggal Dilaporkan</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <h4 class="card-title text-center">Grafik Laporan Bulanan</h4>
+                    <canvas id="chartLaporan"></canvas>
                 </div>
             </div>
         </div>
@@ -194,4 +179,64 @@
         });
     });
 </script>
+
+<!-- ChartJS Bar - Laporan -->
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Data untuk chart
+            var data = {
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: [{
+                    label: 'Jumlah Laporan',
+                    data: <?php echo json_encode($dataLaporan); ?>,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)',
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            // Konfigurasi chart
+            var options = {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            };
+
+            // Membuat bar chart
+            var ctx = document.getElementById('chartLaporan').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        });
+    </script>
 @endsection

@@ -12,7 +12,7 @@ class VerifikasiLaporanModel extends Model
     protected $table = 'laporans';
 
     protected $fillable = [
-        'detail_id',
+        'info_id',
         'nama_laporan',
         'tanggal_dilaporkan',
         'gambar',
@@ -20,7 +20,7 @@ class VerifikasiLaporanModel extends Model
         'status',
     ];
 
-    public function detail(){
-        return $this->belongsTo(DetailBarangModel::class, 'detail_id', 'id');
+    public function info(){
+        return $this->belongsTo(KondisiBarangModel::class, 'info_id', 'id');
     }
 }

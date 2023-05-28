@@ -34,7 +34,16 @@ class ExportLaporanController extends Controller
     public function cetak_laporan_perbulan()
     {
         $bulanIni = Carbon::now()->format('m'); // Mendapatkan nilai bulan saat ini dalam format 'mm'
-        $verifikasi = VerifikasiLaporanModel::whereMonth('tanggal_dilaporkan', $bulanIni)->get();
+        $verifikasi = VerifikasiLaporanModel::select(
+            'laporans.id',
+            'laporans.nama_laporan',
+            'laporans.tanggal_dilaporkan',
+            'laporans.status',
+            'laporans.keterangan',
+            'infos.kode_detail'
+        )
+        ->join('infos', 'laporans.info_id', '=', 'infos.id')
+        ->whereMonth('tanggal_dilaporkan', $bulanIni)->get();
         $data = Pdf::loadView('pdf.pelaporan_bulanan', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A4');
         return $data->stream('laporan-bulanan.pdf');
     }
@@ -42,7 +51,16 @@ class ExportLaporanController extends Controller
     public function cetak_laporan_pertahun()
     {
         $tahunIni = Carbon::now()->format('Y'); // Mendapatkan nilai tahun saat ini dalam format 'YYYY'
-        $verifikasi = VerifikasiLaporanModel::whereYear('tanggal_dilaporkan', $tahunIni)->get();
+        $verifikasi = VerifikasiLaporanModel::select(
+            'laporans.id',
+            'laporans.nama_laporan',
+            'laporans.tanggal_dilaporkan',
+            'laporans.status',
+            'laporans.keterangan',
+            'infos.kode_detail'
+        )
+        ->join('infos', 'laporans.info_id', '=', 'infos.id')
+        ->whereYear('tanggal_dilaporkan', $tahunIni)->get();
         $data = Pdf::loadView('pdf.pelaporan_tahunan', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A4');
         return $data->stream('laporan-tahunan.pdf');
     }

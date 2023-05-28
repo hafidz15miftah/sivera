@@ -18,7 +18,7 @@ class PelaporanController extends Controller
         $info = KondisiBarangModel::all();
 
         if (request()->ajax()) {
-
+            $laporan = VerifikasiLaporanModel::with('info')->join('infos', 'laporans.info_id', '=', 'infos.id')->select('laporans.id', 'infos.kode_detail')->get();
             // Filter data sesuai role_id
             if (Auth::user()->role_id == 1) {
                 $laporan = VerifikasiLaporanModel::where('status', 1)->get();
@@ -30,6 +30,12 @@ class PelaporanController extends Controller
             return DataTables::of($laporan)
                 ->addIndexColumn()
                 ->addColumn('DT_RowIndex', function ($row) {
+                    return '';
+                })
+                ->addColumn('kode_detail', function ($row) {
+                    if ($row->info) {
+                        return $row->info->kode_detail;
+                    }
                     return '';
                 })
                 ->editColumn('tanggal_dilaporkan', function ($row) {
@@ -87,12 +93,12 @@ class PelaporanController extends Controller
     public function uploadPDF(Request $request)
     {
         $validatedData = $request->validate([
-            'detail_id' => 'required|unique:laporans,detail_id', 
+            'info_id' => 'required|unique:laporans,info_id', 
             'nama_laporan' => 'required',
             'file_gambar' => 'required|mimes:jpeg,png|max:8192', //Hanya menerima file gambar dengan ukuran maks 8 MB
             'file_pdf' => 'required|mimes:pdf|max:2048', // Hanya menerima file PDF dengan ukuran maksimum 2MB
         ], [
-            'detail_id.unique' => 'Kode barang sudah pernah melakukan pelaporan barang rusak',
+            'info_id.unique' => 'ID barang sudah pernah melakukan pelaporan barang rusak',
             'nama_laporan.required' => 'Nama laporan harus diisi',
             'file_gambar' => 'Silahkan upload gambar barang rusak',
             'file_pdf' => 'Silahkan upload file PDF'
@@ -111,7 +117,7 @@ class PelaporanController extends Controller
 
             $data = new VerifikasiLaporanModel();
             $data->nama_laporan = $validatedData['nama_laporan'];
-            $data->detail_id = $request->input('detail_id');
+            $data->info_id = $request->input('info_id');
             $data->path = $filePath;
             $data->gambar = $fileGambar;
             $data->tanggal_dilaporkan = Carbon::now();

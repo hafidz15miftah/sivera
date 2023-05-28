@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('laporans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('detail_id')->constrained();
+            $table->foreignId('info_id')->constrained();
             $table->string('nama_laporan');
             $table->date('tanggal_dilaporkan');
             $table->string('gambar');

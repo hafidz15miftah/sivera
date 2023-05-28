@@ -26,7 +26,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="barang_id">Pilih ID Barang:</label>
-                        <select class="form-control" name="detail_id" id="detail_id" required>
+                        <select class="form-control" name="info_id" id="info_id" required>
                             <option value="">Silahkan Pilih ...</option>
                             @foreach ($info as $i)
                             <option value="{{ $i->id }}">{{ $i->kode_detail }}</option>
@@ -80,6 +80,7 @@
                             <thead>
                                 <tr>
                                     <th style="text-align: center">No</th>
+                                    <th style="text-align: center">ID Barang</th>
                                     <th style="text-align: center">Nama Laporan</th>
                                     <th style="text-align: center">Tanggal Dilaporkan</th>
                                     <th style="text-align: center" width="20%">Status</th>
