@@ -76,7 +76,7 @@
             <h1 class="pemkab-name">PEMERINTAH KABUPATEN CILACAP</h1>
             <h1 class="pemkab-name">KECAMATAN KROYA</h1>
             <h1 class="desa-name">DESA KEDAWUNG</h1>
-            <p class="desa-address">Jl. Jend. A. Yani Desa Kedawung, Kecamatan Kroya, Kabupaten Cilacap, Jawa Tengah 53282</p>
+            <p class="desa-address">Jl. Ahmad Yani Nomor 11 Desa Kedawung, Kec. Kroya Telepon (0282) 494397 Kode Pos 53282</p>
         </div>
     </div>
     <h2 style="text-align: center; font-family: Arial, sans-serif">BERITA ACARA BARANG RUSAK</h2>
@@ -93,38 +93,36 @@
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">NAMA BARANG</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">MERK</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">ID BARANG</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">TAHUN PEROLEH</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center; width: 60px;">PEROLEHAN</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">RUANGAN</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">KETERANGAN</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($berita as $b)
             <tr>
-                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $loop->iteration }}</td>
-                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->nama_barang }}</td>
-                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->merk }}</td>
-                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->kode_detail }}</td>
-                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ \Carbon\Carbon::parse($b->tgl_perolehan)->locale('id')->translatedFormat('Y') }}</td>
-                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->nama_ruang }}</td>
-                <td style="border: 1px solid #000; background-color: white; text-align: center;">{{ $b->keterangan }}</td>
+                <td style="border: 1px solid #000; text-align: center;">{{ $loop->iteration }}</td>
+                <td style="border: 1px solid #000; padding-left: 10px;">{{ $b->nama_barang }}</td>
+                <td style="border: 1px solid #000; text-align: center;">{{ $b->merk }}</td>
+                <td style="border: 1px solid #000; text-align: center;">{{ $b->kode_detail }}</td>
+                <td style="border: 1px solid #000; text-align: center; width: 60px;">{{ \Carbon\Carbon::parse($b->tgl_perolehan)->locale('id')->translatedFormat('Y') }}</td>
+                <td style="border: 1px solid #000; text-align: center;">{{ $b->nama_ruang }}</td>
             </tr>
             @endforeach
             <tr>
-                <td colspan="7" style="border: none" class="ttd"></td>
+                <td colspan="6" style="border: none" class="ttd"></td>
             </tr>
             <tr>
-                <td colspan="7" style="border: none" class="ttd"></td>
+                <td colspan="6" style="border: none" class="ttd"></td>
             </tr>
             <tr>
-                <td colspan="5" style="border: none; text-align: center" class="ttd"></td>
+                <td colspan="4" style="border: none; text-align: center" class="ttd"></td>
                 <td colspan="2" style="border: none; text-align: center" class="ttd">Kepala Urusan Umum dan Perencanaan</td>
             </tr>
             <tr>
-                <td colspan="5" style="border: none" class="ttd"></td>
+                <td colspan="4" style="border: none" class="ttd"></td>
             </tr>
             <tr>
-                <td colspan="5" style="border: none; text-align: center" class="ttd"></td>
+                <td colspan="4" style="border: none; text-align: center" class="ttd"></td>
                 <td colspan="2" style="border: none; text-align: center; text-decoration: underline" class="ttd"><strong>{{ Auth::user()->name }}</strong></td>
             </tr>
         </tbody>

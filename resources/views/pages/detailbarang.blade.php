@@ -259,7 +259,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
             </div>
             <div class="modal-body">
-                <p><strong>Kode Barang:</strong> <span id="kode_detail"></span></p>
+                <p><strong>ID Barang:</strong> <span id="kode_detail"></span></p>
                 <p><strong>Nama Barang:</strong> <span id="nama_barang"></span></p>
                 <p><strong>Merk:</strong> <span id="merk"></span></p>
                 <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
