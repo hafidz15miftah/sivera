@@ -90,7 +90,6 @@ class BarangController extends Controller
                 'nama_barang.required' => 'Nama barang harus diisi.',
                 'kode_barang.required' => 'Kode barang harus diisi.',
                 'kode_barang.unique' => 'Kode barang sudah digunakan.',
-                'jumlah.required' => 'Jumlah barang harus diisi.',
             ]
         );
 

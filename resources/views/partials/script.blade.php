@@ -1133,7 +1133,7 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Berhasil Memperbarui Data',
-                    text: "Data barang berhasil diperbarui",
+                    text: "Kondisi barang berhasil diperbarui",
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,

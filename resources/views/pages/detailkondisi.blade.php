@@ -96,6 +96,7 @@
                 </button>
             </div>
             <div class="modal-body">
+            <input type="hidden" id="id">
                 @csrf
                 <form id="add_kondisi">
                     <div class="form-row">
