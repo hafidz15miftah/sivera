@@ -88,6 +88,7 @@ Route::delete('/hapusruangan/{id}', [RuangController::class, 'hapusruangan'])->n
 
 //Route Untuk Membuka Halaman Tambah Barang dan Fungsi Simpan
 Route::get('/barang', [BarangController::class, 'tampilkanBarang'])->name('tampilkanBarang')->middleware('auth','role:kaurumum');
+Route::get('/get-jumlah-info', [KondisiController::class, 'get_info'])->name('tampilkanBarang')->middleware('auth','role:kaurumum');
 Route::get('/tambahbarang', [BarangController::class, 'tambahbarang'])->name('tambahbarang')->middleware('auth', 'role:kaurumum');
 Route::get('/lihatdata/{id}', [BarangController::class, 'lihatdata'])->name('lihatdata')->middleware('auth', 'role:kaurumum');
 Route::put('/updatebarang/{id}', [BarangController::class, 'updatebarang'])->name('updatebarang')->middleware('auth', 'role:kaurumum');

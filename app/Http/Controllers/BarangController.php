@@ -35,6 +35,7 @@ class BarangController extends Controller
         return view('pages.datatablebarang', ['ruang' => $ruang]);
     }
 
+
     //Untuk melihat data barang
     public function lihatdata($id){
         $barang = DataBarangModel::findorfail($id);

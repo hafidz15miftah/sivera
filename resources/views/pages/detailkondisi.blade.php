@@ -140,18 +140,35 @@
         var kode_barang = '';
         var nomor = selectedIndex;
 
-        if (selectedIndex !== 0) {
+        $.ajax({
+        url: 'get-jumlah-info',
+        method: 'GET',
+        headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        success: function(response) {
+            var count = response;
+            console.log("Number of barang: " + count);
+            
+            if (selectedIndex !== 0) {
             var option = selectElement.options[selectedIndex];
             var kode_barang = "{!! addslashes(json_encode($barang->pluck('kode_barang')->toArray())) !!}";
+            
 
             if (selectedIndex !== -1) {
                 var kode_barang = JSON.parse(kode_barang)[selectedIndex - 1];
-                var kode_detail = kode_barang + '-' + nomor;
+                var kode_detail = kode_barang + '-' + count;
                 document.getElementById('kode_detail').value = kode_detail;
             }
         } else {
             document.getElementById('kode_detail').value = '';
         }
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+        });
+
     });
 </script>
 

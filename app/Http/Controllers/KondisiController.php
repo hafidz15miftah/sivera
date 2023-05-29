@@ -49,6 +49,15 @@ class KondisiController extends Controller
         return view('pages.detailkondisi', compact('barang', 'ruang'));
     }
 
+    
+    public function get_info(Request $request){
+        if (request()->ajax()) {
+            $info = KondisiBarangModel::count();
+            return response()->json($info);
+        }
+        return redirect(404);
+    }
+
     public function lihatkondisi($id){
         $barang = KondisiBarangModel::findorfail($id);
         $nama = DataBarangModel::where('id',$barang->barang_id)->pluck('nama_barang')->first();
