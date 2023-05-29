@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-row">
                         <label for="kode_detail" class="col-form-label">ID Barang:</label>
-                        <input type="text" class="form-control" name="kode_detail" id="kode_detail">
+                        <input type="text" class="form-control" name="kode_detail" id="kode_detail" disabled>
                     </div>
                     <div class="form-row">
                         <label for="kondisi" class="col-form-label">Kondisi:</label>
