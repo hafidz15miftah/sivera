@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataBarangModel;
 use App\Models\DetailBarangModel;
 use App\Models\KondisiBarangModel;
 use App\Models\VerifikasiLaporanModel;
@@ -9,7 +10,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Telegram\Bot\Laravel\Facades\Telegram;
 use Yajra\DataTables\Facades\DataTables;
+use NotificationChannels\Telegram\TelegramMessage;
+use Telegram\Bot\Api;
 
 class PelaporanController extends Controller
 {
@@ -92,6 +96,7 @@ class PelaporanController extends Controller
 
     public function uploadPDF(Request $request)
     {
+        
         $validatedData = $request->validate([
             'info_id' => 'required|unique:laporans,info_id', 
             'nama_laporan' => 'required',
@@ -126,10 +131,19 @@ class PelaporanController extends Controller
             $data->updated_at = Carbon::now();
             $data->save();
 
+            $cek = KondisiBarangModel::find($request->info_id);
+            $barang = DataBarangModel::findorFail($cek->barang_id);
+            $telegram = new Api('6184772539:AAEAKTUUYBJJVYlo7ovkPyfHRkINPj857oc');
+            $response = $telegram->sendMessage([
+                'chat_id' => '963603938',
+                'text' => 'Terdapat laporan barang '. strtolower($barang->nama_barang) .' rusak, mohon lakukan verifikasi dan lakukan pengecekan pada Sistem Informasi Inventaris Barang dan Aset Desa | SIVERA'
+            ]);
+            $messageId = $response->getMessageId();
+            // $botId = $response->getId();
+
             return response()->json([
                 'success' => true,
-                'message' =>
-                'File PDF dan Gambar berhasil diunggah dan data telah disimpan',
+                'message' => $messageId,
             ]);
         }
 
