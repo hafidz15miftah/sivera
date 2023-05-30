@@ -30,21 +30,9 @@
                         <label for="downloadOption">Pilih Opsi:</label>
                         <select class="form-control" id="downloadOption" name="download_option">
                             <option value="all">Semua Data</option>
-                            <option value="by_barang">Berdasarkan Barang</option>
                             <option value="by_ruang">Berdasarkan Ruang</option>
                             <option value="by_month">Berdasarkan Tanggal Perolehan</option>
                         </select>
-                    </div>
-                    <div id="barangForm" style="display: none;">
-                        <div class="form-group">
-                            <label for="downloadOptions">Pilih Barang:</label>
-                            <select class="form-control" id="downloadOption" name="selected_barang">
-                                <option value="">Silahkan Pilih ...</option>
-                                @foreach ($barang as $b)
-                                <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
                     <div id="ruangForm" style="display: none;">
                         <div class="form-group">
