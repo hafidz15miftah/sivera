@@ -131,20 +131,20 @@ class PelaporanController extends Controller
             $data->updated_at = Carbon::now();
             $data->save();
 
-            $cek = KondisiBarangModel::find($request->info_id);
-            $barang = DataBarangModel::findorFail($cek->barang_id);
-            $telegram = new Api('6184772539:AAEAKTUUYBJJVYlo7ovkPyfHRkINPj857oc');
-            $response = $telegram->sendMessage([
-                'chat_id' => '963603938',
-                'text' => 'Terdapat laporan barang '. strtolower($barang->nama_barang) .' rusak, mohon lakukan verifikasi dan lakukan pengecekan pada Sistem Informasi Inventaris Barang dan Aset Desa | SIVERA'
-            ]);
-            $messageId = $response->getMessageId();
-            // $botId = $response->getId();
+            // $cek = KondisiBarangModel::find($request->info_id);
+            // $barang = DataBarangModel::findorFail($cek->barang_id);
+            // $telegram = new Api('6184772539:AAEAKTUUYBJJVYlo7ovkPyfHRkINPj857oc');
+            // $response = $telegram->sendMessage([
+            //     'chat_id' => '-865301668',
+            //     'text' => 'Terdapat laporan barang '. strtolower($barang->nama_barang) .' rusak, mohon lakukan verifikasi dan lakukan pengecekan pada Sistem Informasi Inventaris Barang dan Aset Desa | SIVERA'
+            // ]);
+            // $messageId = $response->getMessageId();
+            // // $botId = $response->getId();
 
-            return response()->json([
-                'success' => true,
-                'message' => $messageId,
-            ]);
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => $messageId,
+            // ]);
         }
 
         return back()->with('error', 'File PDF dan Gambar tidak ditemukan.');
