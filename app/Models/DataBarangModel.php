@@ -16,11 +16,16 @@ class DataBarangModel extends Model
         'kode_barang',
         'nama_barang',
         'jumlah',
+        'kategori_id',
         'ruang_id'
 ];
 
     // one to many
     public function ruang(){
         return $this->belongsTo(Ruang::class, 'ruang_id', 'id');
+    }
+
+    public function kategori(){
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id');
     }
 }

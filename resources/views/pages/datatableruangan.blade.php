@@ -94,4 +94,242 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Tabel Ruangan
+        $('#tabel-ruangan').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [{
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'nama_ruang',
+                    name: 'nama_ruang',
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+        });
+    });
+</script>
+
+<!-- Script Tambah Data Ruangan -->
+<script>
+    $('body').on('click', '#tambahruangan', function() {
+
+        //open modal
+        $('#tambah-ruangan').modal('show');
+    });
+
+    $('#simpanruangan').click(function(e) {
+        e.preventDefault();
+
+        let nama_ruang = $('#nama_ruang').val();
+
+        $.ajax({
+            url: `{{url('/simpanruangan')}}`,
+            type: "POST",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "nama_ruang": nama_ruang,
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: "Data ruangan berhasil ditambahkan",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                $('#nama_ruang').val('');
+
+                $('#tabel-ruangan').DataTable().ajax.reload();
+                $('#tambah-ruangan').modal('hide');
+
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.nama_ruang}</td>
+                    </tr>
+                `;
+            },
+            error: function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: 'Mohon isikan nama ruangan',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+            }
+        });
+    });
+</script>
+
+<!-- Script Update Data Ruangan -->
+<script>
+    function lihatruangan(e) {
+        event.preventDefault();
+        var modal = document.getElementById("edit-ruangan");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatruangan")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                //fill data to form
+                $('#edit-ruangan #id').val(response.id);
+                $('#edit-ruangan #nama_ruang').val(response.ruang.nama_ruang);
+                $('#edit-ruangan #nama_ruang').attr('data-id', id);
+                console.log(response.ruang.nama_ruang);
+            }
+        });
+    };
+
+    $('#updateruangan').click(function(e) {
+        e.preventDefault();
+
+        let id = $('#edit-ruangan #nama_ruang').data('id');
+        console.log(id);
+        let nama_ruang = $('#edit-ruangan #nama_ruang').val();
+
+        $.ajax({
+            url: '/updateruangan/' + id,
+            type: "PUT",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "nama_ruang": nama_ruang,
+            },
+            success: function(response) {
+
+                //show success message
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil Memperbarui Data',
+                        text: "Nama ruangan berhasil diperbarui",
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 3000
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: "Data ruangan sudah ada",
+                        text: "Mohon gunakan nama ruangan lainnya",
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                        timer: 5000
+                    })
+                }
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-ruangan').DataTable().clear().draw();
+                $('#edit-ruangan').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.nama_ruang}</td>
+                    </tr>
+                `;
+            },
+        })
+    })
+</script>
+
+<!-- Script Hapus Data Ruangan -->
+<script>
+    function deleteDataRuangan(e) {
+        event.preventDefault();
+        let id = e.getAttribute('data-id');
+        let name = e.getAttribute('data-name');
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data " + name + " akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/hapusruangan/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Data " + name + " berhasil dihapus",
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                timer: 3000
+                            })
+                            $('#tabel-ruangan').DataTable().clear().draw();
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Gagal Menghapus Ruangan",
+                            text: "Pastikan tidak terdapat barang di ruang " + name,
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 5000
+                        })
+                    }
+                });
+            }
+        });
+    }
+</script>
 @endsection

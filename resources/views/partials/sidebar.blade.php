@@ -18,6 +18,10 @@
             @if(auth()->user()->role_id == 2)
             <li class="nav-label">FUNGSIONAL SISTEM</li>
             <li>
+                <a href="/kategori" aria-expanded="false">
+                    <i class="icon-folder-alt menu-icon"></i><span class="nav-text">Kategori</span>
+                </a>
+            </li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="icon-tag menu-icon"></i><span class="nav-text">Aset Barang</span>

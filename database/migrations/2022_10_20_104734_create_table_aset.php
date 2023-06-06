@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('tanah', function (Blueprint $table) {
             $table->increments('id');
+            $table->foreignId('kategori_id')->constrained();
             $table->string('nama_obyek');
             $table->string('alamat');
             $table->string('no_sertifikat');
             $table->float('luas');
-            $table->enum('kondisi', ['Baik', 'Rusak Ringan', 'Rusak Berat']);
-            $table->string('keterangan')->nullable();;
+            $table->integer('kondisi');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

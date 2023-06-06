@@ -4,6 +4,7 @@ use App\Http\Controllers\AsetTanahController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportLaporanController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PelaporanController;
@@ -36,6 +37,9 @@ Route::get('/sivera', function() {
 //Route ke Halaman Profil
 Route::get('/profil', [ProfileController::class, 'lihatprofil'])->name('lihatprofil');
 Route::post('/editprofil/{id}', [ProfileController::class, 'editprofil'])->name('editprofil');
+
+//Route Untuk Mengakses Kategori
+Route::get('/kategori', [KategoriController::class, 'tampilkanKategori'])->middleware('auth');
 
 //Route Untuk Mengakses Daftar Laporan
 Route::get('/pelaporan', [PelaporanController::class, 'tampilkanPelaporan'])->middleware('auth');

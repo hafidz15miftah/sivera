@@ -124,7 +124,7 @@
                 </button>
             </div>
             <div class="modal-body">
-            <input type="hidden" id="id">
+                <input type="hidden" id="id">
                 @csrf
                 <form id="edit_lahan">
                     <div class="form-row">
@@ -210,5 +210,349 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Tabel Lahan/Tanah
+        $('#tabel-tanah').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [{
+                    data: 'nama_obyek',
+                    name: 'nama_obyek',
+                },
+                {
+                    data: 'alamat',
+                    name: 'alamat',
+                },
+                {
+                    data: 'no_sertifikat',
+                    name: 'no_sertifikat',
+                },
+                {
+                    data: 'luas',
+                    name: 'luas',
+                },
+                {
+                    data: 'kondisi',
+                    name: 'kondisi',
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+        });
+    });
+</script>
+
+<!-- Script Tambah Data Aset Tanah / Lahan -->
+<script>
+    //button create post event
+    $('body').on('click', '#tambahlahan', function() {
+        //open modal
+        $('#tambah-lahan').modal('show');
+    });
+
+    //action create post
+    $('#simpanlahan').click(function(e) {
+        e.preventDefault();
+
+        //define variable
+        let nama_obyek = $('#nama_obyek').val();
+        let alamat = $('#alamat').val();
+        let no_sertifikat = $('#no_sertifikat').val();
+        let luas = $('#luas').val();
+        let kondisi = $('#kondisi').val();
+        let keterangan = $('#keterangan').val();
+
+        //ajax
+        $.ajax({
+            url: `{{url('/simpanlahan')}}`,
+            type: "POST",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "nama_obyek": nama_obyek,
+                "alamat": alamat,
+                "no_sertifikat": no_sertifikat,
+                "luas": luas,
+                "kondisi": kondisi,
+                "keterangan": keterangan,
+
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: "Data barang berhasil ditambahkan",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                //Reset Data Form Setelah Simpan Berhasil
+                $('#nama_obyek').val('');
+                $('#alamat').val('');
+                $('#no_sertifikat').val('');
+                $('#luas').val('');
+                $('#kondisi').prop('selectedIndex', 0);
+                $('#keterangan').val('');
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-tanah').DataTable().clear().draw();
+                $('#tambah-lahan').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.nama_obyek}</td>
+                        <td>${response.data.alamat}</td>
+                        <td>${response.data.no_sertifikat}</td>
+                        <td>${response.data.luas}</td>
+                        <td>${response.data.kondisi}</td>
+                        <td>${response.data.keterangan}</td>
+                    </tr>
+                `;
+            },
+            error: function(response) {
+                // Parse the JSON response
+                var errorData = JSON.parse(response.responseText);
+
+                // Access the errors array
+                var errors = errorData.errors;
+
+                // Get the error message
+                var errorMessage = errors;
+
+                Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: errorMessage,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+            }
+
+        });
+
+    });
+</script>
+
+<script>
+    function lihatdatalahan(e) {
+        event.preventDefault();
+        var modal = document.getElementById("lihat-lahan");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatlahan")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+
+                //Mengubah created_at menjadi tanggal local
+                let createdAt = new Date(response[0].created_at);
+                let options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                };
+                let locale = 'id-ID';
+                let formattedDate = createdAt.toLocaleDateString(locale, options);
+
+                //Mengubah updated_at menjadi tanggal local
+                let updatedAt = new Date(response[0].updated_at);
+                let updatedAtDate = updatedAt.toLocaleDateString(locale, options);
+
+                //fill data to form
+                $('#lihat-lahan #id').text(response.id);
+                $('#lihat-lahan #nama_obyek').text(response[0].nama_obyek);
+                $('#lihat-lahan #alamat').text(response[0].alamat);
+                $('#lihat-lahan #no_sertifikat').text(response[0].no_sertifikat);
+                $('#lihat-lahan #luas').text(response[0].luas);
+                $('#lihat-lahan #kondisi').text(response[0].kondisi);
+                $('#lihat-lahan #keterangan').text(response[0].keterangan);
+                document.getElementById("created_at").innerHTML = formattedDate;
+                document.getElementById("updated_at").innerHTML = updatedAtDate;
+            }
+        });
+    };
+</script>
+
+<!-- Script Update Data Lahan -->
+<script>
+    function updatedatalahan(e) {
+        event.preventDefault();
+        var modal = document.getElementById("edit-lahan");
+        var modale = new bootstrap.Modal(modal);
+
+        // Open the modal
+        modale.show();
+        let id = e.getAttribute('data-id');
+
+        $.ajax({
+            url: `{{url("/lihatlahan")}}/` + id,
+            type: "GET",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                //fill data to form
+                $('#edit-lahan #id').val(response[0].id);
+                $('#edit-lahan #nama_obyek').val(response[0].nama_obyek);
+                $('#edit-lahan #alamat').val(response[0].alamat);
+                $('#edit-lahan #no_sertifikat').val(response[0].no_sertifikat);
+                $('#edit-lahan #luas').val(response[0].luas);
+                $('#edit-lahan #kondisi').val(response[0].kondisi);
+                $('#edit-lahan #keterangan').val(response[0].keterangan);
+            }
+        });
+    };
+
+    $('#updatelahan').click(function(e) {
+        e.preventDefault();
+
+        let id = $('#edit-lahan #id').val();
+        let nama_obyek = $('#edit-lahan #nama_obyek').val();
+        let alamat = $('#edit-lahan #alamat').val();
+        let no_sertifikat = $('#edit-lahan #no_sertifikat').val();
+        let luas = $('#edit-lahan #luas').val();
+        let kondisi = $('#edit-lahan #kondisi').val();
+        let keterangan = $('#edit-lahan #keterangan').val();
+
+        $.ajax({
+            url: `{{url("/updatelahan")}}/` + id,
+            type: "PUT",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "nama_obyek": nama_obyek,
+                "alamat": alamat,
+                "no_sertifikat": no_sertifikat,
+                "luas": luas,
+                "kondisi": kondisi,
+                "keterangan": keterangan,
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: "Berhasil Memperbarui Data",
+                    text: 'Data lahan berhasil diperbarui',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-lahan').DataTable().clear().draw();
+                $('#edit-lahan').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                    <td>${response.data.nama_obyek}</td>
+                        <td>${response.data.alamat}</td>
+                        <td>${response.data.no_sertifikat}</td>
+                        <td>${response.data.luas}</td>
+                        <td>${response.data.kondisi}</td>
+                        <td>${response.data.keterangan}</td>
+                    </tr>
+                `;
+            },
+        })
+    })
+</script>
+
+<!-- Script Hapus Data Lahan -->
+<script>
+    function deleteDataLahan(e) {
+        event.preventDefault();
+        let id = e.getAttribute('data-id');
+        let name = e.getAttribute('data-name');
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data lahan " + name + " akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/hapuslahan/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Berhasil Menghapus Data Lahan",
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                timer: 3000
+                            })
+                            $('#tabel-tanah').DataTable().clear().draw();
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Gagal Menghapus Laporan",
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            timer: 5000
+                        })
+                    }
+                });
+            }
+        });
+    }
+</script>
 <!-- #/ container -->
 @endsection

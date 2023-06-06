@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Sekretaris Desa',
+            'name' => 'Arief Agung Purwanto, S.Kom.',
             'email' => 'sekdes@gmail.com',
             'nip' => '192199900297262',
             'alamat' => 'Jl. Ahmad Yani',

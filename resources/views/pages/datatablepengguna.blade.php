@@ -95,79 +95,218 @@
 
 <!-- Script Hapus Data Pengguna -->
 <script>
-function deleteDataUser(e) {
-    event.preventDefault();
-    let id = e.getAttribute('data-id');
-    let name = e.getAttribute('data-name');
-    
-    // Validasi jika pengguna mencoba menghapus dirinya sendiri
-    if (id === '{{ auth()->user()->id }}') {
+    function deleteDataUser(e) {
+        event.preventDefault();
+        let id = e.getAttribute('data-id');
+        let name = e.getAttribute('data-name');
+
+        // Validasi jika pengguna mencoba menghapus dirinya sendiri
+        if (id === '{{ auth()->user()->id }}') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal Menghapus Pengguna',
+                text: 'Anda tidak dapat menghapus pengguna yang sedang terautentikasi ke sistem ini',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 5000
+            });
+            return;
+        }
+
         Swal.fire({
-            icon: 'error',
-            title: 'Gagal Menghapus Pengguna',
-            text: 'Anda tidak dapat menghapus pengguna yang sedang terautentikasi ke sistem ini',
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timerProgressBar: true,
-            timer: 5000
-        });
-        return;
-    }
-    
-    Swal.fire({
-        title: 'Apakah Anda yakin?',
-        text: "Pengguna " + name + " akan dihapus secara permanen!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, hapus!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: '{{url("/pengguna/hapus")}}/' + id,
-                type: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    if (response.success) {
+            title: 'Apakah Anda yakin?',
+            text: "Pengguna " + name + " akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{url("/pengguna/hapus")}}/' + id,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: "Pengguna " + name + " berhasil dihapus",
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                                timer: 3000
+                            });
+                            $('#tabel-pengguna').DataTable().clear().draw();
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
                         Swal.fire({
-                            icon: 'success',
-                            title: "Pengguna " + name + " berhasil dihapus",
+                            icon: 'error',
+                            title: 'Gagal Menghapus Pengguna',
+                            text: 'Pengguna ' + name + ' sedang digunakan',
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
                             timerProgressBar: true,
-                            timer: 3000
+                            timer: 5000
                         });
-                        $('#tabel-pengguna').DataTable().clear().draw();
-                    } else {
-                        Swal.fire(
-                            'Gagal!',
-                            response.message,
-                            'error'
-                        );
                     }
+                });
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Tabel Pelaporan
+        $('#tabel-pengguna').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            columns: [{
+                    data: 'name',
+                    name: 'name'
                 },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal Menghapus Pengguna',
-                        text: 'Pengguna ' + name + ' sedang digunakan',
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timerProgressBar: true,
-                        timer: 5000
-                    });
+                {
+                    data: 'nip',
+                    name: 'nip'
+                },
+                {
+                    data: 'alamat',
+                    name: 'alamat',
+                },
+                {
+                    data: 'email',
+                    name: 'email',
+                },
+                {
+                    data: 'role_name',
+                    name: 'role_name',
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    orderable: false,
+                    searchable: false
                 }
-            });
-        }
+            ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/id.json',
+            }
+        });
     });
-}
+</script>
+
+<!-- Script Tambah Data Pengguna -->
+<script>
+    //button create post event
+    $('body').on('click', '#simpanpengguna', function() {
+        //open modal
+        $('#tambah-pengguna').modal('show');
+    });
+
+    //action create post
+    $('#simpanpengguna').click(function(e) {
+        e.preventDefault();
+
+        //define variable
+        let name = $('#name').val();
+        let nip = $('#nip').val();
+        let email = $('#email').val();
+        let alamat = $('#alamat').val();
+        let password = $('#password').val();
+        let role_id = $('#role_id').val();
+
+        //ajax
+        $.ajax({
+            url: `{{url('/pengguna/simpan')}}`,
+            type: "POST",
+            cache: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                "name": name,
+                "nip": nip,
+                "email": email,
+                "alamat": alamat,
+                "password": password,
+                "role_id": role_id,
+            },
+            success: function(response) {
+
+                //show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: "Pengguna sistem berhasil ditambahkan",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+
+                //Reset Data Form Setelah Simpan Berhasil
+                $('#role_id').prop('selectedIndex', 0);
+                $('#name').val('');
+                $('#nip').val('');
+                $('#email').val('');
+                $('#alamat').val('');
+                $('#password').val('');
+
+                //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
+                $('#tabel-pengguna').DataTable().clear().draw();
+                $('#tambah-pengguna').modal('hide');
+
+                //Post Data
+                let post = `
+                    <tr id="index_${response.data.id}">
+                        <td>${response.data.name}</td>
+                        <td>${response.data.nip}</td>
+                        <td>${response.data.alamat}</td>
+                        <td>${response.data.email}</td>
+                        <td>${response.data.password}</td>
+                        <td>${response.data.role_id}</td>
+                    </tr>
+                `;
+            },
+            error: function(response) {
+                // Parse the JSON response
+                var errorData = JSON.parse(response.responseText);
+
+                // Access the errors array
+                var errors = errorData.errors;
+
+                // Get the error message
+                var errorMessage = errors;
+
+                Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: errorMessage,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
+            }
+        });
+    });
 </script>
 <!-- #/ container -->
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataBarangModel;
+use App\Models\Kategori;
 use App\Models\Ruang;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
@@ -19,8 +20,19 @@ class BarangController extends Controller
     public function tampilkanBarang()
     {
         $ruang = Ruang::all();
+        $kategori = Kategori::all();
         if (request()->ajax()) {
-            $barang = DataBarangModel::join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')->select('barangs.id', 'barangs.kode_barang', 'barangs.nama_barang', 'barangs.ruang_id', 'ruangs.nama_ruang')->get();
+            $barang = DataBarangModel::select(
+                'barangs.id',
+                'barangs.kode_barang',
+                'barangs.nama_barang',
+                'kategoris.nama_kategori',
+                'kategoris.kode_kategori',
+                'ruangs.nama_ruang'
+            )
+                ->join('kategoris', 'barangs.kategori_id', '=', 'kategoris.id')
+                ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
+                ->get();
             return DataTables::of($barang)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
@@ -32,7 +44,7 @@ class BarangController extends Controller
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
-        return view('pages.datatablebarang', ['ruang' => $ruang]);
+        return view('pages.datatablebarang', ['ruang' => $ruang, 'kategori' => $kategori]);
     }
 
 
@@ -86,10 +98,12 @@ class BarangController extends Controller
             $validator = Validator::make($request->all(), [
                 'nama_barang' => 'required',
                 'kode_barang' => 'required|unique:barangs,kode_barang',
+                'kategori_id' => 'required',
                 'ruang_id' => 'required',
             ],[
                 'nama_barang.required' => 'Nama barang harus diisi.',
                 'kode_barang.required' => 'Kode barang harus diisi.',
+                'kategori_id' => 'Kategori aset harus dipilih',
                 'kode_barang.unique' => 'Kode barang sudah digunakan.',
             ]
         );
@@ -108,6 +122,7 @@ class BarangController extends Controller
             $barang = [
                 'nama_barang' => $request->nama_barang,
                 'kode_barang' => $request->kode_barang,
+                'kategori_id' => $request->kategori_id,
                 'ruang_id' => $request->ruang_id,
             ];
 
