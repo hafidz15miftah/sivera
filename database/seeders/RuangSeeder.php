@@ -15,17 +15,34 @@ class RuangSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-            'Kepala Desa', 
-            'Sekretaris Desa', 
-            'Kepala Urusan Umum dan Perencanaan', 
-            'Kepala Urusan Keuangan dan Kepala Urusan Kesejahteraan', 
-            'Kepala Urusan Pelayanan', 
-            'Kepala Urusan Pemerintahan'
-        ];
+        Ruang::create([
+            'nama_ruang' => 'Kepala Desa',
+            'kode_ruang' => '01',
+        ]);
 
-        foreach($data as $d){
-            Ruang::create(['nama_ruang' => $d]);
-        }
+        Ruang::create([
+            'nama_ruang' => 'Sekretaris Desa',
+            'kode_ruang' => '02',
+        ]);
+
+        Ruang::create([
+            'nama_ruang' => 'Kepala Urusan Umum dan Perencanaan',
+            'kode_ruang' => '03',
+        ]);
+
+        Ruang::create([
+            'nama_ruang' => 'Kepala Urusan Keuangan dan Kepala Urusan Kesejahteraan',
+            'kode_ruang' => '04',
+        ]);
+
+        Ruang::create([
+            'nama_ruang' => 'Kepala Urusan Pelayanan',
+            'kode_ruang' => '05',
+        ]);
+
+        Ruang::create([
+            'nama_ruang' => 'Kepala Urusan Pemerintahan',
+            'kode_ruang' => '06',
+        ]);
     }
 }

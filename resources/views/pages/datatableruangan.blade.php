@@ -25,8 +25,8 @@
                         <table id="tabel-ruangan" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th class="text-center">ID Ruang</th>
                                     <th class="text-center">Nama Ruang</th>
+                                    <th class="text-center">Kode Ruang</th>
                                     <th class="text-center" width="20%">Aksi</th>
                                 </tr>
                             </thead>
@@ -57,10 +57,16 @@
                         <input type="text" class="form-control" name="nama_ruang" id="nama_ruang" require>
                     </div>
                 </form>
+                <form>
+                    <div class="form-group">
+                        <label for="kode_ruang" class="col-form-label">Kode Ruangan:</label>
+                        <input type="text" class="form-control" name="kode_ruang" id="kode_ruang" require>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="simpanruangan">Simpan</button>
+                <button type="button" class="btn btn-danger text-white" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success text-white" id="simpanruangan">Simpan</button>
             </div>
         </div>
     </div>
@@ -83,13 +89,18 @@
                         <div class="form-group">
                             <label for="nama_ruang" class="col-form-label">Nama Ruangan:</label>
                             <input type="text" class="form-control" data-id="" name="nama_ruang" id="nama_ruang" require>
-                            <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-nama_ruang"></div>
+                        </div>
+                    </form>
+                    <form>
+                        <div class="form-group">
+                            <label for="kode_ruang" class="col-form-label">Kode Ruangan:</label>
+                            <input type="text" class="form-control" name="kode_ruang" id="kode_ruang" require>
                         </div>
                     </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="updateruangan">Update</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success text-white" id="updateruangan">Update</button>
             </div>
         </div>
     </div>
@@ -103,12 +114,12 @@
             serverSide: true,
             destroy: true,
             columns: [{
-                    data: 'id',
-                    name: 'id'
-                },
-                {
                     data: 'nama_ruang',
                     name: 'nama_ruang',
+                },
+                {
+                    data: 'kode_ruang',
+                    name: 'kode_ruang'
                 },
                 {
                     data: 'aksi',
@@ -136,6 +147,7 @@
         e.preventDefault();
 
         let nama_ruang = $('#nama_ruang').val();
+        let kode_ruang = $('#kode_ruang').val();
 
         $.ajax({
             url: `{{url('/simpanruangan')}}`,
@@ -146,6 +158,7 @@
             },
             data: {
                 "nama_ruang": nama_ruang,
+                "kode_ruang": kode_ruang,
             },
             success: function(response) {
                 Swal.fire({
@@ -159,6 +172,8 @@
                 })
 
                 $('#nama_ruang').val('');
+                $('#kode_ruang').val('');
+
 
                 $('#tabel-ruangan').DataTable().ajax.reload();
                 $('#tambah-ruangan').modal('hide');
@@ -166,14 +181,24 @@
                 let post = `
                     <tr id="index_${response.data.id}">
                         <td>${response.data.nama_ruang}</td>
+                        <td>${response.data.kode_ruang}</td>
                     </tr>
                 `;
             },
-            error: function() {
+            error: function(response) {
+                // Parse the JSON response
+                var errorData = JSON.parse(response.responseText);
+
+                // Access the errors array
+                var errors = errorData.errors;
+
+                // Get the error message
+                var errorMessage = errors;
+
                 Swal.fire({
                     icon: 'error',
                     title: "Gagal Menyimpan Data!",
-                    text: 'Mohon isikan nama ruangan',
+                    text: errorMessage,
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
@@ -181,6 +206,7 @@
                     timer: 3000
                 })
             }
+
         });
     });
 </script>
@@ -207,6 +233,7 @@
                 //fill data to form
                 $('#edit-ruangan #id').val(response.id);
                 $('#edit-ruangan #nama_ruang').val(response.ruang.nama_ruang);
+                $('#edit-ruangan #kode_ruang').val(response.ruang.kode_ruang);
                 $('#edit-ruangan #nama_ruang').attr('data-id', id);
                 console.log(response.ruang.nama_ruang);
             }
@@ -219,6 +246,7 @@
         let id = $('#edit-ruangan #nama_ruang').data('id');
         console.log(id);
         let nama_ruang = $('#edit-ruangan #nama_ruang').val();
+        let kode_ruang = $('#edit-ruangan #kode_ruang').val();
 
         $.ajax({
             url: '/updateruangan/' + id,
@@ -229,6 +257,7 @@
             },
             data: {
                 "nama_ruang": nama_ruang,
+                "kode_ruang": kode_ruang,
             },
             success: function(response) {
 
@@ -265,8 +294,30 @@
                 let post = `
                     <tr id="index_${response.data.id}">
                         <td>${response.data.nama_ruang}</td>
+                        <td>${response.data.kode_ruang}</td>
                     </tr>
                 `;
+            },
+            error: function(response) {
+                // Parse the JSON response
+                var errorData = JSON.parse(response.responseText);
+
+                // Access the errors array
+                var errors = errorData.errors;
+
+                // Get the error message
+                var errorMessage = errors;
+
+                Swal.fire({
+                    icon: 'error',
+                    title: "Gagal Menyimpan Data!",
+                    text: errorMessage,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                })
             },
         })
     })

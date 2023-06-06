@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('ruangs', function (Blueprint $table) {
             $table->id();
             $table->string('nama_ruang');
+            $table->string('kode_ruang');
             $table->timestamps();
         });
     }

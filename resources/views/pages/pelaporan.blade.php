@@ -240,7 +240,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '/hapusdatalaporan/' + id,
+                    url: '/pelaporan/hapus/' + id,
                     type: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

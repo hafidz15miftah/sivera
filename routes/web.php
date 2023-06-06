@@ -40,13 +40,17 @@ Route::post('/editprofil/{id}', [ProfileController::class, 'editprofil'])->name(
 
 //Route Untuk Mengakses Kategori
 Route::get('/kategori', [KategoriController::class, 'tampilkanKategori'])->middleware('auth');
+Route::post('/kategori/simpan', [KategoriController::class, 'simpankategori'])->name('simpankategori')->middleware('auth','role:kaurumum');
+Route::delete('/kategori/hapus/{id}', [KategoriController::class, 'hapuskategori'])->name('hapuskategori')->middleware('auth', 'role:kaurumum');
+Route::get('/kategori/lihat/{id}', [KategoriController::class, 'lihatkategori'])->name('lihatkategori')->middleware('auth', 'role:kaurumum');
+Route::put('/kategori/update/{id}', [KategoriController::class, 'updatekategori'])->name('updatekategori')->middleware('auth', 'role:kaurumum');
 
 //Route Untuk Mengakses Daftar Laporan
 Route::get('/pelaporan', [PelaporanController::class, 'tampilkanPelaporan'])->middleware('auth');
 Route::post('/uploadPDF', [PelaporanController::class, 'uploadPDF'])->name('uploadPDF')->middleware('auth', 'role:kaurumum');
 Route::post('/pelaporan/setuju/{id}', [PelaporanController::class, 'setuju'])->name('setujui.pelaporan')->middleware('auth');
 Route::post('/pelaporan/tolak/{id}', [PelaporanController::class, 'tolak'])->name('tolak.pelaporan')->middleware('auth');
-Route::delete('/hapusdatalaporan/{id}', [PelaporanController::class, 'hapuslaporan'])->name('hapuslaporan')->middleware('auth', 'role:kaurumum');
+Route::delete('/pelaporan/hapus/{id}', [PelaporanController::class, 'hapuslaporan'])->name('hapuslaporan')->middleware('auth', 'role:kaurumum');
 Route::get('/pelaporan/cetak/bulanan', [ExportLaporanController::class, 'cetak_laporan_perbulan'])->name('cetak_laporan_perbulan')->middleware('auth','role:kaurumum');
 Route::get('/pelaporan/cetak/tahunan', [ExportLaporanController::class, 'cetak_laporan_pertahun'])->name('cetak_laporan_pertahun')->middleware('auth','role:kaurumum');
 
