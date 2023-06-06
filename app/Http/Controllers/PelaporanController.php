@@ -98,12 +98,11 @@ class PelaporanController extends Controller
     {
         
         $validatedData = $request->validate([
-            'info_id' => 'required|unique:laporans,info_id', 
+            'info_id' => 'required', 
             'nama_laporan' => 'required',
             'file_gambar' => 'required|mimes:jpeg,png|max:8192', //Hanya menerima file gambar dengan ukuran maks 8 MB
             'file_pdf' => 'required|mimes:pdf|max:2048', // Hanya menerima file PDF dengan ukuran maksimum 2MB
         ], [
-            'info_id.unique' => 'ID barang sudah pernah melakukan pelaporan barang rusak',
             'nama_laporan.required' => 'Nama laporan harus diisi',
             'file_gambar' => 'Silahkan upload gambar barang rusak',
             'file_pdf' => 'Silahkan upload file PDF'
