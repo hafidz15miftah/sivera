@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataAsetTanahModel;
+use App\Models\Kategori;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -11,8 +12,20 @@ class AsetTanahController extends Controller
 {
     public function tampilkanLahan()
     {
+        $kategori = Kategori::all();
         if (request()->ajax()) {
-            $lahan = DataAsetTanahModel::all();
+            $lahan = DataAsetTanahModel::select(
+                'tanah.id',
+                'tanah.nama_obyek',
+                'tanah.alamat',
+                'tanah.no_sertifikat',
+                'tanah.luas',
+                'tanah.kondisi',
+                'tanah.keterangan',
+                'kategoris.nama_kategori',
+            )
+            ->join('kategoris', 'tanah.kategori_id', '=', 'kategoris.id')
+            ->get();
             return DataTables::of($lahan)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
@@ -22,19 +35,10 @@ class AsetTanahController extends Controller
 
                     return $tombol;
                 })
-                ->editColumn('kondisi', function ($row) {
-                    if ($row->kondisi == 'Baik') {
-                        return "<span class='badge badge-success text-center text-white' style='display: block; text-align: center;'>Baik</span>";
-                    } elseif ($row->kondisi == 'Rusak Ringan') {
-                        return "<span class='badge badge-warning text-center text-white' style='display: block; text-align: center;'>Rusak Ringan</span>";
-                    } else {
-                        return "<span class='badge badge-danger text-center text-white' style='display: block; text-align: center;'>Rusak Berat</span>";
-                    }
-                })
                 ->rawColumns(['aksi', 'kondisi'])
                 ->make(true);
         }
-        return view('pages.datatabletanah');
+        return view('pages.datatabletanah', ['kategori' => $kategori]);
     }
 
     //Untuk menyimpan barang
@@ -42,19 +46,22 @@ class AsetTanahController extends Controller
     {
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
+                'kategori_id' => 'required',
                 'nama_obyek' => 'required',
                 'no_sertifikat' => 'required|unique:tanah,no_sertifikat',
-                'luas' => 'required',
+                'luas' => 'required|numeric',
                 'alamat' => 'required',
                 'kondisi' => 'required',
                 'keterangan' => 'nullable|min:4'
             ],[
+                'kategori_id.required' => 'Kategori harus dipilih',
                 'nama_obyek.required' => 'Nama obyek harus diisi.',
                 'no_sertifikat.required' => 'Nomor sertifikat harus diisi.',
                 'no_sertifikat.unique' => 'Nomor sertifikat sama dengan data yang sudah ada.',
                 'luas.unique' => 'Kolom luas harus diisi.',
+                'luas.numeric' => 'Kolom luas harus berupa angka.',
                 'alamat.required' => 'Alamat harus diisi.',
-                'kondisi.required' => 'Silahkan pilih kondisi Aset',
+                'kondisi.required' => 'Silahkan pilih kondisi tanah',
                 'keterangan' => 'Keterangan harus memiliki setidaknya :min karakter.',
             ]
         );
@@ -71,6 +78,7 @@ class AsetTanahController extends Controller
 
             // Membuat Data
             $lahan = [
+                'kategori_id' => $request->kategori_id,
                 'nama_obyek' => $request->nama_obyek,
                 'no_sertifikat' => $request->no_sertifikat,
                 'luas' => $request->luas,
@@ -91,7 +99,7 @@ class AsetTanahController extends Controller
     public function updatelahan(Request $request, $id)
     {
         $lahan = DataAsetTanahModel::findorfail($id);
-
+        $lahan->kategori_id = $request->input('kategori_id');
         $lahan->nama_obyek = $request->input('nama_obyek');
         $lahan->no_sertifikat = $request->input('no_sertifikat');
         $lahan->luas = $request->input('luas');

@@ -51,8 +51,9 @@ class BarangController extends Controller
     //Untuk melihat data barang
     public function lihatdata($id){
         $barang = DataBarangModel::findorfail($id);
+        $kategori = Kategori::where('id',$barang->kategori_id)->pluck('nama_kategori');
         $ruang = Ruang::where('id',$barang->ruang_id)->pluck('nama_ruang');
-        return response()->json([$barang,$ruang]);
+        return response()->json([$barang,$ruang,$kategori]);
     }
 
 

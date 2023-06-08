@@ -54,7 +54,7 @@
                 </button>
             </div>
             <div class="modal-body">
-            <div id="callout" class="alert alert-info" role="alert">
+                <div id="callout" class="alert alert-info" role="alert">
                     <div>
                         <h5 class="mb-1">Informasi Pemilihan Kondisi</h5>
                         <p class="mb-0"><i class="fa fa-check-circle"></i> Baik, yaitu apabila kondisi barang tersebut masih dalam keadaan utuh dan berfungsi dengan baik.</p>
@@ -96,7 +96,7 @@
     </div>
 </div>
 
-<!-- Modal Edit Barang -->
+<!-- Modal Edit Kondisi -->
 <div class="modal fade" id="edit-kondisi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -106,6 +106,14 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="callout" class="alert alert-info" role="alert">
+                    <div>
+                        <h5 class="mb-1">Informasi Pemilihan Kondisi</h5>
+                        <p class="mb-0"><i class="fa fa-check-circle"></i> Baik, yaitu apabila kondisi barang tersebut masih dalam keadaan utuh dan berfungsi dengan baik.</p>
+                        <p class="mb-0"><i class="fa fa-exclamation-triangle"></i> Rusak Ringan, yaitu apabila kondisi barang tersebut masih dalam keadaan utuh, tetapi kurang berfungsi dengan baik. Untuk berfungsi dengan baik memerlukan perbaikan ringan dan tidak memerlukan penggantian bagian utama/komponen pokok.</p>
+                        <p class="mb-0"><i class="fa fa-times-circle"></i> Rusak Berat, yaitu apabila kondisi barang tersebut tidak utuh dan tidak berfungsi lagi atau memerlukan perbaikan besar/penggantian bagian utama/komponen pokok, sehingga tidak ekonomis lagi untuk diadakan perbaikan/rehabilitasi.</p>
+                    </div>
+                </div>
                 <input type="hidden" id="id">
                 @csrf
                 <form id="add_kondisi">

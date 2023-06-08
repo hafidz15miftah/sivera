@@ -83,9 +83,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="form-row">
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="alamat" class="col-form-label">Alamat:</label>
                                 <input type="text" class="form-control" name="alamat" id="alamat" require>
@@ -93,17 +92,27 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label for="kategori" class="col-form-label">Kategori:</label>
+                                <select class="form-control" id="kategori_id" name="kategori_id" require>
+                                    <option value="">Silahkan Pilih ...</option>
+                                    @foreach($kategori as $k)
+                                    <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 <label for="kondisi" class="col-form-label">Kondisi:</label>
-                                <select class="form-control" id="kondisi" name="kondisi" require>
-                                    <option value="" selected disabled>Silahkan Pilih ...</option>
-                                    <option value="Baik">Baik</option>
-                                    <option value="Rusak Ringan">Rusak Ringan</option>
-                                    <option value="Rusak Berat">Rusak Berat</option>
+                                <select class="form-control" name="kondisi" id="kondisi" required>
+                                    <option value="">Silahkan Pilih ...</option>
+                                    <option value="1">Baik</option>
+                                    <option value="2">Rusak Ringan</option>
+                                    <option value="3">Rusak Berat</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -132,6 +141,14 @@
                 </button>
             </div>
             <div class="modal-body">
+            <div id="callout" class="alert alert-info" role="alert">
+                    <div>
+                        <h5 class="mb-1">Informasi Pemilihan Kondisi</h5>
+                        <p class="mb-0"><i class="fa fa-check-circle"></i> Baik, yaitu apabila kondisi tanah tersebut siap dipergunakan dan/atau dimanfaatkan sesuai dengan peruntukannya.</p>
+                        <p class="mb-0"><i class="fa fa-exclamation-triangle"></i> Rusak Ringan, yaitu apabila kondisi tanah tersebut karena suatu sebab tidak dapat dipergunakan dan/atau dimanfaatkan dan masih memerlukan pengolahan/perlakuan</p>
+                        <p class="mb-0"><i class="fa fa-times-circle"></i> Rusak Berat, yaitu apabila kondisi tanah tersebut tidak dapat lagi dipergunakan dan/atau dimanfaatkan sesuai dengan peruntukannya karena adanya bencana alam, erosi, dan sebagainya</p>
+                    </div>
+                </div>
                 <input type="hidden" id="id">
                 @csrf
                 <form id="edit_lahan">
@@ -157,7 +174,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="alamat" class="col-form-label">Alamat:</label>
                                 <input type="text" class="form-control" name="alamat" id="alamat" require>
@@ -165,12 +182,23 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label for="kategori" class="col-form-label">Kategori:</label>
+                                <select class="form-control" id="kategori_id" name="kategori_id" required disabled>
+                                    <option value="">Silahkan Pilih ...</option>
+                                    @foreach($kategori as $k)
+                                    <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 <label for="kondisi" class="col-form-label">Kondisi:</label>
-                                <select class="form-control" id="kondisi" name="kondisi" require>
-                                    <option value="" selected disabled>Silahkan Pilih ...</option>
-                                    <option value="Baik">Baik</option>
-                                    <option value="Rusak Ringan">Rusak Ringan</option>
-                                    <option value="Rusak Berat">Rusak Berat</option>
+                                <select class="form-control" name="kondisi" id="kondisi" required>
+                                    <option value="">Silahkan Pilih ...</option>
+                                    <option value="1">Baik</option>
+                                    <option value="2">Rusak Ringan</option>
+                                    <option value="3">Rusak Berat</option>
                                 </select>
                             </div>
                         </div>
@@ -273,6 +301,7 @@
         e.preventDefault();
 
         //define variable
+        let kategori_id = $('#kategori_id').val();
         let nama_obyek = $('#nama_obyek').val();
         let alamat = $('#alamat').val();
         let no_sertifikat = $('#no_sertifikat').val();
@@ -289,6 +318,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
+                "kategori_id": kategori_id,
                 "nama_obyek": nama_obyek,
                 "alamat": alamat,
                 "no_sertifikat": no_sertifikat,
@@ -302,7 +332,8 @@
                 //show success message
                 Swal.fire({
                     icon: 'success',
-                    title: "Data barang berhasil ditambahkan",
+                    title: "Berhasil Menambahkan Data",
+                    text: "Lahan/Tanah berhasil ditambahkan",
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
@@ -311,6 +342,7 @@
                 })
 
                 //Reset Data Form Setelah Simpan Berhasil
+                $('#kategori_id').prop('selectedIndex', 0);
                 $('#nama_obyek').val('');
                 $('#alamat').val('');
                 $('#no_sertifikat').val('');
@@ -325,6 +357,7 @@
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
+                    <td>${response.data.kategori_id}</td>
                         <td>${response.data.nama_obyek}</td>
                         <td>${response.data.alamat}</td>
                         <td>${response.data.no_sertifikat}</td>
@@ -399,6 +432,7 @@
 
                 //fill data to form
                 $('#lihat-lahan #id').text(response.id);
+                $('#lihat-lahan #kategori_id').text(response[0].kategori_id);
                 $('#lihat-lahan #nama_obyek').text(response[0].nama_obyek);
                 $('#lihat-lahan #alamat').text(response[0].alamat);
                 $('#lihat-lahan #no_sertifikat').text(response[0].no_sertifikat);
@@ -433,6 +467,7 @@
             success: function(response) {
                 //fill data to form
                 $('#edit-lahan #id').val(response[0].id);
+                $('#edit-lahan #kategori_id').val(response[0].kategori_id);
                 $('#edit-lahan #nama_obyek').val(response[0].nama_obyek);
                 $('#edit-lahan #alamat').val(response[0].alamat);
                 $('#edit-lahan #no_sertifikat').val(response[0].no_sertifikat);
@@ -447,6 +482,7 @@
         e.preventDefault();
 
         let id = $('#edit-lahan #id').val();
+        let kategori_id = $('#edit-lahan #kategori_id').val();
         let nama_obyek = $('#edit-lahan #nama_obyek').val();
         let alamat = $('#edit-lahan #alamat').val();
         let no_sertifikat = $('#edit-lahan #no_sertifikat').val();
@@ -462,6 +498,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
+                "kategori_id": kategori_id,
                 "nama_obyek": nama_obyek,
                 "alamat": alamat,
                 "no_sertifikat": no_sertifikat,
@@ -490,6 +527,7 @@
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
+                    <td>${response.data.kategori_id}</td>
                     <td>${response.data.nama_obyek}</td>
                         <td>${response.data.alamat}</td>
                         <td>${response.data.no_sertifikat}</td>

@@ -12,6 +12,7 @@ class DataAsetTanahModel extends Model
     protected $table = 'tanah';
 
     protected $fillable = [
+        'kategori_id',
         'nama_obyek',
         'alamat',
         'no_sertifikat',
@@ -19,4 +20,8 @@ class DataAsetTanahModel extends Model
         'kondisi',
         'keterangan',
     ];
+
+    public function kategori(){
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id');
+    }
 }

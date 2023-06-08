@@ -63,7 +63,6 @@
                             @endforeach
                         </select>
                     </div>
-
                     <div class="form-row">
                         <label for="ruang" class="col-form-label">Kategori:</label>
                         <select class="form-control" id="kategori_id" name="kategori" require>
@@ -73,7 +72,6 @@
                             @endforeach
                         </select>
                     </div>
-
                     <div class="form-row">
                         <label for="kode_barang" class="col-form-label">Kode Barang:</label>
                         <input type="text" class="form-control" name="kode_barang" id="kode_barang" require>
@@ -104,6 +102,7 @@
             <div class="modal-body">
                 <p><strong>Kode Barang:</strong> <span id="kode_barang"></span></p>
                 <p><strong>Nama Barang:</strong> <span id="nama_barang"></span></p>
+                <p><strong>Kategori:</strong> <span id="kategori_id"></span></p>
                 <p><strong>Ruang:</strong> <span id="ruang_id"></span></p>
                 <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>
                 <p><strong>Terakhir Diubah:</strong> <span id="updated_at"></span></p>
@@ -138,7 +137,15 @@
                         </select>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-ruang_id"></div>
                     </div>
-
+                    <div class="form-row">
+                        <label for="ruang" class="col-form-label">Kategori:</label>
+                        <select class="form-control" id="kategori_id" name="kategori" require>
+                            <option value="">Silahkan Pilih ...</option>
+                            @foreach($kategori as $k)
+                            <option value="{{ $k->id }}" name="kategori_id" id="kategori_id">{{ $k->nama_kategori }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-row">
                         <label for="kode_barang" class="col-form-label">Kode Barang:</label>
                         <input type="text" class="form-control" name="kode_barang" id="kode_barang" require disabled>
@@ -159,23 +166,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-        $('#ruang_id, #kategori_id').change(function() {
-            var ruangId = $('#ruang_id').val();
-            var kategoriId = $('#kategori_id').val();
-            
-            if (ruangId && kategoriId) {
-                var kodeKategori = $('#kategori_id option:selected').data('kode_kategori');
-                var kodeRuang = $('#ruang_id option:selected').data('kode_ruang');
-                var combinedCode = kodeKategori + '-' + kodeRuang;
-                
-                $('#kode_barang').val(combinedCode);
-            }
-        });
-    });
-</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -319,6 +309,7 @@
     });
 </script>
 
+<!-- Script Tambah Lihat Barang -->
 <script>
     function lihatdata(e) {
         event.preventDefault();
@@ -359,6 +350,7 @@
                 $('#lihat-barang #id').text(response.id);
                 $('#lihat-barang #kode_barang').text(response[0].kode_barang);
                 $('#lihat-barang #nama_barang').text(response[0].nama_barang);
+                $('#lihat-barang #kategori_id').text(response[2]);
                 $('#lihat-barang #ruang_id').text(response[1]);
                 document.getElementById("created_at").innerHTML = formattedDate;
                 document.getElementById("updated_at").innerHTML = updatedAtDate;
