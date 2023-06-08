@@ -31,9 +31,11 @@ class ExportLaporanController extends Controller
         return $data->stream('semua-stiker.pdf');
     }
 
-    public function cetak_laporan_perbulan()
+    public function cetak_laporan_perbulan(Request $request)
     {
-        $bulanIni = Carbon::now()->format('m'); // Mendapatkan nilai bulan saat ini dalam format 'mm'
+        $bulan = $request->input('bulan');
+        $tahun = Carbon::parse($bulan)->format('Y');
+        
         $verifikasi = VerifikasiLaporanModel::select(
             'laporans.id',
             'laporans.nama_laporan',
@@ -42,29 +44,33 @@ class ExportLaporanController extends Controller
             'laporans.keterangan',
             'infos.kode_detail'
         )
-        ->join('infos', 'laporans.info_id', '=', 'infos.id')
-        ->whereMonth('tanggal_dilaporkan', $bulanIni)->get();
-        $data = Pdf::loadView('pdf.pelaporan_bulanan', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A4');
-        return $data->stream('laporan-bulanan.pdf');
-    }
-
-    public function cetak_laporan_pertahun()
-    {
-        $tahunIni = Carbon::now()->format('Y'); // Mendapatkan nilai tahun saat ini dalam format 'YYYY'
-        $verifikasi = VerifikasiLaporanModel::select(
-            'laporans.id',
-            'laporans.nama_laporan',
-            'laporans.tanggal_dilaporkan',
-            'laporans.status',
-            'laporans.keterangan',
-            'infos.kode_detail'
-        )
-        ->join('infos', 'laporans.info_id', '=', 'infos.id')
-        ->whereYear('tanggal_dilaporkan', $tahunIni)->get();
-        $data = Pdf::loadView('pdf.pelaporan_tahunan', ['data' => 'Daftar Inventaris Barang', 'verifikasi' => $verifikasi])->setPaper('A4');
-        return $data->stream('laporan-tahunan.pdf');
-    }
+            ->join('infos', 'laporans.info_id', '=', 'infos.id')
+            ->whereMonth('tanggal_dilaporkan', Carbon::parse($bulan)->format('m'))
+            ->get();
     
+        $data = Pdf::loadView('pdf.pelaporan_bulanan', ['verifikasi' => $verifikasi, 'bulan' => $bulan, 'tahun' => $tahun])->setPaper('A4');
+        return $data->stream('laporan-bulanan.pdf');
+    }    
+
+    public function cetak_laporan_pertahun(Request $request)
+    {
+        $tahun = $request->input('tahun');
+        
+        $verifikasi = VerifikasiLaporanModel::select(
+            'laporans.id',
+            'laporans.nama_laporan',
+            'laporans.tanggal_dilaporkan',
+            'laporans.status',
+            'laporans.keterangan',
+            'infos.kode_detail'
+        )
+            ->join('infos', 'laporans.info_id', '=', 'infos.id')
+            ->whereYear('tanggal_dilaporkan', $tahun)
+            ->get();
+    
+        $data = Pdf::loadView('pdf.pelaporan_tahunan', ['verifikasi' => $verifikasi, 'tahun' => $tahun])->setPaper('A4');
+        return $data->stream('laporan-tahunan.pdf');
+    } 
 
     public function cetak_semua_aset(){
         $lahan = DataAsetTanahModel::query()->get();

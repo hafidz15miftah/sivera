@@ -281,6 +281,7 @@
                                 <tr>
                                     <th class="text-center">ID Barang</th>
                                     <th class="text-center">Nama Barang</th>
+                                    <th class="text-center">Kategori</th>
                                     <th class="text-center">Ruang</th>
                                     <th class="text-center">Tanggal Perolehan</th>
                                     <th class="text-center">Sumber</th>
@@ -311,6 +312,10 @@
                 {
                     data: 'nama_barang',
                     name: 'nama_barang',
+                },
+                {
+                    data: 'nama_kategori',
+                    name: 'nama_kategori',
                 },
                 {
                     data: 'nama_ruang',

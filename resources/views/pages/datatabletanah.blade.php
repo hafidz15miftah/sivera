@@ -53,6 +53,14 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="callout" class="alert alert-info" role="alert">
+                    <div>
+                        <h5 class="mb-1">Informasi Pemilihan Kondisi</h5>
+                        <p class="mb-0"><i class="fa fa-check-circle"></i> Baik, yaitu apabila kondisi tanah tersebut siap dipergunakan dan/atau dimanfaatkan sesuai dengan peruntukannya.</p>
+                        <p class="mb-0"><i class="fa fa-exclamation-triangle"></i> Rusak Ringan, yaitu apabila kondisi tanah tersebut karena suatu sebab tidak dapat dipergunakan dan/atau dimanfaatkan dan masih memerlukan pengolahan/perlakuan</p>
+                        <p class="mb-0"><i class="fa fa-times-circle"></i> Rusak Berat, yaitu apabila kondisi tanah tersebut tidak dapat lagi dipergunakan dan/atau dimanfaatkan sesuai dengan peruntukannya karena adanya bencana alam, erosi, dan sebagainya</p>
+                    </div>
+                </div>
                 @csrf
                 <form id="add_lahan">
                     <div class="form-row">

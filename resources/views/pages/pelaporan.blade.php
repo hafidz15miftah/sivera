@@ -72,8 +72,8 @@
                     <h4 class="card-title">Daftar Laporan</h4>
                     @if (Auth::user()->role_id == 2)
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-pelaporan"><i class="fa fa-plus"></i> Tambah Pelaporan</button>
-                    <a class="btn btn-warning" style="color:white" href="{{ url('pelaporan/cetak/bulanan') }}"><i class="fa fa-print"></i> Cetak Laporan Bulan Ini</a>
-                    <!-- <a class="btn btn-warning" style="color:white" href="{{ url('pelaporan/cetak/tahunan') }}"><i class="fa fa-print"></i> Laporan Tahun Ini</a> -->
+                    <a class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#bulanModal"><i class="fa fa-print"></i> Cetak Laporan</a>
+                    <a class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#tahunModal"><i class="fa fa-print"></i> Laporan Tahun Ini</a>
                     @endif
                     <div class="table-responsive">
                         <table id="tabel-pelaporan" class="table table-striped table-bordered zero-configuration">
@@ -93,6 +93,60 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cetak Data Perbulan yang Dipilih -->
+<div class="modal fade" id="bulanModal" tabindex="-1" role="dialog" aria-labelledby="bulanModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bulanModalLabel">Pilih Bulan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url('pelaporan/cetak/bulanan') }}" method="GET">
+                    <div class="form-group">
+                        <label for="bulan">Bulan:</label>
+                        <input type="month" class="form-control" id="bulan" name="bulan" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cetak</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cetak Tahun yang dipilih -->
+<div class="modal fade" id="tahunModal" tabindex="-1" role="dialog" aria-labelledby="tahunModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tahunModalLabel">Pilih Tahun</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url('pelaporan/cetak/tahunan') }}" method="GET">
+                    <div class="form-group">
+                        <label for="tahun">Tahun:</label>
+                        <select class="form-control" id="tahun" name="tahun" required>
+                            @php
+                            $currentYear = date('Y');
+                            $startYear = $currentYear - 5;
+                            @endphp
+                            @for ($year = $currentYear; $year >= $startYear; $year--)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cetak</button>
+                </form>
             </div>
         </div>
     </div>
@@ -146,6 +200,16 @@
             }
         });
     });
+</script>
+
+<script>
+    function openModal() {
+        document.getElementById("bulanModal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("bulanModal").style.display = "none";
+    }
 </script>
 
 <!-- Script Tambah Pelaporan -->

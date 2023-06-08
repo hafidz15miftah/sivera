@@ -22,9 +22,11 @@ class KondisiController extends Controller
                 'infos.kode_detail',
                 'infos.kondisi',
                 'barangs.nama_barang',
+                'kategoris.nama_kategori',
                 'ruangs.nama_ruang'
             )
                 ->join('barangs', 'infos.barang_id', '=', 'barangs.id')
+                ->join('kategoris', 'barangs.kategori_id', '=', 'kategoris.id')
                 ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
                 ->get();
             return DataTables::of($kondisi)

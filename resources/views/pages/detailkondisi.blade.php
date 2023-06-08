@@ -27,6 +27,7 @@
                             <thead>
                                 <tr>
                                     <th width="25%" class="text-center">Nama Barang</th>
+                                    <th width="25%" class="text-center">Kategori</th>
                                     <th width="20%" class="text-center">ID Barang</th>
                                     <th width="25%" class="text-center">Ruang</th>
                                     <th width="10%" class="text-center">Kondisi</th>
@@ -53,6 +54,14 @@
                 </button>
             </div>
             <div class="modal-body">
+            <div id="callout" class="alert alert-info" role="alert">
+                    <div>
+                        <h5 class="mb-1">Informasi Pemilihan Kondisi</h5>
+                        <p class="mb-0"><i class="fa fa-check-circle"></i> Baik, yaitu apabila kondisi barang tersebut masih dalam keadaan utuh dan berfungsi dengan baik.</p>
+                        <p class="mb-0"><i class="fa fa-exclamation-triangle"></i> Rusak Ringan, yaitu apabila kondisi barang tersebut masih dalam keadaan utuh, tetapi kurang berfungsi dengan baik. Untuk berfungsi dengan baik memerlukan perbaikan ringan dan tidak memerlukan penggantian bagian utama/komponen pokok.</p>
+                        <p class="mb-0"><i class="fa fa-times-circle"></i> Rusak Berat, yaitu apabila kondisi barang tersebut tidak utuh dan tidak berfungsi lagi atau memerlukan perbaikan besar/penggantian bagian utama/komponen pokok, sehingga tidak ekonomis lagi untuk diadakan perbaikan/rehabilitasi.</p>
+                    </div>
+                </div>
                 @csrf
                 <form id="add_kondisi">
                     <div class="form-row">
@@ -87,6 +96,7 @@
     </div>
 </div>
 
+<!-- Modal Edit Barang -->
 <div class="modal fade" id="edit-kondisi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -96,7 +106,7 @@
                 </button>
             </div>
             <div class="modal-body">
-            <input type="hidden" id="id">
+                <input type="hidden" id="id">
                 @csrf
                 <form id="add_kondisi">
                     <div class="form-row">
@@ -141,32 +151,32 @@
         var nomor = selectedIndex;
 
         $.ajax({
-        url: 'get-jumlah-info',
-        method: 'GET',
-        headers: {
+            url: 'get-jumlah-info',
+            method: 'GET',
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-        success: function(response) {
-            var count = response;
-            console.log("Number of barang: " + count);
-            
-            if (selectedIndex !== 0) {
-            var option = selectElement.options[selectedIndex];
-            var kode_barang = "{!! addslashes(json_encode($barang->pluck('kode_barang')->toArray())) !!}";
-            
+            success: function(response) {
+                var count = response;
+                console.log("Number of barang: " + count);
 
-            if (selectedIndex !== -1) {
-                var kode_barang = JSON.parse(kode_barang)[selectedIndex - 1];
-                var kode_detail = kode_barang + '-' + count;
-                document.getElementById('kode_detail').value = kode_detail;
+                if (selectedIndex !== 0) {
+                    var option = selectElement.options[selectedIndex];
+                    var kode_barang = "{!! addslashes(json_encode($barang->pluck('kode_barang')->toArray())) !!}";
+
+
+                    if (selectedIndex !== -1) {
+                        var kode_barang = JSON.parse(kode_barang)[selectedIndex - 1];
+                        var kode_detail = kode_barang + '.' + count;
+                        document.getElementById('kode_detail').value = kode_detail;
+                    }
+                } else {
+                    document.getElementById('kode_detail').value = '';
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
             }
-        } else {
-            document.getElementById('kode_detail').value = '';
-        }
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
         });
 
     });
@@ -182,6 +192,10 @@
             columns: [{
                     data: 'nama_barang',
                     name: 'nama_barang'
+                },
+                {
+                    data: 'nama_kategori',
+                    name: 'nama_kategori',
                 },
                 {
                     data: 'kode_detail',

@@ -160,6 +160,23 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function() {
+        $('#ruang_id, #kategori_id').change(function() {
+            var ruangId = $('#ruang_id').val();
+            var kategoriId = $('#kategori_id').val();
+            
+            if (ruangId && kategoriId) {
+                var kodeKategori = $('#kategori_id option:selected').data('kode_kategori');
+                var kodeRuang = $('#ruang_id option:selected').data('kode_ruang');
+                var combinedCode = kodeKategori + '-' + kodeRuang;
+                
+                $('#kode_barang').val(combinedCode);
+            }
+        });
+    });
+</script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         //Tabel Barang

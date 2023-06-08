@@ -29,9 +29,11 @@ class LaporanController extends Controller
                 'infos.kode_detail',
                 'infos.kondisi',
                 'barangs.nama_barang',
+                'kategoris.nama_kategori',
                 'ruangs.nama_ruang'
             )
                 ->join('infos', 'details.info_id', '=', 'infos.id')
+                ->join('kategoris', 'infos.barang_id', '=', 'kategoris.id')
                 ->join('barangs', 'infos.barang_id', '=', 'barangs.id')
                 ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
                 ->get();
