@@ -137,12 +137,16 @@
                         <label for="tahun">Tahun:</label>
                         <select class="form-control" id="tahun" name="tahun" required>
                             @php
+                            $availableYears = DB::table('laporans')
+                                ->select(DB::raw('YEAR(tanggal_dilaporkan) as year'))
+                                ->groupBy('year')
+                                ->pluck('year');
+
                             $currentYear = date('Y');
-                            $startYear = $currentYear - 10;
                             @endphp
-                            @for ($year = $currentYear; $year >= $startYear; $year--)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                            @endfor
+                            @foreach ($availableYears as $year)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Cetak</button>

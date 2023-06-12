@@ -84,9 +84,20 @@ class ExportLaporanController extends Controller
             ->whereYear('tanggal_dilaporkan', $tahun)
             ->get();
     
-        $data = Pdf::loadView('pdf.pelaporan_tahunan', ['verifikasi' => $verifikasi, 'tahun' => $tahun])->setPaper('A4');
-        return $data->stream('laporan-tahunan.pdf');
-    } 
+        $pdf = Pdf::loadView('pdf.pelaporan_tahunan', ['verifikasi' => $verifikasi, 'tahun' => $tahun])->setPaper('A4');
+        $fileContents = $pdf->output();
+
+        $filename = 'laporan-tahunan.pdf';
+        $filePath = public_path('storage/'.$filename);
+        $fileUrl = asset('storage/'.$filename);
+    
+        file_put_contents($filePath, $fileContents);
+    
+        $response = [
+            'url' => $fileUrl
+        ];
+        return response()->json($response);
+    }
 
     public function cetak_semua_aset(){
         $lahan = DataAsetTanahModel::query()->get();
