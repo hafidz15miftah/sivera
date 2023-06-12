@@ -35,7 +35,7 @@ class ExportLaporanController extends Controller
     {
         $bulan = $request->input('bulan');
         $tahun = Carbon::parse($bulan)->format('Y');
-        
+    
         $verifikasi = VerifikasiLaporanModel::select(
             'laporans.id',
             'laporans.nama_laporan',
@@ -48,8 +48,24 @@ class ExportLaporanController extends Controller
             ->whereMonth('tanggal_dilaporkan', Carbon::parse($bulan)->format('m'))
             ->get();
     
-        $data = Pdf::loadView('pdf.pelaporan_bulanan', ['verifikasi' => $verifikasi, 'bulan' => $bulan, 'tahun' => $tahun])->setPaper('A4');
-        return $data->stream('laporan-bulanan.pdf');
+        // Cek apakah data tersedia
+        if ($verifikasi->isEmpty()) {
+            // Data kosong, tampilkan notifikasi
+            return response()->json(['status' => 'empty']);
+        }
+        $pdf = PDF::loadView('pdf.pelaporan_bulanan', ['verifikasi' => $verifikasi, 'bulan' => $bulan, 'tahun' => $tahun])->setPaper('A4');
+        $fileContents = $pdf->output();
+
+        $filename = 'laporan-bulanan.pdf';
+        $filePath = public_path('storage/'.$filename);
+        $fileUrl = asset('storage/'.$filename);
+    
+        file_put_contents($filePath, $fileContents);
+    
+        $response = [
+            'url' => $fileUrl
+        ];
+        return response()->json($response);
     }    
 
     public function cetak_laporan_pertahun(Request $request)

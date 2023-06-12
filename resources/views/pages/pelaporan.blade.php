@@ -72,8 +72,8 @@
                     <h4 class="card-title">Daftar Laporan</h4>
                     @if (Auth::user()->role_id == 2)
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-pelaporan"><i class="fa fa-plus"></i> Tambah Pelaporan</button>
-                    <a class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#bulanModal"><i class="fa fa-print"></i> Cetak Laporan</a>
-                    <a class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#tahunModal"><i class="fa fa-print"></i> Laporan Tahun Ini</a>
+                    <a class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#bulanModal"><i class="fa fa-print"></i> Cetak Laporan Perbulan</a>
+                    <a class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#tahunModal"><i class="fa fa-print"></i> Cetak Laporan Pertahun</a>
                     @endif
                     <div class="table-responsive">
                         <table id="tabel-pelaporan" class="table table-striped table-bordered zero-configuration">
@@ -138,7 +138,7 @@
                         <select class="form-control" id="tahun" name="tahun" required>
                             @php
                             $currentYear = date('Y');
-                            $startYear = $currentYear - 5;
+                            $startYear = $currentYear - 10;
                             @endphp
                             @for ($year = $currentYear; $year >= $startYear; $year--)
                             <option value="{{ $year }}">{{ $year }}</option>
@@ -210,6 +210,49 @@
     function closeModal() {
         document.getElementById("bulanModal").style.display = "none";
     }
+</script>
+
+<script>
+$('#bulanModal form').submit(function(event) {
+    event.preventDefault(); // Mencegah pengiriman formulir secara langsung
+
+    var selectedMonth = $('#bulan').val();
+
+    $.ajax({
+        url: "{{ url('pelaporan/cetak/bulanan') }}",
+        method: "GET",
+        data: {
+            bulan: selectedMonth
+        },
+        success: function(response) {
+            if (response.status == 'empty') {
+                // Data kosong, tampilkan notifikasi
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Data Tidak Tersedia',
+                    text: 'Bulan yang dipilih tidak terdapat laporan',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 3000
+                });
+            }else{
+                // Data ditemukan, redirect ke halaman PDF
+                window.open(response.url, '_blank');
+            }
+        },
+        error: function(xhr, status, error) {
+            var errorMessage = xhr.responseJSON.message;
+            // Menampilkan Toast SweetAlert dengan pesan error
+            Swal.fire({
+                icon: 'error',
+                title: 'Terjadi Kesalahan',
+                text: errorMessage
+            });
+        }
+    });
+});
 </script>
 
 <!-- Script Tambah Pelaporan -->
