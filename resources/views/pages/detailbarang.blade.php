@@ -13,7 +13,7 @@
 </div>
 <!-- row -->
 
-<!-- Modal Download-->
+<!-- Modal Download -->
 <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="downloadForm" method="GET" action="{{ route('cetak_semua_laporan') }}">
+                <form id="downloadForm" method="GET" action="{{ route('cetak_semua_laporan') }}" target="_blank">
                     @csrf
                     <div class="form-group">
                         <label for="downloadOption">Pilih Opsi:</label>

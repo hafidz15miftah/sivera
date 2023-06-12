@@ -21,7 +21,9 @@
                 <div class="card-body">
                     <h4 class="card-title">Detail Kondisi Barang</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-kondisi"><i class="fa fa-plus"></i> Tambah Kondisi</button>
-                    <a class="btn btn-warning" style="color:white" href="{{url('barang/cetak/stiker')}}"><i class="fa fa-print"></i> Cetak Stiker</a>
+                    <a class="btn btn-warning" style="color:white" href="{{ url('barang/cetak/stiker') }}" target="_blank">
+                        <i class="fa fa-print"></i> Cetak Stiker
+                    </a>
                     <div class="table-responsive">
                         <table id="tabel-kondisi" class="table table-striped table-bordered zero-configuration">
                             <thead>
