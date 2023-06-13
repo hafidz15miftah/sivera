@@ -430,14 +430,24 @@
                 let updatedAt = new Date(response[0].updated_at);
                 let updatedAtDate = updatedAt.toLocaleDateString(locale, options);
 
-                //fill data to form
+                // Map the "kondisi" value to its respective label
+                let kondisiLabel = " ";
+                if (response[0].kondisi == 1) {
+                    kondisiLabel = "Baik";
+                } else if (response[0].kondisi == 2) {
+                    kondisiLabel = "Rusak Ringan";
+                } else {
+                    kondisiLabel = "Rusak Berat"
+                }
+
+                // Fill data to form
                 $('#lihat-lahan #id').text(response.id);
                 $('#lihat-lahan #kategori_id').text(response[0].kategori_id);
                 $('#lihat-lahan #nama_obyek').text(response[0].nama_obyek);
                 $('#lihat-lahan #alamat').text(response[0].alamat);
                 $('#lihat-lahan #no_sertifikat').text(response[0].no_sertifikat);
                 $('#lihat-lahan #luas').text(response[0].luas);
-                $('#lihat-lahan #kondisi').text(response[0].kondisi);
+                $('#lihat-lahan #kondisi').text(kondisiLabel); // Use the mapped label
                 $('#lihat-lahan #keterangan').text(response[0].keterangan);
                 document.getElementById("created_at").innerHTML = formattedDate;
                 document.getElementById("updated_at").innerHTML = updatedAtDate;

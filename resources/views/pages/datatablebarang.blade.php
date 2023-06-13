@@ -139,7 +139,7 @@
                     </div>
                     <div class="form-row">
                         <label for="ruang" class="col-form-label">Kategori:</label>
-                        <select class="form-control" id="kategori_id" name="kategori" require>
+                        <select class="form-control" id="kategori_id" name="kategori" require disabled>
                             <option value="">Silahkan Pilih ...</option>
                             @foreach($kategori as $k)
                             <option value="{{ $k->id }}" name="kategori_id" id="kategori_id">{{ $k->nama_kategori }}</option>
@@ -148,7 +148,7 @@
                     </div>
                     <div class="form-row">
                         <label for="kode_barang" class="col-form-label">Kode Barang:</label>
-                        <input type="text" class="form-control" name="kode_barang" id="kode_barang" require disabled>
+                        <input type="text" class="form-control" name="kode_barang" id="kode_barang" require>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode_barang"></div>
                     </div>
 
@@ -381,6 +381,7 @@
             success: function(response) {
                 //fill data to form
                 $('#edit-barang #id').val(response[0].id);
+                $('#edit-barang #kategori_id').val(response[0].kategori_id);
                 $('#edit-barang #kode_barang').val(response[0].kode_barang);
                 $('#edit-barang #nama_barang').val(response[0].nama_barang);
                 $('#edit-barang #ruang_id').val(response[0].ruang_id);
@@ -392,6 +393,7 @@
         e.preventDefault();
 
         let id = $('#edit-barang #id').val();
+        let kategori_id = $('#edit-barang #kategori_id').val();
         let ruang_id = $('#edit-barang #ruang_id').val();
         let kode_barang = $('#edit-barang #kode_barang').val();
         let nama_barang = $('#edit-barang #nama_barang').val();
@@ -404,6 +406,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
+                "kategori_id": kategori_id,
                 "ruang_id": ruang_id,
                 "kode_barang": kode_barang,
                 "nama_barang": nama_barang,
@@ -429,6 +432,7 @@
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
+                    <td>${response.data.kategori_id}</td>
                         <td>${response.data.ruang_id}</td>
                         <td>${response.data.kode_barang}</td>
                         <td>${response.data.nama_barang}</td>

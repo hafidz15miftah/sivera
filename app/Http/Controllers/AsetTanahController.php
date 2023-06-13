@@ -26,6 +26,23 @@ class AsetTanahController extends Controller
             )
             ->join('kategoris', 'tanah.kategori_id', '=', 'kategoris.id')
             ->get();
+            $lahan->transform(function ($item) {
+                switch ($item->kondisi) {
+                    case 1:
+                        $item->kondisi = 'Baik';
+                        break;
+                    case 2:
+                        $item->kondisi = 'Rusak Ringan';
+                        break;
+                    case 3:
+                        $item->kondisi = 'Rusak Berat';
+                        break;
+                    default:
+                        $item->kondisi = 'Tidak Diketahui';
+                        break;
+                }
+                return $item;
+            });
             return DataTables::of($lahan)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
