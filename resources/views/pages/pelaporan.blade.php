@@ -132,7 +132,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url('pelaporan/cetak/tahunan') }}" method="GET">
+                <form action="{{ url('pelaporan/cetak/tahunan') }}" method="GET" target="_blank">
                     <div class="form-group">
                         <label for="tahun">Tahun:</label>
                         <select class="form-control" id="tahun" name="tahun" required>

@@ -63,8 +63,10 @@ class ExportLaporanController extends Controller
         file_put_contents($filePath, $fileContents);
     
         $response = [
-            'url' => $fileUrl
+            'url' => $fileUrl,
+            'Content-Type' => 'application/pdf',
         ];
+        
         return response()->json($response);
     }    
 
@@ -85,18 +87,7 @@ class ExportLaporanController extends Controller
             ->get();
     
         $pdf = Pdf::loadView('pdf.pelaporan_tahunan', ['verifikasi' => $verifikasi, 'tahun' => $tahun])->setPaper('A4');
-        $fileContents = $pdf->output();
-
-        $filename = 'laporan-tahunan.pdf';
-        $filePath = public_path('storage/'.$filename);
-        $fileUrl = asset('storage/'.$filename);
-    
-        file_put_contents($filePath, $fileContents);
-    
-        $response = [
-            'url' => $fileUrl
-        ];
-        return response()->json($response);
+        return $pdf->stream('laporan-tahunan.pdf', ['Content-Type' => 'application/pdf']);
     }
 
     public function cetak_semua_aset(){

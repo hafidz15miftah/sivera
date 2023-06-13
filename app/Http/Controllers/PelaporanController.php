@@ -112,8 +112,8 @@ class PelaporanController extends Controller
             $pdf = $request->file('file_pdf');
             $gambar = $request->file('file_gambar');
             $fileName = 'laporan-' . $validatedData['nama_laporan'] . Carbon::now()->locale('id')->translatedFormat('dHis');
-            $fileGambar = $gambar->storeAs('pictures', $fileName, 'public'); // Simpan file di folder "public/pdf"
-            $filePath = $pdf->storeAs('pdf', $fileName, 'public'); // Simpan file di folder "public/pdf"
+            $fileGambar = $gambar->storeAs('pictures', $fileName.'.'.$gambar->getClientOriginalExtension(), 'public'); // Simpan file di folder "public/pdf"
+            $filePath = $pdf->storeAs('pdf', $fileName.'.'.$pdf->getClientOriginalExtension(), 'public'); // Simpan file di folder "public/pdf"
 
             // Proses selanjutnya dengan data file yang diunggah...
 
