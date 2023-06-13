@@ -34,6 +34,8 @@ Route::get('/sivera', function() {
     return view('pages.about');
 });
 
+Route::get('/get-kode', [BarangController::class, 'getKode']);
+
 //Route ke Halaman Profil
 Route::get('/profil', [ProfileController::class, 'lihatprofil'])->name('lihatprofil');
 Route::post('/editprofil/{id}', [ProfileController::class, 'editprofil'])->name('editprofil');

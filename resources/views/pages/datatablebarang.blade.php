@@ -74,9 +74,8 @@
                     </div>
                     <div class="form-row">
                         <label for="kode_barang" class="col-form-label">Kode Barang:</label>
-                        <input type="text" class="form-control" name="kode_barang" id="kode_barang" require>
+                        <input type="text" class="form-control" name="kode_barang" id="kode_barang" require disabled>
                     </div>
-
                     <div class="form-row">
                         <label for="nama_barang" class="col-form-label">Nama Barang:</label>
                         <input type="text" class="form-control" name="nama_barang" id="nama_barang" require>
@@ -148,7 +147,7 @@
                     </div>
                     <div class="form-row">
                         <label for="kode_barang" class="col-form-label">Kode Barang:</label>
-                        <input type="text" class="form-control" name="kode_barang" id="kode_barang" require>
+                        <input type="text" class="form-control" name="kode_barang" id="kode_barang" require disabled>
                         <div class="alert alert-danger mt-2 d-none" role="alert" id="alert-kode_barang"></div>
                     </div>
 
@@ -212,6 +211,47 @@
             table.draw();
         });
     });
+</script>
+
+<script>
+    // Mendapatkan kode_kategori dan kode_ruang saat kategori atau ruang dipilih
+    document.getElementById('kategori_id').addEventListener('change', function() {
+        var selectedKategori = this.value;
+        var selectedRuang = document.getElementById('ruang_id').value;
+        getKodeKategori(selectedKategori, selectedRuang);
+    });
+
+    document.getElementById('ruang_id').addEventListener('change', function() {
+        var selectedKategori = document.getElementById('kategori_id').value;
+        var selectedRuang = this.value;
+        getKodeKategori(selectedKategori, selectedRuang);
+    });
+
+    // Mendapatkan kode_kategori dan kode_ruang dari server
+    function getKodeKategori(kategoriId, ruangId) {
+        $.ajax({
+            url: '/get-kode',
+            method: 'GET',
+            data: {
+                kategori_id: kategoriId,
+                ruang_id: ruangId
+            },
+            success: function(response) {
+                var kodeKategori = response.kode_kategori;
+                var kodeRuang = response.kode_ruang;
+                updateKodeBarang(kodeKategori, kodeRuang);
+            },
+            error: function(xhr, status, error) {
+                console.error('Terjadi kesalahan: ' + error);
+            }
+        });
+    }
+
+    // Memperbarui kode_barang dengan kode_kategori dan kode_ruang
+    function updateKodeBarang(kodeKategori, kodeRuang) {
+        var kodeBarang = '33' + '.' + '01' + '.' + '06' + '.' + '2012' + '.' + kodeKategori + '.' + kodeRuang;
+        document.getElementById('kode_barang').value = kodeBarang;
+    }
 </script>
 
 <!-- Script Tambah Data Barang -->

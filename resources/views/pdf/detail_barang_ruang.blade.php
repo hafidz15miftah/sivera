@@ -61,7 +61,7 @@
     <h2 class="judul">DAFTAR INVENTARIS BARANG</h2>
     <h2 class="tahun">TAHUN {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
     <hr>
-    <h3 class="nama-ruang">RUANGAN: {{ strtoupper($nama_ruangan->nama_ruang) }}</h3>
+    <h3 class="nama-ruang">RUANGAN: 33.01.06.2012 | {{ strtoupper($nama_ruangan->nama_ruang) }}</h3>
     <hr>
     <br>
     <table>

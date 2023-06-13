@@ -47,6 +47,33 @@ class BarangController extends Controller
         return view('pages.datatablebarang', ['ruang' => $ruang, 'kategori' => $kategori]);
     }
 
+    public function getKode(Request $request)
+    {
+        $kategoriId = $request->input('kategori_id');
+        $ruangId = $request->input('ruang_id');
+
+        $kodeKategori = '';
+        $kodeRuang = '';
+
+        if ($kategoriId) {
+            $kategori = Kategori::find($kategoriId);
+            if ($kategori) {
+                $kodeKategori = $kategori->kode_kategori;
+            }
+        }
+
+        if ($ruangId) {
+            $ruang = Ruang::find($ruangId);
+            if ($ruang) {
+                $kodeRuang = $ruang->kode_ruang;
+            }
+        }
+
+        return response()->json([
+            'kode_kategori' => $kodeKategori,
+            'kode_ruang' => $kodeRuang
+        ]);
+    }
 
     //Untuk melihat data barang
     public function lihatdata($id){
