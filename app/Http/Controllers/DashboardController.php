@@ -51,9 +51,9 @@ class DashboardController extends Controller
         $bruring = KondisiBarangModel::where('kondisi', '2')->count();
         $bruber = KondisiBarangModel::where('kondisi', '3')->count();
         
-        $tbaik = DataAsetTanahModel::where('kondisi', 'Baik')->count();
-        $truring = DataAsetTanahModel::where('kondisi', 'Rusak Ringan')->count();
-        $truber = DataAsetTanahModel::where('kondisi', 'Rusak Berat')->count();
+        $tbaik = DataAsetTanahModel::where('kondisi', '1')->count();
+        $truring = DataAsetTanahModel::where('kondisi', '2')->count();
+        $truber = DataAsetTanahModel::where('kondisi', '3')->count();
         
         return view('pages.dashboard', compact('bbarang', 'bbaik', 'bruring', 'bruber', 'tbaik', 'truring', 'truber'), ['labels' => $labels, 'dataLaporan' => $dataLaporan]);
     }
