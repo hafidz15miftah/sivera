@@ -95,8 +95,16 @@
                 <td style="border: 1px solid #000;">{{ $l->alamat }}</td>
                 <td style="border: 1px solid #000;">{{ $l->no_sertifikat }}</td>
                 <td style="border: 1px solid #000;">{{ $l->luas }}</td>
-                <td style="border: 1px solid #000;">{{ $l->kondisi }}</td>
-                <td style="border: 1px solid #000;">{{ $l->keterangan }}</td>
+                <td style="border: 1px solid #000; text-align: center"">
+                @if($l->kondisi == 1)
+                Baik
+                @elseif($l->kondisi == 2)
+                Rusak Ringan
+                @else
+                Rusak Berat
+                @endif
+                </td>
+                <td style=" border: 1px solid #000;">{{ $l->keterangan }}</td>
             </tr>
             @endforeach
         </tbody>
