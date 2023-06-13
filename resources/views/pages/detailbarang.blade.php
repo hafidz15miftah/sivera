@@ -149,7 +149,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
-                                <textarea class="form-control" name="keterangan" id="keterangan"></textarea>
+                                <textarea class="form-control" placeholder="Opsional" name="keterangan" id="keterangan"></textarea>
                             </div>
                         </div>
                     </div>
@@ -224,7 +224,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
-                                <textarea class="form-control" name="keterangan" id="keterangan"></textarea>
+                                <textarea class="form-control" placeholder="Opsional" name="keterangan" id="keterangan"></textarea>
                             </div>
                         </div>
                     </div>

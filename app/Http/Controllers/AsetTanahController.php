@@ -12,7 +12,6 @@ class AsetTanahController extends Controller
 {
     public function tampilkanLahan()
     {
-        $kategori = Kategori::all();
         if (request()->ajax()) {
             $lahan = DataAsetTanahModel::select(
                 'tanah.id',
@@ -22,9 +21,7 @@ class AsetTanahController extends Controller
                 'tanah.luas',
                 'tanah.kondisi',
                 'tanah.keterangan',
-                'kategoris.nama_kategori',
             )
-            ->join('kategoris', 'tanah.kategori_id', '=', 'kategoris.id')
             ->get();
             $lahan->transform(function ($item) {
                 switch ($item->kondisi) {
@@ -55,7 +52,7 @@ class AsetTanahController extends Controller
                 ->rawColumns(['aksi', 'kondisi'])
                 ->make(true);
         }
-        return view('pages.datatabletanah', ['kategori' => $kategori]);
+        return view('pages.datatabletanah');
     }
 
     //Untuk menyimpan barang
@@ -63,7 +60,6 @@ class AsetTanahController extends Controller
     {
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
-                'kategori_id' => 'required',
                 'nama_obyek' => 'required',
                 'no_sertifikat' => 'required|unique:tanah,no_sertifikat',
                 'luas' => 'required|numeric',
@@ -71,7 +67,6 @@ class AsetTanahController extends Controller
                 'kondisi' => 'required',
                 'keterangan' => 'nullable|min:4'
             ],[
-                'kategori_id.required' => 'Kategori harus dipilih',
                 'nama_obyek.required' => 'Nama obyek harus diisi.',
                 'no_sertifikat.required' => 'Nomor sertifikat harus diisi.',
                 'no_sertifikat.unique' => 'Nomor sertifikat sama dengan data yang sudah ada.',
@@ -95,7 +90,6 @@ class AsetTanahController extends Controller
 
             // Membuat Data
             $lahan = [
-                'kategori_id' => $request->kategori_id,
                 'nama_obyek' => $request->nama_obyek,
                 'no_sertifikat' => $request->no_sertifikat,
                 'luas' => $request->luas,
@@ -116,7 +110,6 @@ class AsetTanahController extends Controller
     public function updatelahan(Request $request, $id)
     {
         $lahan = DataAsetTanahModel::findorfail($id);
-        $lahan->kategori_id = $request->input('kategori_id');
         $lahan->nama_obyek = $request->input('nama_obyek');
         $lahan->no_sertifikat = $request->input('no_sertifikat');
         $lahan->luas = $request->input('luas');

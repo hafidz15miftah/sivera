@@ -84,21 +84,10 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label for="alamat" class="col-form-label">Alamat:</label>
                                 <input type="text" class="form-control" name="alamat" id="alamat" require>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="kategori" class="col-form-label">Kategori:</label>
-                                <select class="form-control" id="kategori_id" name="kategori_id" require>
-                                    <option value="">Silahkan Pilih ...</option>
-                                    @foreach($kategori as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -117,7 +106,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
-                                <textarea class="form-control" name="keterangan" id="keterangan"></textarea>
+                                <textarea class="form-control" name="keterangan" placeholder="Opsional" id="keterangan"></textarea>
                             </div>
                         </div>
                     </div>
@@ -174,21 +163,10 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label for="alamat" class="col-form-label">Alamat:</label>
                                 <input type="text" class="form-control" name="alamat" id="alamat" require>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="kategori" class="col-form-label">Kategori:</label>
-                                <select class="form-control" id="kategori_id" name="kategori_id" required disabled>
-                                    <option value="">Silahkan Pilih ...</option>
-                                    @foreach($kategori as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -208,7 +186,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
-                                <textarea class="form-control" name="keterangan" id="keterangan"></textarea>
+                                <textarea class="form-control" name="keterangan" placeholder="Opsional" id="keterangan"></textarea>
                             </div>
                         </div>
                     </div>

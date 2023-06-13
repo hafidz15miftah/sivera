@@ -13,6 +13,7 @@ class Ruang extends Model
 
     protected $fillable = [
         'nama_ruang',
+        'kode_ruang'
     ];
 
     // one to many

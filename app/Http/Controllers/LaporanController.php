@@ -29,12 +29,13 @@ class LaporanController extends Controller
                 'infos.kode_detail',
                 'infos.kondisi',
                 'barangs.nama_barang',
+                'kategoris.id as kategori_id',
                 'kategoris.nama_kategori',
                 'ruangs.nama_ruang'
             )
                 ->join('infos', 'details.info_id', '=', 'infos.id')
-                ->join('kategoris', 'infos.barang_id', '=', 'kategoris.id')
                 ->join('barangs', 'infos.barang_id', '=', 'barangs.id')
+                ->join('kategoris', 'barangs.kategori_id', '=', 'kategoris.id')
                 ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
                 ->get();
             return DataTables::of($laporan)
@@ -64,12 +65,16 @@ class LaporanController extends Controller
                     'info_id' => 'required|unique:details,info_id',
                     'tgl_perolehan' => 'required',
                     'sumber' => 'required',
+                    'merk' => 'required',
+                    'harga' => 'required',
                 ],
                 [
-                    'info_id.required' => 'Kode barang harus di pilih.',
-                    'info_id.unique' => 'Kode barang sudah dilaporkan, silahkan melakukan ubah data pada tabel data.',
-                    'tgl_perolehan.required' => 'Tanggal perolehan harus diisi.',
-                    'sumber.required' => 'Sumber perolehan harus dipilih.',
+                    'info_id.required' => 'Kode barang harus di pilih',
+                    'info_id.unique' => 'Kode barang sudah dilaporkan, silahkan melakukan ubah data pada tabel data',
+                    'tgl_perolehan.required' => 'Tanggal perolehan harus diisi',
+                    'sumber.required' => 'Sumber perolehan harus dipilih',
+                    'merk.required' => 'Merk harus diisi',
+                    'harga.required' => 'Harga barang harus diisi',
                 ]
             );
 
