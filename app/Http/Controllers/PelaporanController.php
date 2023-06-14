@@ -96,13 +96,13 @@ class PelaporanController extends Controller
 
     public function uploadPDF(Request $request)
     {
-        
         $validatedData = $request->validate([
             'info_id' => 'required', 
             'nama_laporan' => 'required',
             'file_gambar' => 'required|mimes:jpeg,png|max:8192', //Hanya menerima file gambar dengan ukuran maks 8 MB
             'file_pdf' => 'required|mimes:pdf|max:2048', // Hanya menerima file PDF dengan ukuran maksimum 2MB
         ], [
+            'info_id.required' => 'ID Barang harus dipilih',
             'nama_laporan.required' => 'Nama laporan harus diisi',
             'file_gambar' => 'Silahkan upload gambar barang rusak',
             'file_pdf' => 'Silahkan upload file PDF'

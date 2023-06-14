@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>NIP / NIPD / NIKD</label>
-                                <input type="number" class="form-control" value="{{$u -> nip }}" name="nip">
+                                <input type="text" class="form-control" placeholder="Kosongkan jika Anda belum memiliki NIP/NIPD/NIKD" value="{{$u -> nip }}" name="nip">
                             </div>
                         </div>
                         <div class="form-group">
@@ -43,11 +43,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="current_password">Kata Sandi Saat Ini</label>
-                                <input type="password" id="password" name="password" class="form-control">
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Masukkan kata sandi lama">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="new_password">Kata Sandi Baru</label>
-                                <input type="password" id="new_password" name="new_password" class="form-control">
+                                <input type="password" id="new_password" name="new_password" class="form-control" placeholder="Masukkan kata sandi baru">
                             </div>
                         </div>
                         @endforeach

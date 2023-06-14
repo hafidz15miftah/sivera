@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-row">
                         <label for="kode_barang" class="col-form-label">Kode Barang:</label>
-                        <input type="text" class="form-control" name="kode_barang" id="kode_barang" require disabled>
+                        <input type="text" class="form-control" name="kode_barang" id="kode_barang" require>
                     </div>
                     <div class="form-row">
                         <label for="nama_barang" class="col-form-label">Nama Barang:</label>
@@ -249,7 +249,7 @@
 
     // Memperbarui kode_barang dengan kode_kategori dan kode_ruang
     function updateKodeBarang(kodeKategori, kodeRuang) {
-        var kodeBarang = '33' + '.' + '01' + '.' + '06' + '.' + '2012' + '.' + kodeKategori + '.' + kodeRuang;
+        var kodeBarang = '33' + '.' + '01' + '.' + '06' + '.' + '2012' + '.' + kodeKategori + '.' + kodeRuang + '/';
         document.getElementById('kode_barang').value = kodeBarang;
     }
 </script>
@@ -421,7 +421,7 @@
             success: function(response) {
                 //fill data to form
                 $('#edit-barang #id').val(response[0].id);
-                $('#edit-barang #kategori_id').val(response[0].kategori_id);
+                $('#edit-barang #kategori_id').val(response[2].kategori_id);
                 $('#edit-barang #kode_barang').val(response[0].kode_barang);
                 $('#edit-barang #nama_barang').val(response[0].nama_barang);
                 $('#edit-barang #ruang_id').val(response[0].ruang_id);
