@@ -226,8 +226,11 @@
             scales: {
                 y: {
                     beginAtZero: true,
+                    ticks: {
+                        stepSize: 0.5
+                    }
                 }
-            }
+            },
         };
 
         // Membuat bar chart

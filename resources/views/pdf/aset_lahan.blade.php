@@ -70,7 +70,7 @@
             <h1 class="pemkab-name">PEMERINTAH KABUPATEN CILACAP</h1>
             <h1 class="pemkab-name">KECAMATAN KROYA</h1>
             <h1 class="desa-name">DESA KEDAWUNG</h1>
-            <p class="desa-address">Jl. Jend. A. Yani Desa Kedawung, Kecamatan Kroya, Kabupaten Cilacap, Jawa Tengah 53282</p>
+            <p class="desa-address">Jl. Jend. A. Yani RT 03 RW 08 Kedawung, Kec. Kroya Telepon (0282) 494397 Kode Pos 53282</p>
         </div>
     </div>
     <h2 style="justify-content: center; text-align: center">DAFTAR ASET TANAH / LAHAN</h2>

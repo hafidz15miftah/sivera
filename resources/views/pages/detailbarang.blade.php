@@ -124,7 +124,12 @@
                                 <label for="sumber">Sumber</label>
                                 <select class="form-control" id="sumber" name="sumber" require>
                                     <option value="" selected disabled>Silahkan Pilih ...</option>
-                                    <option value="Anggaran Dana Desa">Anggaran Dana Desa</option>
+                                    <option value="Anggaran Dana Desa">Anggaran Dana Desa (ADD)</option>
+                                    <option value="Hibah">Bagi Hasil Pajak (BHP)</option>
+                                    <option value="Hibah">Bagi Hasil Pajak dan Retribusi (BHR)</option>
+                                    <option value="Hibah">Bantuan Provinsi</option>
+                                    <option value="Hibah">Bantuan Kabupaten</option>
+                                    <option value="Hibah">Bantuan Pihak Ketiga</option>
                                     <option value="Hibah">Hibah</option>
                                     <option value="Lainnya">Lainnya</option>
                                 </select>

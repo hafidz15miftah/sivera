@@ -65,23 +65,23 @@
                     </div>
                     <div class="form-row">
                         <label for="name" class="col-form-label">Nama:</label>
-                        <input type="text" class="form-control" name="name" id="name" require>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Masukkan Nama..." require>
                     </div>
                     <div class="form-row">
-                        <label for="nip" class="col-form-label">NIP:</label>
-                        <input type="text" class="form-control" name="nip" id="nip" require>
+                        <label for="nip" class="col-form-label">NIP / NIPD/ NIKD:</label>
+                        <input type="text" class="form-control" name="nip" id="nip" placeholder="Kosongkan jika tidak memiliki NIP/NIPD/NIKD" require>
                     </div>
                     <div class="form-row">
                         <label for="alamat" class="col-form-label">Alamat:</label>
-                        <input type="text" class="form-control" name="alamat" id="alamat" require>
+                        <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Masukkan Alamat..." require>
                     </div>
                     <div class="form-row">
                         <label for="email" class="col-form-label">Email:</label>
-                        <input type="email" class="form-control" name="email" id="email" require>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan Alamat Email..." require>
                     </div>
                     <div class="form-row">
                         <label for="password" class="col-form-label">Kata Sandi:</label>
-                        <input type="password" class="form-control" name="password" id="password" require>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan Kata Sandi..." require>
                     </div>
                 </form>
             </div>
