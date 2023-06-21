@@ -66,15 +66,16 @@
                 </div>
                 @csrf
                 <form id="add_kondisi">
-                    <div class="form-row">
-                        <label for="barang_id" class="col-form-label">Nama Barang:</label>
-                        <select class="form-control" name="barang_id" id="barang_id" required>
-                            <option value="">Silahkan Pilih ...</option>
-                            @foreach ($barang as $index => $b)
-                            <option value="{{ $b->id }}" data-ruang-nama="{{ $ruang[$index]->nama_ruang }}">{{ $b->nama_barang }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                <div class="form-row">
+  <label for="barang_id" class="col-form-label">Nama Barang:</label>
+  <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Cari...">
+  <select class="form-control" name="barang_id" id="barang_id" required onchange="selectChange(this)">
+    <option value="" selected>Silahkan Pilih ...</option>
+    @foreach ($barang as $index => $b)
+    <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
+    @endforeach
+  </select>
+</div>
                     <div class="form-row">
                         <label for="kode_detail" class="col-form-label">ID Barang:</label>
                         <input type="text" class="form-control" name="kode_detail" id="kode_detail" disabled>
