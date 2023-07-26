@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataAsetJalanModel;
+use App\Models\DataAsetKendaraanModel;
 use App\Models\DataAsetTanahModel;
 use App\Models\DataBarangModel;
 use App\Models\KondisiBarangModel;
@@ -54,7 +56,15 @@ class DashboardController extends Controller
         $tbaik = DataAsetTanahModel::where('kondisi', '1')->count();
         $truring = DataAsetTanahModel::where('kondisi', '2')->count();
         $truber = DataAsetTanahModel::where('kondisi', '3')->count();
+
+        $jlBaik = DataAsetJalanModel::where('kondisi', '1')->count();
+        $jlRR = DataAsetJalanModel::where('kondisi', '2')->count();
+        $jlRB = DataAsetJalanModel::where('kondisi', '3')->count();
+
+        $kBaik = DataAsetKendaraanModel::where('kondisi', '1')->count();
+        $kRR = DataAsetKendaraanModel::where('kondisi', '2')->count();
+        $kRB = DataAsetKendaraanModel::where('kondisi', '3')->count();
         
-        return view('pages.dashboard', compact('bbarang', 'bbaik', 'bruring', 'bruber', 'tbaik', 'truring', 'truber'), ['labels' => $labels, 'dataLaporan' => $dataLaporan]);
+        return view('pages.dashboard', compact('bbarang', 'bbaik', 'bruring', 'bruber', 'tbaik', 'truring', 'truber', 'jlBaik', 'jlRR', 'jlRB', 'kBaik', 'kRR', 'kRB'), ['labels' => $labels, 'dataLaporan' => $dataLaporan]);
     }
 }

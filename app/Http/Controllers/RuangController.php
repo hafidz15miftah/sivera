@@ -95,11 +95,9 @@ class RuangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_ruang' => 'required|unique:ruangs,nama_ruang,' . $id,
-            'kode_ruang' => 'required|unique:ruangs,kode_ruang,' . $id
         ],
         [
             'nama_ruang.unique' => 'Nama ruangan sudah ada',
-            'kode_ruang.unique' => 'Kode ruangan sudah digunakan ruangan lain',
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();

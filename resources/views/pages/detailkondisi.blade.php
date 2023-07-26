@@ -21,9 +21,11 @@
                 <div class="card-body">
                     <h4 class="card-title">Detail Kondisi Barang</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-kondisi"><i class="fa fa-plus"></i> Tambah Kondisi</button>
+                    @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
                     <a class="btn btn-warning" style="color:white" href="{{ url('barang/cetak/stiker') }}" target="_blank">
                         <i class="fa fa-print"></i> Cetak Stiker
                     </a>
+                    @endif
                     <div class="table-responsive">
                         <table id="tabel-kondisi" class="table table-striped table-bordered zero-configuration">
                             <thead>
@@ -66,16 +68,15 @@
                 </div>
                 @csrf
                 <form id="add_kondisi">
-                <div class="form-row">
-  <label for="barang_id" class="col-form-label">Nama Barang:</label>
-  <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Cari...">
-  <select class="form-control" name="barang_id" id="barang_id" required onchange="selectChange(this)">
-    <option value="" selected>Silahkan Pilih ...</option>
-    @foreach ($barang as $index => $b)
-    <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
-    @endforeach
-  </select>
-</div>
+                    <div class="form-row">
+                        <label for="barang_id" class="col-form-label">Nama Barang:</label>
+                        <select class="form-control" name="barang_id" id="barang_id">
+                            <option value="">Silahkan Pilih ...</option>
+                            @foreach ($barang as $b)
+                            <option value="{{ $b->id }}">{{ $b->nama_barang }} - {{ $b->ruang->nama_ruang }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-row">
                         <label for="kode_detail" class="col-form-label">ID Barang:</label>
                         <input type="text" class="form-control" name="kode_detail" id="kode_detail" disabled>
@@ -125,7 +126,7 @@
                         <select class="form-control" name="barang_id" id="barang_id" required disabled>
                             <option value="">Silahkan Pilih ...</option>
                             @foreach ($barang as $b)
-                            <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
+                            <option value="{{ $b->id }}">{{ $b->nama_barang }} - {{ $b->ruang->nama_ruang }}</option>
                             @endforeach
                         </select>
                     </div>

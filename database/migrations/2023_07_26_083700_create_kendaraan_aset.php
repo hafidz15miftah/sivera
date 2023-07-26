@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tanah', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama_obyek');
-            $table->string('alamat');
-            $table->string('no_sertifikat');
-            $table->float('luas');
-            $table->float('pengukuran');
+        Schema::create('kendaraans', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_kendaraan');
+            $table->string('plat');
+            $table->date('tgl_pembelian');
+            $table->string('merk');
+            $table->string('tipe');
             $table->integer('kondisi');
             $table->string('keterangan')->nullable();
             $table->timestamps();
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tanah');
+        Schema::dropIfExists('kendaraan_aset');
     }
 };

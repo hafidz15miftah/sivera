@@ -91,6 +91,25 @@
     </div>
 
     <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Grafik Kondisi Aset Jalan</h4>
+                    <canvas id="chartJalan"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Grafik Kondisi Aset Kendaraan</h4>
+                    <canvas id="chartKendaraan"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
@@ -153,6 +172,84 @@
             labels: ['Baik', 'Rusak Ringan', 'Rusak Berat'],
             datasets: [{
                 data: [tbaik, truring, truber],
+                backgroundColor: [
+                    '#6fd96f',
+                    '#f29d56',
+                    '#FF5E5E',
+                ],
+            }],
+        };
+
+        var options = {
+            responsive: true,
+            plugins: {
+                labels: {
+                    render: 'percentage',
+                    fontColor: ['white', 'white', 'white'],
+                    precision: 2
+                }
+            }
+        };
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+    });
+</script>
+
+<!-- ChartJS Pie - Aset Jalan -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('chartJalan').getContext('2d');
+        var jlBaik = '{{ $jlBaik }}';
+        var jlRR = '{{ $jlRR }}';
+        var jlRB = '{{ $jlRB }}';
+
+        var data = {
+            labels: ['Baik', 'Rusak Ringan', 'Rusak Berat'],
+            datasets: [{
+                data: [jlBaik, jlRR, jlRB],
+                backgroundColor: [
+                    '#6fd96f',
+                    '#f29d56',
+                    '#FF5E5E',
+                ],
+            }],
+        };
+
+        var options = {
+            responsive: true,
+            plugins: {
+                labels: {
+                    render: 'percentage',
+                    fontColor: ['white', 'white', 'white'],
+                    precision: 2
+                }
+            }
+        };
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+    });
+</script>
+
+<!-- ChartJS Pie - Aset Kendaraan -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ctx = document.getElementById('chartKendaraan').getContext('2d');
+        var kBaik = '{{ $kBaik }}';
+        var kRR = '{{ $kRR }}';
+        var kRB = '{{ $kRB }}';
+
+        var data = {
+            labels: ['Baik', 'Rusak Ringan', 'Rusak Berat'],
+            datasets: [{
+                data: [kBaik, kRR, kRB],
                 backgroundColor: [
                     '#6fd96f',
                     '#f29d56',

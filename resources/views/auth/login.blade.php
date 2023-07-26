@@ -3,6 +3,7 @@
 <title>Masuk &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 
 <!-- Head -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,6 +48,7 @@
                                         <input type="password" class="form-control" name="password" placeholder="Kata Sandi">
                                     </div>
                                     <button class="btn login-form__btn submit w-100" type="submit">Masuk</button>
+                                    <button class="btn w-100"><a href="{{ route('password.request') }}" class="text-primary">Lupa Kata Sandi?</a></button>
                                 </form>
                             </div>
                         </div>

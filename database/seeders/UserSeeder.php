@@ -43,5 +43,23 @@ class UserSeeder extends Seeder
             'password' => Hash::make('tes'),
             'role_id' => 3,
         ]);
+
+        User::create([
+            'name' => 'Staf Umum',
+            'email' => 'staf@gmail.com',
+            'nip' => '',
+            'alamat' => 'Kroya',
+            'password' => Hash::make('tes'),
+            'role_id' => 4,
+        ]);
+
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'nip' => '',
+            'alamat' => 'Perum Karangmangu',
+            'password' => Hash::make('tes'),
+            'role_id' => 5,
+        ]);
     }
 }

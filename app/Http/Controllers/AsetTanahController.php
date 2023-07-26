@@ -63,6 +63,7 @@ class AsetTanahController extends Controller
                 'nama_obyek' => 'required',
                 'no_sertifikat' => 'required|unique:tanah,no_sertifikat',
                 'luas' => 'required|numeric',
+                'pengukuran' => 'required|numeric',
                 'alamat' => 'required',
                 'kondisi' => 'required',
                 'keterangan' => 'nullable|min:4'
@@ -70,8 +71,10 @@ class AsetTanahController extends Controller
                 'nama_obyek.required' => 'Nama obyek harus diisi.',
                 'no_sertifikat.required' => 'Nomor sertifikat harus diisi.',
                 'no_sertifikat.unique' => 'Nomor sertifikat sama dengan data yang sudah ada.',
-                'luas.unique' => 'Kolom luas harus diisi.',
+                'luas.required' => 'Kolom luas harus diisi.',
                 'luas.numeric' => 'Kolom luas harus berupa angka.',
+                'pengukuran.required' => 'Kolom pengukuran terakhir harus diisi',
+                'pengukuran.numeric' => 'Kolom pengukuran harus berupa angka',
                 'alamat.required' => 'Alamat harus diisi.',
                 'kondisi.required' => 'Silahkan pilih kondisi tanah',
                 'keterangan' => 'Keterangan harus memiliki setidaknya :min karakter.',
@@ -93,6 +96,7 @@ class AsetTanahController extends Controller
                 'nama_obyek' => $request->nama_obyek,
                 'no_sertifikat' => $request->no_sertifikat,
                 'luas' => $request->luas,
+                'pengukuran' => $request->luas,
                 'alamat' => $request->alamat,
                 'kondisi' => $request->kondisi,
                 'keterangan' => $request->keterangan,
@@ -112,7 +116,7 @@ class AsetTanahController extends Controller
         $lahan = DataAsetTanahModel::findorfail($id);
         $lahan->nama_obyek = $request->input('nama_obyek');
         $lahan->no_sertifikat = $request->input('no_sertifikat');
-        $lahan->luas = $request->input('luas');
+        $lahan->pengukuran = $request->input('pengukuran');
         $lahan->alamat = $request->input('alamat');
         $lahan->kondisi = $request->input('kondisi');
         $lahan->keterangan = $request->input('keterangan');

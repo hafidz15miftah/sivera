@@ -70,7 +70,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Daftar Laporan</h4>
-                    @if (Auth::user()->role_id == 2)
+                    @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-pelaporan"><i class="fa fa-plus"></i> Tambah Pelaporan</button>
                     <a class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#bulanModal"><i class="fa fa-print"></i> Cetak Laporan Perbulan</a>
                     <a class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#tahunModal"><i class="fa fa-print"></i> Cetak Laporan Pertahun</a>

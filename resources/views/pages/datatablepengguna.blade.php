@@ -69,7 +69,7 @@
                     </div>
                     <div class="form-row">
                         <label for="nip" class="col-form-label">NIP / NIPD/ NIKD:</label>
-                        <input type="text" class="form-control" name="nip" id="nip" placeholder="Kosongkan jika tidak memiliki NIP/NIPD/NIKD" require>
+                        <input type="number" class="form-control" name="nip" id="nip" placeholder="Kosongkan jika tidak memiliki NIP/NIPD/NIKD" require>
                     </div>
                     <div class="form-row">
                         <label for="alamat" class="col-form-label">Alamat:</label>

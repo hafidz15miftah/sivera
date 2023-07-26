@@ -16,7 +16,13 @@ class LaporanController extends Controller
     public function tampilkanLaporan()
     {
         $barang = DataBarangModel::all();
-        $info = KondisiBarangModel::all();
+        $info = KondisiBarangModel::whereNotIn('id', function ($query) {
+            $query->select('info_id')->from('details');
+        })->get();
+        $cekdata = KondisiBarangModel::all();
+        $beritaacara = KondisiBarangModel::whereIn('id', function ($query) {
+            $query->select('info_id')->from('details');
+        })->get();
         $ruang = Ruang::all();
         if (request()->ajax()) {
             $laporan = DetailBarangModel::select(
@@ -53,7 +59,7 @@ class LaporanController extends Controller
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
-        return view('pages.detailbarang', compact('barang', 'info', 'ruang'));
+        return view('pages.detailbarang', compact('barang', 'info', 'ruang', 'beritaacara', 'cekdata'));
     }
 
     public function simpanLaporan(Request $request)
@@ -143,7 +149,6 @@ class LaporanController extends Controller
     public function updatedetailbar(Request $request, $id)
     {
         $laporan = DetailBarangModel::findorfail($id);
-
         $laporan->tgl_perolehan = $request->input('tgl_perolehan');
         $laporan->sumber = $request->input('sumber');
         $laporan->merk = $request->input('merk');

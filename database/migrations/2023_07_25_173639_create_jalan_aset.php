@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tanah', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama_obyek');
-            $table->string('alamat');
-            $table->string('no_sertifikat');
-            $table->float('luas');
-            $table->float('pengukuran');
+        Schema::create('jalans', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_jalan');
+            $table->string('no_dokumen');
+            $table->float('panjang');
+            $table->string('sumber');
             $table->integer('kondisi');
             $table->string('keterangan')->nullable();
             $table->timestamps();
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tanah');
+        Schema::dropIfExists('jalan_aset');
     }
 };

@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataAsetTanahModel extends Model
+class DataAsetKendaraanModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'tanah';
+    protected $table = 'kendaraans';
 
     protected $fillable = [
-        'nama_obyek',
-        'alamat',
-        'no_sertifikat',
-        'luas',
-        'pengukuran',
+        'nama_kendaraan',
+        'plat',
+        'tgl_pembelian',
+        'merk',
+        'tipe',
         'kondisi',
         'keterangan',
     ];

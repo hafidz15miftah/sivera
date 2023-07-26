@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckRole
 {
@@ -16,19 +17,17 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string $role)
     {
-        if ($role == 'sekdes' && auth()->user()->role_id == 1){
+        if ($role == 'sekdesadmin' && Auth::user()->role_id == 1 || $role == 'sekdesadmin' && Auth::user()->role_id == 5){
             return $next($request);
         }
 
-        if ($role == 'kaurumum' && auth()->user()->role_id == 2){
+        if ($role == 'kaurumumadminstaf' && Auth::user()->role_id == 2 || $role == 'kaurumumadminstaf' && Auth::user()->role_id == 4 || $role == 'kaurumumadminstaf' && Auth::user()->role_id == 5){
             return $next($request);
         }
 
-        if ($role == 'kepdes' && auth()->user()->role_id == 3){
+        if ($role == 'kepdesadmin' && Auth::user()->role_id == 3 || $role == 'kepdesadmin' && Auth::user()->role_id == 5){
             return $next($request);
         }
-
         abort(401);
-        
     }
 }

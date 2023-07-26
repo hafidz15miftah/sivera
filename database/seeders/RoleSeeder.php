@@ -18,5 +18,7 @@ class RoleSeeder extends Seeder
         Role::create(['role_name' => 'Sekretaris Desa']);
         Role::create(['role_name' => 'Kaur Umum dan Perencanaan']);
         Role::create(['role_name' => 'Kepala Desa']);
+        Role::create(['role_name' => 'Staf']);
+        Role::create(['role_name' => 'Administrator']);
     }
 }

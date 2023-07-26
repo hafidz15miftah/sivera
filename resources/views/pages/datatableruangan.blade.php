@@ -94,7 +94,7 @@
                     <form>
                         <div class="form-group">
                             <label for="kode_ruang" class="col-form-label">Kode Ruangan:</label>
-                            <input type="text" class="form-control" name="kode_ruang" id="kode_ruang" require>
+                            <input type="text" class="form-control" name="kode_ruang" id="kode_ruang" require disabled>
                         </div>
                     </form>
             </div>

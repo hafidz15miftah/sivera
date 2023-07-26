@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Data Aset Tanah / Lahan Desa</title>
+    <title>Data Aset Jalan Desa</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -83,40 +83,38 @@
             <p class="desa-address">Jl. Jend. A. Yani RT 03 RW 08 Kedawung, Kec. Kroya Telepon (0282) 494397 Kode Pos 53282</p>
         </div>
     </div>
-    <h2 style="justify-content: center; text-align: center">DAFTAR ASET TANAH / LAHAN</h2>
+    <h2 style="justify-content: center; text-align: center">DAFTAR ASET JALAN DESA</h2>
     <h2 style="justify-content: center; text-align: center">TAHUN {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
     <table>
         <thead>
             <tr>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">NO</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">NAMA OBYEK</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">ALAMAT</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">NO SERTIFIKAT</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">LUAS (m<sup>2</sup>)</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">LUAS TERAKHIR (m<sup>2</sup>)</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">NAMA JALAN</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">NO DOKUMEN</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">PANJANG</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">SUMBER</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">KONDISI</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">KETERANGAN</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($lahan as $l)
+            @foreach ($jalan as $j)
             <tr>
-                <td style="border: 1px solid #000;">{{ $loop->iteration }}</td>
-                <td style="border: 1px solid #000;  width: 20%;">{{ $l->nama_obyek }}</td>
-                <td style="border: 1px solid #000;">{{ $l->alamat }}</td>
-                <td style="border: 1px solid #000; text-align: center">{{ $l->no_sertifikat }}</td>
-                <td style="border: 1px solid #000; text-align: center">{{ $l->luas }}</td>
-                <td style="border: 1px solid #000; text-align: center">{{ $l->pengukuran }}</td>
+                <td style="border: 1px solid #000; width: 5%; text-align: center;">{{ $loop->iteration }}</td>
+                <td style="border: 1px solid #000; width: 20%;">{{ $j->nama_jalan }}</td>
+                <td style="border: 1px solid #000;">{{ $j->no_dokumen }}</td>
+                <td style="border: 1px solid #000; text-align: center">{{ $j->panjang }}</td>
+                <td style="border: 1px solid #000; text-align: center">{{ $j->sumber }}</td>
                 <td style="border: 1px solid #000; text-align: center">
-                @if($l->kondisi == 1)
+                @if($j->kondisi == 1)
                 Baik
-                @elseif($l->kondisi == 2)
+                @elseif($j->kondisi == 2)
                 Rusak Ringan
                 @else
                 Rusak Berat
                 @endif
                 </td>
-                <td style=" border: 1px solid #000;">{{ $l->keterangan }}</td>
+                <td style=" border: 1px solid #000;">{{ $j->keterangan }}</td>
             </tr>
             @endforeach
         </tbody>

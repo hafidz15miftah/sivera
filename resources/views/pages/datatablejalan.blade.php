@@ -1,4 +1,4 @@
-<title>Aset Tanah/Lahan &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
+<title>Aset Jalan &minus; Sistem Informasi Inventaris Barang dan Aset Desa</title>
 @extends('layouts.app-layout')
 
 @section('content')
@@ -7,7 +7,7 @@
     <div class="col p-md-0">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Fungsional Sistem</a></li>
-            <li class="breadcrumb-item active"><a href="/aset">Aset Tanah / Lahan</a></li>
+            <li class="breadcrumb-item active"><a href="/jalan">Aset Jalan</a></li>
         </ol>
     </div>
 </div>
@@ -18,19 +18,19 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Aset Tanah/Lahan</h4>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-lahan"><i class="fa fa-plus"></i> Tambah Aset Tanah / Lahan</button>
+                    <h4 class="card-title">Aset Jalan</h4>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-jalan"><i class="fa fa-plus"></i> Tambah Aset Jalan</button>
                     @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
-                    <a class="btn btn-warning" style="color:white" href="{{url('lahan/cetak/semua')}}"><i class="fa fa-print"></i> Cetak Data Aset Tanah / Lahan</a>
+                    <a class="btn btn-warning" style="color:white" href="{{url('jalan/cetak/semua')}}"><i class="fa fa-print"></i> Cetak Data Aset Jalan</a>
                     @endif
                     <div class="table-responsive">
-                        <table id="tabel-tanah" class="table table-striped table-bordered zero-configuration">
+                        <table id="tabel-jalan" class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Nama Obyek</th>
-                                    <th class="text-center">Alamat</th>
-                                    <th class="text-center">No. Sertifikat</th>
-                                    <th class="text-center">Luas (m<sup>2</sup>)</th>
+                                    <th class="text-center">Nama Jalan</th>
+                                    <th class="text-center">No. Dokumen</th>
+                                    <th class="text-center">Panjang Ruas (m)</th>
+                                    <th class="text-center">Sumber</th>
                                     <th class="text-center">Kondisi</th>
                                     <th width="28%" class="text-center">Aksi</th>
                                 </tr>
@@ -45,12 +45,12 @@
     </div>
 </div>
 
-<!-- Modal Tambah Data Tanah / Lahan -->
-<div class="modal fade" id="tambah-lahan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Tambah Data Jalan -->
+<div class="modal fade" id="tambah-jalan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Aset Tanah / Lahan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Aset Jalan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -58,41 +58,51 @@
                 <div id="callout" class="alert alert-info" role="alert">
                     <div>
                         <h5 class="mb-1">Informasi Pemilihan Kondisi</h5>
-                        <p class="mb-0"><i class="fa fa-check-circle"></i> Baik, yaitu apabila kondisi tanah tersebut siap dipergunakan dan/atau dimanfaatkan sesuai dengan peruntukannya.</p>
-                        <p class="mb-0"><i class="fa fa-exclamation-triangle"></i> Rusak Ringan, yaitu apabila kondisi tanah tersebut karena suatu sebab tidak dapat dipergunakan dan/atau dimanfaatkan dan masih memerlukan pengolahan/perlakuan</p>
-                        <p class="mb-0"><i class="fa fa-times-circle"></i> Rusak Berat, yaitu apabila kondisi tanah tersebut tidak dapat lagi dipergunakan dan/atau dimanfaatkan sesuai dengan peruntukannya karena adanya bencana alam, erosi, dan sebagainya</p>
+                        <p class="mb-0"><i class="fa fa-check-circle"></i> Baik, yaitu apabila kondisi jalan dalam keadaan utuh dan berfungsi dengan baik.</p>
+                        <p class="mb-0"><i class="fa fa-exclamation-triangle"></i> Rusak Ringan, yaitu apabila kondisi jalan dalam keadaan utuh namun memerlukan perbaikan ringan agar dapat digunakan sebagaimana mestinya.</p>
+                        <p class="mb-0"><i class="fa fa-times-circle"></i> Rusak Berat, yaitu apabila kondisi jalan dalam keadaan tidak utuh/tidak berfungsi dengan baik dan memerlukan perbaikan dengan biaya besar.</p>
                     </div>
                 </div>
                 @csrf
-                <form id="add_lahan">
+                <form id="add_jalan">
                     <div class="form-row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="nama_obyek" class="col-form-label">Nama Obyek:</label>
-                                <input type="text" class="form-control" name="nama_obyek" id="nama_obyek" require>
+                                <label for="nama_jalan" class="col-form-label">Nama Jalan:</label>
+                                <input type="text" class="form-control" name="nama_jalan" id="nama_jalan" require>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="no_sertifikat" class="col-form-label">Nomor Sertifikat:</label>
-                                <input type="text" class="form-control" name="no_sertifikat" id="no_sertifikat" require>
+                                <label for="no_dokumen" class="col-form-label">Nomor Dokumen:</label>
+                                <input type="text" class="form-control" name="no_dokumen" id="no_dokumen" require>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="luas" class="col-form-label">Luas (m<sup>2</sup>):</label>
-                                <input class="form-control" type="number" min="0" placeholder="0" name="luas" id="luas" require>
+                                <label for="panjang" class="col-form-label">Panjang Ruas (m):</label>
+                                <input class="form-control" type="number" min="0" placeholder="0" name="panjang" id="panjang" require>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="alamat" class="col-form-label">Alamat:</label>
-                                <input type="text" class="form-control" name="alamat" id="alamat" require>
+                                <label for="sumber" class="col-form-label">Sumber</label>
+                                <select class="form-control" id="sumber" name="sumber" require>
+                                    <option value="" selected disabled>Silahkan Pilih ...</option>
+                                    <option value="Anggaran Dana Desa (ADD)">Anggaran Dana Desa (ADD)</option>
+                                    <option value="Bagi Hasil Pajak (BHP)">Bagi Hasil Pajak (BHP)</option>
+                                    <option value="Bagi Hasil Pajak dan Retribusi (BHR)">Bagi Hasil Pajak dan Retribusi (BHR)</option>
+                                    <option value="Bantuan Provinsi">Bantuan Provinsi</option>
+                                    <option value="Bantuan Kabupaten">Bantuan Kabupaten</option>
+                                    <option value="Bantuan Pihak Ketiga">Bantuan Pihak Ketiga</option>
+                                    <option value="Hibah">Hibah</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="kondisi" class="col-form-label">Kondisi:</label>
                                 <select class="form-control" name="kondisi" id="kondisi" required>
@@ -116,18 +126,18 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <button autofocus type="button" class="btn btn-success text-white" id="simpanlahan">Simpan</button>
+                <button autofocus type="button" class="btn btn-success text-white" id="simpanjalan">Simpan</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal Update Tanah / Lahan -->
-<div class="modal fade" id="edit-lahan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Update Aset Jalan -->
+<div class="modal fade" id="edit-jalan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Data Aset Tanah / Lahan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Update Data Aset Jalan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -135,43 +145,52 @@
                 <div id="callout" class="alert alert-info" role="alert">
                     <div>
                         <h5 class="mb-1">Informasi Pemilihan Kondisi</h5>
-                        <p class="mb-0"><i class="fa fa-check-circle"></i> Baik, yaitu apabila kondisi tanah tersebut siap dipergunakan dan/atau dimanfaatkan sesuai dengan peruntukannya.</p>
-                        <p class="mb-0"><i class="fa fa-exclamation-triangle"></i> Rusak Ringan, yaitu apabila kondisi tanah tersebut karena suatu sebab tidak dapat dipergunakan dan/atau dimanfaatkan dan masih memerlukan pengolahan/perlakuan</p>
-                        <p class="mb-0"><i class="fa fa-times-circle"></i> Rusak Berat, yaitu apabila kondisi tanah tersebut tidak dapat lagi dipergunakan dan/atau dimanfaatkan sesuai dengan peruntukannya karena adanya bencana alam, erosi, dan sebagainya</p>
+                        <p class="mb-0"><i class="fa fa-check-circle"></i> Baik, yaitu apabila kondisi jalan dalam keadaan utuh dan berfungsi dengan baik.</p>
+                        <p class="mb-0"><i class="fa fa-exclamation-triangle"></i> Rusak Ringan, yaitu apabila kondisi jalan dalam keadaan utuh namun memerlukan perbaikan ringan agar dapat digunakan sebagaimana mestinya.</p>
+                        <p class="mb-0"><i class="fa fa-times-circle"></i> Rusak Berat, yaitu apabila kondisi jalan dalam keadaan tidak utuh/tidak berfungsi dengan baik dan memerlukan perbaikan dengan biaya besar.</p>
                     </div>
                 </div>
                 <input type="hidden" id="id">
                 @csrf
-                <form id="edit_lahan">
+                <form id="edit_jalan">
                     <div class="form-row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="nama_obyek" class="col-form-label">Nama Obyek:</label>
-                                <input type="text" class="form-control" name="nama_obyek" id="nama_obyek" require>
+                                <label for="nama_jalan" class="col-form-label">Nama Jalan:</label>
+                                <input type="text" class="form-control" name="nama_jalan" id="nama_jalan" require>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="no_sertifikat" class="col-form-label">Nomor Sertifikat:</label>
-                                <input type="text" class="form-control" name="no_sertifikat" id="no_sertifikat" require>
+                                <label for="no_dokumen" class="col-form-label">Nomor Dokumen:</label>
+                                <input type="text" class="form-control" name="no_dokumen" id="no_dokumen" require>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="pengukuran" class="col-form-label">Luas (m<sup>2</sup>):</label>
-                                <input class="form-control" type="number" min="0" placeholder="0" name="pengukuran" id="pengukuran" require>
+                                <label for="panjang" class="col-form-label">Panjang (m):</label>
+                                <input class="form-control" type="number" min="0" placeholder="0" name="panjang" id="panjang" require>
                             </div>
                         </div>
                     </div>
-
                     <div class="form-row">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="alamat" class="col-form-label">Alamat:</label>
-                                <input type="text" class="form-control" name="alamat" id="alamat" require>
+                                <label for="sumber" class="col-form-label">Sumber</label>
+                                <select class="form-control" id="sumber" name="sumber" require>
+                                    <option value="" selected disabled>Silahkan Pilih ...</option>
+                                    <option value="Anggaran Dana Desa (ADD)">Anggaran Dana Desa (ADD)</option>
+                                    <option value="Bagi Hasil Pajak (BHP)">Bagi Hasil Pajak (BHP)</option>
+                                    <option value="Bagi Hasil Pajak dan Retribusi (BHR)">Bagi Hasil Pajak dan Retribusi (BHR)</option>
+                                    <option value="Bantuan Provinsi">Bantuan Provinsi</option>
+                                    <option value="Bantuan Kabupaten">Bantuan Kabupaten</option>
+                                    <option value="Bantuan Pihak Ketiga">Bantuan Pihak Ketiga</option>
+                                    <option value="Hibah">Hibah</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="kondisi" class="col-form-label">Kondisi:</label>
                                 <select class="form-control" name="kondisi" id="kondisi" required>
@@ -183,7 +202,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -196,26 +214,25 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                <button autofocus type="button" class="btn btn-success text-white" id="updatelahan">Update</button>
+                <button autofocus type="button" class="btn btn-success text-white" id="updatejalan">Update</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal Lihat Aset Tanah / Lahan -->
-<div class="modal fade" id="lihat-lahan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="lihat-jalan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Lihat Detail Data Tanah / Aset</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Lihat Detail Aset Jalan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
             </div>
             <div class="modal-body">
-                <p><strong>Nama Obyek:</strong> <span id="nama_obyek"></span></p>
-                <p><strong>Alamat:</strong> <span id="alamat"></span></p>
-                <p><strong>No. Sertifikat:</strong> <span id="no_sertifikat"></span></p>
-                <p><strong>Luas (m<sup>2</sup>):</strong> <span id="luas"></span></p>
-                <p><strong>Pengukuran Terakhir (m<sup>2</sup>):</strong> <span id="pengukuran"></span></p>
+                <p><strong>Nama Jalan:</strong> <span id="nama_jalan"></span></p>
+                <p><strong>No. Dokumen:</strong> <span id="no_dokumen"></span></p>
+                <p><strong>Panjang (m):</strong> <span id="panjang"></span></p>
+                <p><strong>Sumber:</strong> <span id="sumber"></span></p>
                 <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
                 <p><strong>Keterangan:</strong> <span id="keterangan"></span></p>
                 <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>
@@ -231,25 +248,25 @@
 <script type="text/javascript">
     $(document).ready(function() {
         //Tabel Lahan/Tanah
-        $('#tabel-tanah').DataTable({
+        $('#tabel-jalan').DataTable({
             processing: true,
             serverSide: true,
             destroy: true,
             columns: [{
-                    data: 'nama_obyek',
-                    name: 'nama_obyek',
+                    data: 'nama_jalan',
+                    name: 'nama_jalan',
                 },
                 {
-                    data: 'alamat',
-                    name: 'alamat',
+                    data: 'no_dokumen',
+                    name: 'no_dokumen',
                 },
                 {
-                    data: 'no_sertifikat',
-                    name: 'no_sertifikat',
+                    data: 'panjang',
+                    name: 'panjang',
                 },
                 {
-                    data: 'luas',
-                    name: 'luas',
+                    data: 'sumber',
+                    name: 'sumber',
                 },
                 {
                     data: 'kondisi',
@@ -269,43 +286,39 @@
     });
 </script>
 
-<!-- Script Tambah Data Aset Tanah / Lahan -->
+<!-- Script Tambah Data Jalan -->
 <script>
     //button create post event
-    $('body').on('click', '#tambahlahan', function() {
+    $('body').on('click', '#tambahjalan', function() {
         //open modal
-        $('#tambah-lahan').modal('show');
+        $('#tambah-jalan').modal('show');
     });
 
     //action create post
-    $('#simpanlahan').click(function(e) {
+    $('#simpanjalan').click(function(e) {
         e.preventDefault();
 
         //define variable
-        let kategori_id = $('#kategori_id').val();
-        let nama_obyek = $('#nama_obyek').val();
-        let alamat = $('#alamat').val();
-        let no_sertifikat = $('#no_sertifikat').val();
-        let luas = $('#luas').val();
-        let pengukuran = $('#luas').val();
+        let nama_jalan = $('#nama_jalan').val();
+        let no_dokumen = $('#no_dokumen').val();
+        let panjang = $('#panjang').val();
+        let sumber = $('#sumber').val();
         let kondisi = $('#kondisi').val();
         let keterangan = $('#keterangan').val();
 
         //ajax
         $.ajax({
-            url: `{{url('/simpanlahan')}}`,
+            url: `{{url('/simpanjalan')}}`,
             type: "POST",
             cache: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                "kategori_id": kategori_id,
-                "nama_obyek": nama_obyek,
-                "alamat": alamat,
-                "no_sertifikat": no_sertifikat,
-                "luas": luas,
-                "pengukuran": pengukuran,
+                "nama_jalan": nama_jalan,
+                "no_dokumen": no_dokumen,
+                "panjang": panjang,
+                "sumber": sumber,
                 "kondisi": kondisi,
                 "keterangan": keterangan,
 
@@ -316,7 +329,7 @@
                 Swal.fire({
                     icon: 'success',
                     title: "Berhasil Menambahkan Data",
-                    text: "Lahan/Tanah berhasil ditambahkan",
+                    text: "Aset jalan berhasil ditambahkan",
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
@@ -325,28 +338,24 @@
                 })
 
                 //Reset Data Form Setelah Simpan Berhasil
-                $('#kategori_id').prop('selectedIndex', 0);
-                $('#nama_obyek').val('');
-                $('#alamat').val('');
-                $('#no_sertifikat').val('');
-                $('#luas').val('');
-                $('#pengukuran').val('');
+                $('#nama_jalan').val('');
+                $('#no_dokumen').val('');
+                $('#panjang').val('');
+                $('#sumber').prop('selectedIndex', 0);
                 $('#kondisi').prop('selectedIndex', 0);
                 $('#keterangan').val('');
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
-                $('#tabel-tanah').DataTable().clear().draw();
-                $('#tambah-lahan').modal('hide');
+                $('#tabel-jalan').DataTable().clear().draw();
+                $('#tambah-jalan').modal('hide');
 
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
-                    <td>${response.data.kategori_id}</td>
-                        <td>${response.data.nama_obyek}</td>
-                        <td>${response.data.alamat}</td>
-                        <td>${response.data.no_sertifikat}</td>
-                        <td>${response.data.luas}</td>
-                        <td>${response.data.pengukuran}</td>
+                        <td>${response.data.nama_jalan}</td>
+                        <td>${response.data.no_dokumen}</td>
+                        <td>${response.data.panjang}</td>
+                        <td>${response.data.sumber}</td>
                         <td>${response.data.kondisi}</td>
                         <td>${response.data.keterangan}</td>
                     </tr>
@@ -379,10 +388,11 @@
     });
 </script>
 
+<!-- Script Lihat Data Jalan -->
 <script>
-    function lihatdatalahan(e) {
+    function lihatdatajalan(e) {
         event.preventDefault();
-        var modal = document.getElementById("lihat-lahan");
+        var modal = document.getElementById("lihat-jalan");
         var modale = new bootstrap.Modal(modal);
 
         // Open the modal
@@ -390,7 +400,7 @@
         let id = e.getAttribute('data-id');
 
         $.ajax({
-            url: `{{url("/lihatlahan")}}/` + id,
+            url: `{{url("/lihatjalan")}}/` + id,
             type: "GET",
             cache: false,
             headers: {
@@ -426,15 +436,13 @@
                 }
 
                 // Fill data to form
-                $('#lihat-lahan #id').text(response.id);
-                $('#lihat-lahan #kategori_id').text(response[0].kategori_id);
-                $('#lihat-lahan #nama_obyek').text(response[0].nama_obyek);
-                $('#lihat-lahan #alamat').text(response[0].alamat);
-                $('#lihat-lahan #no_sertifikat').text(response[0].no_sertifikat);
-                $('#lihat-lahan #luas').text(response[0].luas);
-                $('#lihat-lahan #pengukuran').text(response[0].pengukuran);
-                $('#lihat-lahan #kondisi').text(kondisiLabel); // Use the mapped label
-                $('#lihat-lahan #keterangan').text(response[0].keterangan);
+                $('#lihat-jalan #id').text(response.id);
+                $('#lihat-jalan #nama_jalan').text(response[0].nama_jalan);
+                $('#lihat-jalan #no_dokumen').text(response[0].no_dokumen);
+                $('#lihat-jalan #panjang').text(response[0].panjang);
+                $('#lihat-jalan #sumber').text(response[0].sumber);
+                $('#lihat-jalan #kondisi').text(kondisiLabel); // Use the mapped label
+                $('#lihat-jalan #keterangan').text(response[0].keterangan);
                 document.getElementById("created_at").innerHTML = formattedDate;
                 document.getElementById("updated_at").innerHTML = updatedAtDate;
             }
@@ -444,9 +452,9 @@
 
 <!-- Script Update Data Lahan -->
 <script>
-    function updatedatalahan(e) {
+    function updatedatajalan(e) {
         event.preventDefault();
-        var modal = document.getElementById("edit-lahan");
+        var modal = document.getElementById("edit-jalan");
         var modale = new bootstrap.Modal(modal);
 
         // Open the modal
@@ -454,7 +462,7 @@
         let id = e.getAttribute('data-id');
 
         $.ajax({
-            url: `{{url("/lihatlahan")}}/` + id,
+            url: `{{url("/lihatjalan")}}/` + id,
             type: "GET",
             cache: false,
             headers: {
@@ -462,46 +470,40 @@
             },
             success: function(response) {
                 //fill data to form
-                $('#edit-lahan #id').val(response[0].id);
-                $('#edit-lahan #kategori_id').val(response[0].kategori_id);
-                $('#edit-lahan #nama_obyek').val(response[0].nama_obyek);
-                $('#edit-lahan #alamat').val(response[0].alamat);
-                $('#edit-lahan #no_sertifikat').val(response[0].no_sertifikat);
-                $('#edit-lahan #luas').val(response[0].luas);
-                $('#edit-lahan #pengukuran').val(response[0].pengukuran);
-                $('#edit-lahan #kondisi').val(response[0].kondisi);
-                $('#edit-lahan #keterangan').val(response[0].keterangan);
+                $('#edit-jalan #id').val(response[0].id);
+                $('#edit-jalan #nama_jalan').val(response[0].nama_jalan);
+                $('#edit-jalan #no_dokumen').val(response[0].no_dokumen);
+                $('#edit-jalan #panjang').val(response[0].panjang);
+                $('#edit-jalan #sumber').val(response[0].sumber);
+                $('#edit-jalan #kondisi').val(response[0].kondisi);
+                $('#edit-jalan #keterangan').val(response[0].keterangan);
             }
         });
     };
 
-    $('#updatelahan').click(function(e) {
+    $('#updatejalan').click(function(e) {
         e.preventDefault();
 
-        let id = $('#edit-lahan #id').val();
-        let kategori_id = $('#edit-lahan #kategori_id').val();
-        let nama_obyek = $('#edit-lahan #nama_obyek').val();
-        let alamat = $('#edit-lahan #alamat').val();
-        let no_sertifikat = $('#edit-lahan #no_sertifikat').val();
-        let luas = $('#edit-lahan #luas').val();
-        let pengukuran = $('#edit-lahan #pengukuran').val();
-        let kondisi = $('#edit-lahan #kondisi').val();
-        let keterangan = $('#edit-lahan #keterangan').val();
+        let id = $('#edit-jalan #id').val();
+        let nama_jalan = $('#edit-jalan #nama_jalan').val();
+        let no_dokumen = $('#edit-jalan #no_dokumen').val();
+        let panjang = $('#edit-jalan #panjang').val();
+        let sumber = $('#edit-jalan #sumber').val();
+        let kondisi = $('#edit-jalan #kondisi').val();
+        let keterangan = $('#edit-jalan #keterangan').val();
 
         $.ajax({
-            url: `{{url("/updatelahan")}}/` + id,
+            url: `{{url("/updatejalan")}}/` + id,
             type: "PUT",
             cache: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                "kategori_id": kategori_id,
-                "nama_obyek": nama_obyek,
-                "alamat": alamat,
-                "no_sertifikat": no_sertifikat,
-                "luas": luas,
-                "pengukuran": pengukuran,
+                "nama_jalan": nama_jalan,
+                "no_dokumen": no_dokumen,
+                "panjang": panjang,
+                "sumber": sumber,
                 "kondisi": kondisi,
                 "keterangan": keterangan,
             },
@@ -511,7 +513,7 @@
                 Swal.fire({
                     icon: 'success',
                     title: "Berhasil Memperbarui Data",
-                    text: 'Data lahan berhasil diperbarui',
+                    text: 'Data jalan berhasil diperbarui',
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
@@ -520,18 +522,16 @@
                 })
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
-                $('#tabel-tanah').DataTable().clear().draw();
-                $('#edit-lahan').modal('hide');
+                $('#tabel-jalan').DataTable().clear().draw();
+                $('#edit-jalan').modal('hide');
 
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
-                    <td>${response.data.kategori_id}</td>
-                    <td>${response.data.nama_obyek}</td>
-                        <td>${response.data.alamat}</td>
-                        <td>${response.data.no_sertifikat}</td>
-                        <td>${response.data.luas}</td>
-                        <td>${response.data.pengukuran}</td>
+                    <td>${response.data.nama_jalan}</td>
+                        <td>${response.data.no_dokumen}</td>
+                        <td>${response.data.panjang}</td>
+                        <td>${response.data.sumber}</td>
                         <td>${response.data.kondisi}</td>
                         <td>${response.data.keterangan}</td>
                     </tr>
@@ -543,13 +543,13 @@
 
 <!-- Script Hapus Data Lahan -->
 <script>
-    function deleteDataLahan(e) {
+    function deleteDataJalan(e) {
         event.preventDefault();
         let id = e.getAttribute('data-id');
         let name = e.getAttribute('data-name');
         Swal.fire({
             title: 'Apakah Anda yakin?',
-            text: "Data lahan " + name + " akan dihapus secara permanen!",
+            text: "Data jalan " + name + " akan dihapus secara permanen!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -558,7 +558,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '/hapuslahan/' + id,
+                    url: '/hapusjalan/' + id,
                     type: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -567,14 +567,14 @@
                         if (response.success) {
                             Swal.fire({
                                 icon: 'success',
-                                title: "Berhasil Menghapus Data Lahan",
+                                title: "Berhasil Menghapus Data Aset Jalan",
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
                                 timerProgressBar: true,
                                 timer: 3000
                             })
-                            $('#tabel-tanah').DataTable().clear().draw();
+                            $('#tabel-jalan').DataTable().clear().draw();
                         } else {
                             Swal.fire(
                                 'Gagal!',
@@ -587,7 +587,7 @@
                         console.log(xhr.responseText);
                         Swal.fire({
                             icon: 'error',
-                            title: "Gagal Menghapus Laporan",
+                            title: "Gagal Menghapus Aset Jalan",
                             toast: true,
                             position: 'top-end',
                             showConfirmButton: false,
@@ -600,5 +600,4 @@
         });
     }
 </script>
-<!-- #/ container -->
 @endsection

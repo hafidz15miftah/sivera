@@ -92,7 +92,7 @@
                     <form>
                         <div class="form-group">
                             <label for="kode_kategori" class="col-form-label">Kode Kategori:</label>
-                            <input type="text" class="form-control" name="kode_kategori" id="kode_kategori" require>
+                            <input type="text" class="form-control" name="kode_kategori" id="kode_kategori" require disabled>
                         </div>
                     </form>
             </div>

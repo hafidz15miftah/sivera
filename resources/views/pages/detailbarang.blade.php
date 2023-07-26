@@ -76,8 +76,8 @@
                             <label for="">Pilih ID Barang:</label>
                             <select class="form-control" id="downloadOption" name="barang_dipilih">
                                 <option value="">Silahkan Pilih ...</option>
-                                @foreach ($info as $i)
-                                <option value="{{ $i->id }}">{{ $i->kode_detail }}</option>
+                                @foreach ($beritaacara as $c)
+                                <option value="{{ $c->id }}">{{ $c->kode_detail }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -108,7 +108,7 @@
                                 <select class="form-control" id="info_id" name="info_id" require>
                                     <option value="">Silahkan Pilih ...</option>
                                     @foreach ($info as $i)
-                                    <option value="{{ $i->id }}">{{ $i->kode_detail }}</option>
+                                    <option value="{{ $i->id }}">{{ $i->kode_detail }} - {{ $i->barang->nama_barang }} - {{ $i->ruang->nama_ruang }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -185,10 +185,10 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="nama_barang">Kode Barang</label>
-                                <select class="form-control" id="info_id" name="info_id" require disabled>
+                                <select class="form-control" id="info_id" name="info_id" required disabled>
                                     <option value="">Silahkan Pilih ...</option>
-                                    @foreach ($info as $i)
-                                    <option value="{{ $i->id }}">{{ $i->kode_detail }}</option>
+                                    @foreach ($cekdata as $c)
+                                    <option value="{{ $c->id }}">{{ $c->kode_detail }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -204,7 +204,12 @@
                                 <label for="sumber">Sumber</label>
                                 <select class="form-control" id="sumber" name="sumber" require>
                                     <option value="" selected disabled>Silahkan Pilih ...</option>
-                                    <option value="Anggaran Dana Desa">Anggaran Dana Desa</option>
+                                    <option value="Anggaran Dana Desa (ADD)">Anggaran Dana Desa (ADD)</option>
+                                    <option value="Bagi Hasil Pajak (BHP)">Bagi Hasil Pajak (BHP)</option>
+                                    <option value="Bagi Hasil Pajak dan Retribusi (BHR)">Bagi Hasil Pajak dan Retribusi (BHR)</option>
+                                    <option value="Bantuan Provinsi">Bantuan Provinsi</option>
+                                    <option value="Bantuan Kabupaten">Bantuan Kabupaten</option>
+                                    <option value="Bantuan Pihak Ketiga">Bantuan Pihak Ketiga</option>
                                     <option value="Hibah">Hibah</option>
                                     <option value="Lainnya">Lainnya</option>
                                 </select>
@@ -278,8 +283,10 @@
                 <div class="card-body">
                     <h4 class="card-title">Detail Barang dan Laporan</h4>
                     <button type="button" class="btn btn-primary" style="color:white" data-toggle="modal" data-target="#tambah-laporan"><i class="fa fa-plus"></i> Tambah Detail Barang</button>
+                    @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
                     <button class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#downloadModal"><i class="fa fa-print"></i> Cetak Laporan Barang</button>
                     <button class="btn btn-danger" style="color:white" data-toggle="modal" data-target="#BeritaAcaraModal"><i class="fa fa-print"></i> Cetak Berita Acara</button>
+                    @endif
                     <div class="table-responsive">
                         <table id="tabel-laporan" class="table table-striped table-bordered zero-configuration">
                             <thead>
@@ -461,7 +468,7 @@
             success: function(response) {
                 //fill data to form
                 $('#edit-laporan #id').val(response[0].id);
-                $('#edit-laporan #info_id').val(response[0].info_id);
+                $('#edit-laporan #info_id').val(response[0].info_id); // Update the field value with response[0].infos.kode_detail
                 $('#edit-laporan #tgl_perolehan').val(response[0].tgl_perolehan);
                 $('#edit-laporan #sumber').val(response[0].sumber);
                 $('#edit-laporan #merk').val(response[0].merk);

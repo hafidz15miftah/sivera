@@ -421,10 +421,12 @@
             success: function(response) {
                 //fill data to form
                 $('#edit-barang #id').val(response[0].id);
-                $('#edit-barang #kategori_id').val(response[2].kategori_id);
                 $('#edit-barang #kode_barang').val(response[0].kode_barang);
                 $('#edit-barang #nama_barang').val(response[0].nama_barang);
-                $('#edit-barang #ruang_id').val(response[0].ruang_id);
+                
+                // Update the selected value for kategori_id and ruang_id
+                $('#edit-barang #kategori_id option[value="' + response[0].kategori_id + '"]').prop('selected', true);
+                $('#edit-barang #ruang_id option[value="' + response[0].ruang_id + '"]').prop('selected', true);
             }
         });
     };
@@ -472,7 +474,7 @@
                 //Post Data
                 let post = `
                     <tr id="index_${response.data.id}">
-                    <td>${response.data.kategori_id}</td>
+                        <td>${response.data.kategori_id}</td>
                         <td>${response.data.ruang_id}</td>
                         <td>${response.data.kode_barang}</td>
                         <td>${response.data.nama_barang}</td>

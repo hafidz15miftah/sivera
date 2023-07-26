@@ -27,8 +27,14 @@
                                         Sekretaris Desa
                                         @elseif (Auth::user()->role_id == 2)
                                         Kepala Urusan Umum dan Perencanaan
-                                        @else
+                                        @elseif (Auth::user()->role_id == 3)
                                         Kepala Desa
+                                        @elseif (Auth::user()->role_id == 4)
+                                        Staf
+                                        @elseif (Auth::user()->role_id == 5)
+                                        Administrator
+                                        @else
+                                        Role Tidak Diketahui
                                         @endif
                                     </span>
                                 </li>

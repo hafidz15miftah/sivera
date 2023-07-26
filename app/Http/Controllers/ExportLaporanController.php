@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataAsetJalanModel;
+use App\Models\DataAsetKendaraanModel;
 use App\Models\DataAsetTanahModel;
 use App\Models\DataBarangModel;
 use App\Models\DetailBarangModel;
@@ -27,7 +29,7 @@ class ExportLaporanController extends Controller
         ->join('barangs', 'infos.barang_id', '=', 'barangs.id')
         ->join('ruangs', 'barangs.ruang_id', '=', 'ruangs.id')
         ->get();
-        $data = Pdf::loadView('pdf.stiker_kodebarang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');;
+        $data = Pdf::loadView('pdf.stiker_kodebarang', ['data' => 'Daftar Inventaris Barang', 'stiker' => $stiker])->setPaper('A5');
         return $data->stream('semua-stiker.pdf');
     }
 
@@ -92,8 +94,20 @@ class ExportLaporanController extends Controller
 
     public function cetak_semua_aset(){
         $lahan = DataAsetTanahModel::query()->get();
-        $data = Pdf::loadView('pdf.aset_lahan', ['data' => 'Daftar Inventaris Barang', 'lahan' => $lahan]);
+        $data = Pdf::loadView('pdf.aset_lahan', ['data' => 'Daftar Inventaris Barang', 'lahan' => $lahan])->setPaper('A4', 'landscape');
         return $data->stream('semua-lahan.pdf');
+    }
+
+    public function cetak_jalan(){
+        $jalan = DataAsetJalanModel::query()->get();
+        $data = Pdf::loadView('pdf.aset_jalan', ['data' => 'Daftar Inventaris Barang', 'jalan' => $jalan])->setPaper('A4', 'landscape');
+        return $data->stream('semua-jalan.pdf');
+    }
+
+    public function cetak_kendaraan(){
+        $kendaraan = DataAsetKendaraanModel::query()->get();
+        $data = Pdf::loadView('pdf.aset_kendaraan', ['data' => 'Daftar Inventaris Barang', 'kendaraan' => $kendaraan])->setPaper('A4', 'landscape');
+        return $data->stream('semua-kendaraan.pdf');
     }
 
     public function cetak_semua_laporan(){
