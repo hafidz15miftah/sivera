@@ -48,7 +48,7 @@
                                         <input type="password" class="form-control" name="password" placeholder="Kata Sandi">
                                     </div>
                                     <button class="btn login-form__btn submit w-100" type="submit">Masuk</button>
-                                    <button class="btn w-100"><a href="{{ route('password.request') }}" class="text-primary">Lupa Kata Sandi?</a></button>
+                                    <button class="btn w-100"><a href="/forgot-password" class="text-primary">Lupa Kata Sandi?</a></button>
                                 </form>
                             </div>
                         </div>
