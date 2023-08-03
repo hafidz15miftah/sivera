@@ -16,9 +16,10 @@ class LaporanController extends Controller
     public function tampilkanLaporan()
     {
         $barang = DataBarangModel::all();
-        $info = KondisiBarangModel::whereNotIn('id', function ($query) {
-            $query->select('info_id')->from('details');
-        })->get();
+        // $info = KondisiBarangModel::whereNotIn('id', function ($query) {
+        //     $query->select('info_id')->from('details');
+        // })->get();
+        $info = KondisiBarangModel::all();
         $cekdata = KondisiBarangModel::all();
         $beritaacara = KondisiBarangModel::whereIn('id', function ($query) {
             $query->select('info_id')->from('details');
@@ -30,6 +31,7 @@ class LaporanController extends Controller
                 'details.tgl_perolehan',
                 'details.merk',
                 'details.sumber',
+                'details.inventarisir',
                 'details.harga',
                 'details.keterangan',
                 'infos.kode_detail',
@@ -56,6 +58,9 @@ class LaporanController extends Controller
                 ->editColumn('tgl_perolehan', function ($row) {
                     return \Carbon\Carbon::parse($row->tgl_perolehan)->locale('id')->translatedFormat('l, d F Y');
                 })
+                ->editColumn('inventarisir', function ($row) {
+                    return \Carbon\Carbon::parse($row->inventarisir)->locale('id')->translatedFormat('l, d F Y');
+                })
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
@@ -68,7 +73,7 @@ class LaporanController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'info_id' => 'required|unique:details,info_id',
+                    'info_id' => 'required',
                     'tgl_perolehan' => 'required',
                     'sumber' => 'required',
                     'merk' => 'required',
@@ -104,6 +109,7 @@ class LaporanController extends Controller
                 'tgl_perolehan' => $request->tgl_perolehan,
                 'merk' => $request->merk,
                 'sumber' => $request->sumber,
+                'inventarisir' => $request->inventarisir,
                 'harga' => $request->harga,
                 'keterangan' => $request->keterangan,
             ];

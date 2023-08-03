@@ -21,7 +21,7 @@
                     <h4 class="card-title">Aset Jalan</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-jalan"><i class="fa fa-plus"></i> Tambah Aset Jalan</button>
                     @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
-                    <a class="btn btn-warning" style="color:white" href="{{url('jalan/cetak/semua')}}"><i class="fa fa-print"></i> Cetak Data Aset Jalan</a>
+                    <button type="button" class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#downloadModal"><i class="fa fa-print"></i> Cetak Aset Jalan</button>
                     @endif
                     <div class="table-responsive">
                         <table id="tabel-jalan" class="table table-striped table-bordered zero-configuration">
@@ -32,7 +32,8 @@
                                     <th class="text-center">Panjang Ruas (m)</th>
                                     <th class="text-center">Sumber</th>
                                     <th class="text-center">Kondisi</th>
-                                    <th width="28%" class="text-center">Aksi</th>
+                                    <th class="text-center">Tgl. Inventarisir</th>
+                                    <th width="10%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,6 +41,40 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Download -->
+<div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="downloadModalLabel">Cetak Laporan Aset Jalan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="downloadForm" method="GET" action="{{ route('cetak_jalan') }}" target="_blank">
+                    @csrf
+                    <div class="form-group">
+                        <label for="downloadOption">Pilih Opsi:</label>
+                        <select class="form-control" id="downloadOption" name="download_option">
+                            <option value="all">Semua Data</option>
+                            <option value="by_tahunini">Data Tahun Ini</option>
+                            <option value="by_inventarisir">Berdasarkan Tahun Inventarisir</option>
+                        </select>
+                    </div>
+                    <div id="tahunForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="selectedTahun">Masukkan Tahun Inventarisir:</label>
+                            <input type="text" class="form-control" id="selectedTahun" name="selected_tahun" placeholder="Contoh: 2023">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cetak Data</button>
+                </form>
             </div>
         </div>
     </div>
@@ -102,7 +137,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="inventarisir" class="col-form-label">Tgl. Inventarisir:</label>
+                                <input class="form-control" type="date" name="inventarisir" id="inventarisir" require>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kondisi" class="col-form-label">Kondisi:</label>
                                 <select class="form-control" name="kondisi" id="kondisi" required>
@@ -190,7 +231,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="inventarisir" class="col-form-label">Tgl. Inventarisir:</label>
+                                <input class="form-control" type="date" name="inventarisir" id="inventarisir" require disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="kondisi" class="col-form-label">Kondisi:</label>
                                 <select class="form-control" name="kondisi" id="kondisi" required>
@@ -235,6 +282,7 @@
                 <p><strong>Sumber:</strong> <span id="sumber"></span></p>
                 <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
                 <p><strong>Keterangan:</strong> <span id="keterangan"></span></p>
+                <p><strong>Tanggal Inventarisir:</strong> <span id="inventarisir"></span></p>
                 <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>
                 <p><strong>Terakhir Diubah:</strong> <span id="updated_at"></span></p>
             </div>
@@ -273,6 +321,10 @@
                     name: 'kondisi',
                 },
                 {
+                    data: 'inventarisir',
+                    name: 'inventarisir',
+                },
+                {
                     data: 'aksi',
                     name: 'aksi',
                     orderable: false,
@@ -303,6 +355,7 @@
         let no_dokumen = $('#no_dokumen').val();
         let panjang = $('#panjang').val();
         let sumber = $('#sumber').val();
+        let inventarisir = $('#inventarisir').val();
         let kondisi = $('#kondisi').val();
         let keterangan = $('#keterangan').val();
 
@@ -320,6 +373,7 @@
                 "panjang": panjang,
                 "sumber": sumber,
                 "kondisi": kondisi,
+                "inventarisir": inventarisir,
                 "keterangan": keterangan,
 
             },
@@ -343,6 +397,7 @@
                 $('#panjang').val('');
                 $('#sumber').prop('selectedIndex', 0);
                 $('#kondisi').prop('selectedIndex', 0);
+                $('#inventarisir').val('');
                 $('#keterangan').val('');
 
                 //Melakukan Hide Modal dan Reload DataTable Setelah Simpan Berhasil
@@ -357,6 +412,7 @@
                         <td>${response.data.panjang}</td>
                         <td>${response.data.sumber}</td>
                         <td>${response.data.kondisi}</td>
+                        <td>${response.data.inventarisir}</td>
                         <td>${response.data.keterangan}</td>
                     </tr>
                 `;
@@ -442,6 +498,11 @@
                 $('#lihat-jalan #panjang').text(response[0].panjang);
                 $('#lihat-jalan #sumber').text(response[0].sumber);
                 $('#lihat-jalan #kondisi').text(kondisiLabel); // Use the mapped label
+                $('#lihat-jalan #inventarisir').text(new Date(response[0].inventarisir).toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }));
                 $('#lihat-jalan #keterangan').text(response[0].keterangan);
                 document.getElementById("created_at").innerHTML = formattedDate;
                 document.getElementById("updated_at").innerHTML = updatedAtDate;
@@ -476,6 +537,7 @@
                 $('#edit-jalan #panjang').val(response[0].panjang);
                 $('#edit-jalan #sumber').val(response[0].sumber);
                 $('#edit-jalan #kondisi').val(response[0].kondisi);
+                $('#edit-jalan #inventarisir').val(response[0].inventarisir);
                 $('#edit-jalan #keterangan').val(response[0].keterangan);
             }
         });
@@ -490,6 +552,7 @@
         let panjang = $('#edit-jalan #panjang').val();
         let sumber = $('#edit-jalan #sumber').val();
         let kondisi = $('#edit-jalan #kondisi').val();
+        let inventarisir = $('#edit-jalan #inventarisir').val();
         let keterangan = $('#edit-jalan #keterangan').val();
 
         $.ajax({
@@ -505,6 +568,7 @@
                 "panjang": panjang,
                 "sumber": sumber,
                 "kondisi": kondisi,
+                "inventarisir": inventarisir,
                 "keterangan": keterangan,
             },
             success: function(response) {
@@ -533,6 +597,7 @@
                         <td>${response.data.panjang}</td>
                         <td>${response.data.sumber}</td>
                         <td>${response.data.kondisi}</td>
+                        <td>${response.data.inventarisir}</td>                        
                         <td>${response.data.keterangan}</td>
                     </tr>
                 `;
@@ -599,5 +664,31 @@
             }
         });
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#downloadOption').on('change', function() {
+            var selectedOption = $(this).val();
+            var downloadForm = $('#downloadForm');
+            var tahunForm = $('#tahunForm');
+
+            if (selectedOption === 'by_inventarisir') {
+                tahunForm.show();
+                downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', "{{ route('cetak_jalan_byinventarisir') }}");
+
+            } else if (selectedOption === 'by_tahunini') {
+                tahunForm.hide();
+                downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', "{{ route('cetak_tanah_tahunini') }}");
+
+            } else {
+                tahunForm.hide();
+                downloadForm.attr('method', 'GET');
+                downloadForm.attr('action', "{{ route('cetak_jalan') }}");
+            }
+        });
+    });
 </script>
 @endsection

@@ -17,6 +17,7 @@ class DataAsetKendaraanModel extends Model
         'tgl_pembelian',
         'merk',
         'tipe',
+        'inventarisir',
         'kondisi',
         'keterangan',
     ];

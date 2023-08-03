@@ -77,11 +77,16 @@ Route::get('/detail/cetak/semua', [ExportLaporanController::class, 'cetak_semua_
 Route::post('/detail/cetak/barang', [ExportLaporanController::class, 'cetak_laporan_bybarang'])->name('cetak_laporan_bybarang')->middleware('auth', 'role:kaurumumadminstaf');
 Route::post('/detail/cetak/pembelian', [ExportLaporanController::class, 'cetak_laporan_bytanggal'])->name('cetak_laporan_bytanggal')->middleware('auth', 'role:kaurumumadminstaf');
 Route::post('/detail/cetak/ruang', [ExportLaporanController::class, 'cetak_laporan_byruang'])->name('cetak_laporan_byruang')->middleware('auth', 'role:kaurumumadminstaf');
+Route::post('/detail/cetak/inventarisir', [ExportLaporanController::class, 'cetak_laporan_byinventarisir'])->name('cetak_laporan_byinventarisir')->middleware('auth', 'role:kaurumumadminstaf');
+Route::post('/detail/cetak/tahunini', [ExportLaporanController::class, 'cetak_barang_tahunini'])->name('cetak_barang_tahunini')->middleware('auth', 'role:kaurumumadminstaf');
 Route::post('/detail/cetak/pelaporan', [ExportLaporanController::class, 'cetak_berita_acara'])->name('cetak_berita_acara')->middleware('auth', 'role:kaurumumadminstaf');
+Route::post('/detail/cetak/stiker', [ExportLaporanController::class, 'cetak_stiker_all'])->name('cetak_stiker_all')->middleware('auth', 'role:kaurumumadminstaf');
 
 //Route Untuk Mengakses Daftar Aset Tanah / Lahan
 Route::get('/lahan', [AsetTanahController::class, 'tampilkanLahan'])->name('tampilkanLahan')->middleware('auth', 'role:kaurumumadminstaf');
 Route::get('/lahan/cetak/semua', [ExportLaporanController::class, 'cetak_semua_aset'])->name('cetak_semua_aset')->middleware('auth', 'role:kaurumumadminstaf');
+Route::post('/lahan/cetak/inventarisir', [ExportLaporanController::class, 'cetak_tanah_byinventarisir'])->name('cetak_tanah_byinventarisir')->middleware('auth', 'role:kaurumumadminstaf');
+Route::post('/lahan/cetak/tahunini', [ExportLaporanController::class, 'cetak_tanah_tahunini'])->name('cetak_tanah_tahunini')->middleware('auth', 'role:kaurumumadminstaf');
 Route::post('/simpanlahan', [AsetTanahController::class, 'simpanlahan'])->name('simpanlahan')->middleware('auth', 'role:kaurumumadminstaf');
 Route::get('/lihatlahan/{id}', [AsetTanahController::class, 'lihatlahan'])->name('lihatlahan')->middleware('auth', 'role:kaurumumadminstaf');
 Route::delete('/hapuslahan/{id}', [AsetTanahController::class, 'hapuslahan'])->name('hapuslahan')->middleware('auth', 'role:kaurumumadminstaf');
@@ -94,6 +99,8 @@ Route::get('/lihatjalan/{id}', [AsetJalanController::class, 'lihatjalan'])->name
 Route::put('/updatejalan/{id}', [AsetJalanController::class, 'updatejalan'])->name('updatejalan')->middleware('auth', 'role:kaurumumadminstaf');
 Route::delete('/hapusjalan/{id}', [AsetJalanController::class, 'hapusjalan'])->name('hapusjalan')->middleware('auth', 'role:kaurumumadminstaf');
 Route::get('/jalan/cetak/semua', [ExportLaporanController::class, 'cetak_jalan'])->name('cetak_jalan')->middleware('auth', 'role:kaurumumadminstaf');
+Route::post('/jalan/cetak/inventarisir', [ExportLaporanController::class, 'cetak_jalan_byinventarisir'])->name('cetak_jalan_byinventarisir')->middleware('auth', 'role:kaurumumadminstaf');
+Route::post('/jalan/cetak/tahunini', [ExportLaporanController::class, 'cetak_jalan_tahunini'])->name('cetak_jalan_tahunini')->middleware('auth', 'role:kaurumumadminstaf');
 
 //Route untuk Mengakses Daftar Aset Kendaraan
 Route::get('/kendaraan', [AsetKendaraanController::class, 'tampilkanKendaraan'])->name('tampilkanKendaraan')->middleware('auth', 'role:kaurumumadminstaf');
@@ -102,6 +109,8 @@ Route::get('/lihatkendaraan/{id}', [AsetKendaraanController::class, 'lihatkendar
 Route::put('/updatekendaraan/{id}', [AsetKendaraanController::class, 'updatekendaraan'])->name('updatekendaraan')->middleware('auth', 'role:kaurumumadminstaf');
 Route::delete('/hapuskendaraan/{id}', [AsetKendaraanController::class, 'hapuskendaraan'])->name('hapuskendaraan')->middleware('auth', 'role:kaurumumadminstaf');
 Route::get('/kendaraan/cetak/semua', [ExportLaporanController::class, 'cetak_kendaraan'])->name('cetak_kendaraan')->middleware('auth', 'role:kaurumumadminstaf');
+Route::post('/kendaraan/cetak/inventarisir', [ExportLaporanController::class, 'cetak_kendaraan_byinventarisir'])->name('cetak_kendaraan_byinventarisir')->middleware('auth', 'role:kaurumumadminstaf');
+Route::post('/kendaraan/cetak/tahunini', [ExportLaporanController::class, 'cetak_kendaraan_tahunini'])->name('cetak_kendaraan_tahunini')->middleware('auth', 'role:kaurumumadminstaf');
 
 //Route Untuk Mengakses Daftar Pengguna
 Route::get('/pengguna', [UserController::class, 'tampilkanPengguna'])->name('tampilkanPengguna')->middleware('auth', 'role:kepdesadmin');
@@ -123,7 +132,6 @@ Route::get('/lihatdata/{id}', [BarangController::class, 'lihatdata'])->name('lih
 Route::put('/updatebarang/{id}', [BarangController::class, 'updatebarang'])->name('updatebarang')->middleware('auth', 'role:kaurumumadminstaf');
 Route::post('/simpanbarang', [BarangController::class, 'simpanbarang'])->name('simpanbarang')->middleware('auth', 'role:kaurumumadminstaf');
 Route::delete('/hapusbarang/{id}', [BarangController::class, 'hapusbarang'])->name('hapusbarang')->middleware('auth', 'role:kaurumumadminstaf');
-Route::get('/barang/cetak/stiker', [ExportLaporanController::class, 'cetak_stiker_all'])->name('cetak_stiker_all')->middleware('auth', 'role:kaurumumadminstaf');
 
 //Route AuthController Untuk Login
 Route::post('/login', [AuthController::class, 'login'])->name('login');

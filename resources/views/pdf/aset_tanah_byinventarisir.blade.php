@@ -84,7 +84,7 @@
         </div>
     </div>
     <h2 style="justify-content: center; text-align: center">DAFTAR ASET TANAH / LAHAN</h2>
-    <h2 style="justify-content: center; text-align: center">TAHUN {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
+    <h2 style="justify-content: center; text-align: center">TAHUN {{ $selectedTahun }}</h2>
     <table>
         <thead>
             <tr>

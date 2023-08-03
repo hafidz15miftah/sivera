@@ -19,6 +19,7 @@ class DetailBarangModel extends Model
         'tgl_perolehan',
         'merk',
         'sumber',
+        'inventarisir',
         'harga',
         'keterangan',
     ];

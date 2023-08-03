@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('tgl_perolehan');
             $table->string('merk')->nullable();
             $table->string('sumber');
+            $table->date('inventarisir');
             $table->integer('harga')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamps();

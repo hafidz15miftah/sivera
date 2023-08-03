@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('panjang');
             $table->string('sumber');
             $table->integer('kondisi');
+            $table->date('inventarisir');
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });

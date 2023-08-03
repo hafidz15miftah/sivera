@@ -21,7 +21,7 @@
                     <h4 class="card-title">Aset Tanah/Lahan</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-lahan"><i class="fa fa-plus"></i> Tambah Aset Tanah / Lahan</button>
                     @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
-                    <a class="btn btn-warning" style="color:white" href="{{url('lahan/cetak/semua')}}"><i class="fa fa-print"></i> Cetak Data Aset Tanah / Lahan</a>
+                    <button type="button" class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#downloadModal"><i class="fa fa-print"></i> Cetak Aset Tanah / Lahan</button>
                     @endif
                     <div class="table-responsive">
                         <table id="tabel-tanah" class="table table-striped table-bordered zero-configuration">
@@ -32,6 +32,7 @@
                                     <th class="text-center">No. Sertifikat</th>
                                     <th class="text-center">Luas (m<sup>2</sup>)</th>
                                     <th class="text-center">Kondisi</th>
+                                    <th class="text-center">Tgl. Inventarisir</th>
                                     <th width="28%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -40,6 +41,40 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Download -->
+<div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="downloadModalLabel">Cetak Laporan Aset Tanah / Lahan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="downloadForm" method="GET" action="{{ route('cetak_semua_aset') }}" target="_blank">
+                    @csrf
+                    <div class="form-group">
+                        <label for="downloadOption">Pilih Opsi:</label>
+                        <select class="form-control" id="downloadOption" name="download_option">
+                            <option value="all">Semua Data</option>
+                            <option value="by_tahunini">Data Tahun Ini</option>
+                            <option value="by_inventarisir">Berdasarkan Tahun Inventarisir</option>
+                        </select>
+                    </div>
+                    <div id="tahunForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="selectedTahun">Masukkan Tahun Inventarisir:</label>
+                            <input type="text" class="form-control" id="selectedTahun" name="selected_tahun" placeholder="Contoh: 2023">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cetak Data</button>
+                </form>
             </div>
         </div>
     </div>
@@ -86,10 +121,16 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="alamat" class="col-form-label">Alamat:</label>
                                 <input type="text" class="form-control" name="alamat" id="alamat" require>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="inventarisir" class="col-form-label">Tgl. Inventarisir:</label>
+                                <input type="date" class="form-control" name="inventarisir" id="inventarisir" require>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -158,17 +199,23 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="pengukuran" class="col-form-label">Luas (m<sup>2</sup>):</label>
-                                <input class="form-control" type="number" min="0" placeholder="0" name="pengukuran" id="pengukuran" require>
+                                <label for="luas" class="col-form-label">Luas (m<sup>2</sup>):</label>
+                                <input class="form-control" type="number" min="0" placeholder="0" name="luas" id="luas" require>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-8">
+                    <div class="col-md-6">
                             <div class="form-group">
                                 <label for="alamat" class="col-form-label">Alamat:</label>
                                 <input type="text" class="form-control" name="alamat" id="alamat" require>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="inventarisir" class="col-form-label">Tgl. Inventarisir:</label>
+                                <input type="date" class="form-control" name="inventarisir" id="inventarisir" require disabled>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -215,9 +262,9 @@
                 <p><strong>Alamat:</strong> <span id="alamat"></span></p>
                 <p><strong>No. Sertifikat:</strong> <span id="no_sertifikat"></span></p>
                 <p><strong>Luas (m<sup>2</sup>):</strong> <span id="luas"></span></p>
-                <p><strong>Pengukuran Terakhir (m<sup>2</sup>):</strong> <span id="pengukuran"></span></p>
                 <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
                 <p><strong>Keterangan:</strong> <span id="keterangan"></span></p>
+                <p><strong>Tanggal Inventarisir:</strong> <span id="inventarisir"></span></p>
                 <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>
                 <p><strong>Terakhir Diubah:</strong> <span id="updated_at"></span></p>
             </div>
@@ -256,6 +303,10 @@
                     name: 'kondisi',
                 },
                 {
+                    data: 'inventarisir',
+                    name: 'inventarisir',
+                },
+                {
                     data: 'aksi',
                     name: 'aksi',
                     orderable: false,
@@ -287,7 +338,7 @@
         let alamat = $('#alamat').val();
         let no_sertifikat = $('#no_sertifikat').val();
         let luas = $('#luas').val();
-        let pengukuran = $('#luas').val();
+        let inventarisir = $('#inventarisir').val();
         let kondisi = $('#kondisi').val();
         let keterangan = $('#keterangan').val();
 
@@ -305,7 +356,7 @@
                 "alamat": alamat,
                 "no_sertifikat": no_sertifikat,
                 "luas": luas,
-                "pengukuran": pengukuran,
+                "inventarisir": inventarisir,
                 "kondisi": kondisi,
                 "keterangan": keterangan,
 
@@ -330,7 +381,7 @@
                 $('#alamat').val('');
                 $('#no_sertifikat').val('');
                 $('#luas').val('');
-                $('#pengukuran').val('');
+                $('#inventarisir').val('');
                 $('#kondisi').prop('selectedIndex', 0);
                 $('#keterangan').val('');
 
@@ -346,7 +397,7 @@
                         <td>${response.data.alamat}</td>
                         <td>${response.data.no_sertifikat}</td>
                         <td>${response.data.luas}</td>
-                        <td>${response.data.pengukuran}</td>
+                        <td>${response.data.inventarisir}</td>
                         <td>${response.data.kondisi}</td>
                         <td>${response.data.keterangan}</td>
                     </tr>
@@ -432,7 +483,11 @@
                 $('#lihat-lahan #alamat').text(response[0].alamat);
                 $('#lihat-lahan #no_sertifikat').text(response[0].no_sertifikat);
                 $('#lihat-lahan #luas').text(response[0].luas);
-                $('#lihat-lahan #pengukuran').text(response[0].pengukuran);
+                $('#lihat-lahan #inventarisir').text(new Date(response[0].inventarisir).toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }));
                 $('#lihat-lahan #kondisi').text(kondisiLabel); // Use the mapped label
                 $('#lihat-lahan #keterangan').text(response[0].keterangan);
                 document.getElementById("created_at").innerHTML = formattedDate;
@@ -468,7 +523,7 @@
                 $('#edit-lahan #alamat').val(response[0].alamat);
                 $('#edit-lahan #no_sertifikat').val(response[0].no_sertifikat);
                 $('#edit-lahan #luas').val(response[0].luas);
-                $('#edit-lahan #pengukuran').val(response[0].pengukuran);
+                $('#edit-lahan #inventarisir').val(response[0].inventarisir);
                 $('#edit-lahan #kondisi').val(response[0].kondisi);
                 $('#edit-lahan #keterangan').val(response[0].keterangan);
             }
@@ -484,7 +539,7 @@
         let alamat = $('#edit-lahan #alamat').val();
         let no_sertifikat = $('#edit-lahan #no_sertifikat').val();
         let luas = $('#edit-lahan #luas').val();
-        let pengukuran = $('#edit-lahan #pengukuran').val();
+        let inventarisir = $('#edit-lahan #inventarisir').val();
         let kondisi = $('#edit-lahan #kondisi').val();
         let keterangan = $('#edit-lahan #keterangan').val();
 
@@ -501,7 +556,7 @@
                 "alamat": alamat,
                 "no_sertifikat": no_sertifikat,
                 "luas": luas,
-                "pengukuran": pengukuran,
+                "inventarisir": inventarisir,
                 "kondisi": kondisi,
                 "keterangan": keterangan,
             },
@@ -531,7 +586,7 @@
                         <td>${response.data.alamat}</td>
                         <td>${response.data.no_sertifikat}</td>
                         <td>${response.data.luas}</td>
-                        <td>${response.data.pengukuran}</td>
+                        <td>${response.data.inventarisir}</td>
                         <td>${response.data.kondisi}</td>
                         <td>${response.data.keterangan}</td>
                     </tr>
@@ -599,6 +654,32 @@
             }
         });
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#downloadOption').on('change', function() {
+            var selectedOption = $(this).val();
+            var downloadForm = $('#downloadForm');
+            var tahunForm = $('#tahunForm');
+
+            if (selectedOption === 'by_inventarisir') {
+                tahunForm.show();
+                downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', "{{ route('cetak_tanah_byinventarisir') }}");
+
+            } else if (selectedOption === 'by_tahunini') {
+                tahunForm.hide();
+                downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', "{{ route('cetak_tanah_tahunini') }}");
+
+            } else {
+                tahunForm.hide();
+                downloadForm.attr('method', 'GET');
+                downloadForm.attr('action', "{{ route('cetak_semua_aset') }}");
+            }
+        });
+    });
 </script>
 <!-- #/ container -->
 @endsection

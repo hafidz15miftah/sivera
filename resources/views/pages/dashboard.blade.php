@@ -10,8 +10,8 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Baik</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">@if($bbaik)
-                            {{ $bbaik }}
+                        <h2 class="text-white">@if($Baik)
+                            {{ $Baik }}
                             @else
                             0
                             @endif
@@ -26,8 +26,8 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Rusak Ringan</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">@if($bruring)
-                            {{ $bruring }}
+                        <h2 class="text-white">@if($RusakRingan)
+                            {{ $RusakRingan }}
                             @else
                             0
                             @endif
@@ -42,8 +42,8 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Rusak Berat</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">@if($bruber)
-                            {{ $bruber }}
+                        <h2 class="text-white">@if($RusakBerat)
+                            {{ $RusakBerat }}
                             @else
                             0
                             @endif
@@ -58,8 +58,8 @@
                 <div class="card-body">
                     <h3 class="card-title text-white">Jumlah</h3>
                     <div class="d-inline-block">
-                        <h2 class="text-white">@if($bbarang)
-                            {{ $bbarang }}
+                        <h2 class="text-white">@if($Semua)
+                            {{ $Semua }}
                             @else
                             0
                             @endif

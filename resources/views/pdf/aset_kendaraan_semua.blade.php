@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Data Aset Tanah / Lahan Desa</title>
+    <title>Data Aset Kendaraan Milik Desa</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -83,38 +83,42 @@
             <p class="desa-address">Jl. Jend. A. Yani RT 03 RW 08 Kedawung, Kec. Kroya Telepon (0282) 494397 Kode Pos 53282</p>
         </div>
     </div>
-    <h2 style="justify-content: center; text-align: center">DAFTAR ASET TANAH / LAHAN</h2>
-    <h2 style="justify-content: center; text-align: center">TAHUN {{ \Carbon\Carbon::now()->translatedFormat('Y') }}</h2>
+    <h2 style="justify-content: center; text-align: center">DAFTAR ASET KENDARAAN MILIK DESA</h2>
+    <h2 style="justify-content: center; text-align: center">SEMUA DATA INVENTARISIR</h2>
     <table>
         <thead>
             <tr>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">NO</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">NAMA OBYEK</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">ALAMAT</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">NO SERTIFIKAT</th>
-                <th style="border: 1px solid #000; background-color: white; text-align: center;">LUAS (m<sup>2</sup>)</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">NAMA KENDARAAN</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">NO PLAT KEPOLISIAN</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">TANGGAL PEMBELIAN</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">MERK</th>
+                <th style="border: 1px solid #000; background-color: white; text-align: center;">TIPE</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">KONDISI</th>
                 <th style="border: 1px solid #000; background-color: white; text-align: center;">KETERANGAN</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($lahan as $l)
+            @foreach ($kendaraan as $k)
             <tr>
-                <td style="border: 1px solid #000;">{{ $loop->iteration }}</td>
-                <td style="border: 1px solid #000;  width: 20%;">{{ $l->nama_obyek }}</td>
-                <td style="border: 1px solid #000;">{{ $l->alamat }}</td>
-                <td style="border: 1px solid #000; text-align: center">{{ $l->no_sertifikat }}</td>
-                <td style="border: 1px solid #000; text-align: center">{{ $l->luas }}</td>
+                <td style="border: 1px solid #000; width: 5%; text-align: center;">{{ $loop->iteration }}</td>
+                <td style="border: 1px solid #000; width: 20%;">{{ $k->nama_kendaraan }}</td>
+                <td style="border: 1px solid #000; text-align: center;">{{ $k->plat }}</td>
                 <td style="border: 1px solid #000; text-align: center">
-                @if($l->kondisi == 1)
-                Baik
-                @elseif($l->kondisi == 2)
-                Rusak Ringan
-                @else
-                Rusak Berat
-                @endif
+                    {{ \Carbon\Carbon::parse($k->tgl_pembelian)->locale('id')->isoFormat('D MMMM Y') }}
                 </td>
-                <td style=" border: 1px solid #000;">{{ $l->keterangan }}</td>
+                <td style="border: 1px solid #000; text-align: center">{{ $k->merk }}</td>
+                <td style="border: 1px solid #000; text-align: center">{{ $k->tipe }}</td>
+                <td style="border: 1px solid #000; text-align: center">
+                    @if($k->kondisi == 1)
+                    Baik
+                    @elseif($k->kondisi == 2)
+                    Rusak Ringan
+                    @else
+                    Rusak Berat
+                    @endif
+                </td>
+                <td style=" border: 1px solid #000;">{{ $k->keterangan }}</td>
             </tr>
             @endforeach
         </tbody>

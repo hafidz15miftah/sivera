@@ -16,6 +16,7 @@ class DataAsetJalanModel extends Model
         'no_dokumen',
         'panjang',
         'sumber',
+        'inventarisir',
         'kondisi',
         'keterangan',
     ];

@@ -18,7 +18,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="downloadModalLabel">Cetak Laporan Barang</h5>
+                <h5 class="modal-title" id="downloadModalLabel">Cetak Laporan Aset Barang</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -30,8 +30,11 @@
                         <label for="downloadOption">Pilih Opsi:</label>
                         <select class="form-control" id="downloadOption" name="download_option">
                             <option value="all">Semua Data</option>
+                            <option value="stiker">Cetak Stiker Barang</option>
+                            <option value="by_tahunini">Data Tahun Ini</option>
                             <option value="by_ruang">Berdasarkan Ruang</option>
                             <option value="by_month">Berdasarkan Tanggal Perolehan</option>
+                            <option value="by_inventarisir">Berdasarkan Tahun Inventarisir</option>
                         </select>
                     </div>
                     <div id="ruangForm" style="display: none;">
@@ -49,6 +52,12 @@
                         <div class="form-group">
                             <label for="selectedMonth">Pilih Tanggal Perolehan:</label>
                             <input type="date" class="form-control" id="selectedMonth" name="selected_date">
+                        </div>
+                    </div>
+                    <div id="tahunForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="selectedTahun">Masukkan Tahun Inventarisir:</label>
+                            <input type="text" class="form-control" id="selectedTahun" name="selected_tahun" placeholder="Contoh: 2023">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Cetak Data</button>
@@ -137,13 +146,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="merk">Merk</label>
                                 <input type="text" class="form-control" name="merk" id="merk">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="inventarisir">Tgl. Inventarisir</label>
+                                <input type="date" class="form-control" name="inventarisir" id="inventarisir">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="harga">Harga (Rp)</label>
                                 <input class="form-control" type="number" min="0" placeholder="0" name="harga" id="harga">
@@ -217,13 +232,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="merk">Merk</label>
                                 <input type="text" class="form-control" name="merk" id="merk">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="inventarisir">Tgl. Inventarisir</label>
+                                <input type="date" class="form-control" name="inventarisir" id="inventarisir" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="harga">Harga (Rp)</label>
                                 <input class="form-control" type="number" min="0" placeholder="0" name="harga" id="harga">
@@ -266,6 +287,7 @@
                 <p><strong>Tanggal Perolehan:</strong> <span id="tgl_perolehan"></span></p>
                 <p><strong>Harga (Rp):</strong> <span id="harga"></span></p>
                 <p><strong>Keterangan:</strong> <span id="keterangan"></span></p>
+                <p><strong>Tanggal Inventarisir:</strong> <span id="inventarisir"></span></p>
                 <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>
                 <p><strong>Terakhir Diubah:</strong> <span id="updated_at"></span></p>
             </div>
@@ -296,6 +318,7 @@
                                     <th class="text-center">Kategori</th>
                                     <th class="text-center">Ruang</th>
                                     <th class="text-center">Tanggal Perolehan</th>
+                                    <th class="text-center">Tgl. Inventarisir</th>
                                     <th class="text-center">Sumber</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
@@ -338,6 +361,10 @@
                     name: 'tgl_perolehan'
                 },
                 {
+                    data: 'inventarisir',
+                    name: 'inventarisir',
+                },
+                {
                     data: 'sumber',
                     name: 'sumber'
                 },
@@ -366,6 +393,7 @@
         let tgl_perolehan = $('#tgl_perolehan').val();
         let sumber = $('#sumber').val();
         let merk = $('#merk').val();
+        let inventarisir = $('#inventarisir').val();
         let harga = $('#harga').val();
         let keterangan = $('#keterangan').val();
 
@@ -382,6 +410,7 @@
                 "tgl_perolehan": tgl_perolehan,
                 "sumber": sumber,
                 "merk": merk,
+                "inventarisir": inventarisir,
                 "harga": harga,
                 "keterangan": keterangan,
             },
@@ -403,6 +432,7 @@
                 $('#tgl_perolehan').val('');
                 $('#sumber').val('');
                 $('#merk').val('');
+                $('#inventarisir').val('');
                 $('#harga').val('');
                 $('#keterangan').val('');
 
@@ -417,6 +447,7 @@
                         <td>${response.data.sumber}</td>
                         <td>${response.data.tgl_perolehan}</td>
                         <td>${response.data.merk}</td>
+                        <td>${response.data.inventarisir}</td>
                         <td>${response.data.harga}</td>
                         <td>${response.data.keterangan}</td>
                     </tr>
@@ -472,6 +503,7 @@
                 $('#edit-laporan #tgl_perolehan').val(response[0].tgl_perolehan);
                 $('#edit-laporan #sumber').val(response[0].sumber);
                 $('#edit-laporan #merk').val(response[0].merk);
+                $('#edit-laporan #inventarisir').val(response[0].inventarisir);
                 $('#edit-laporan #harga').val(response[0].harga);
                 $('#edit-laporan #keterangan').val(response[0].keterangan);
             }
@@ -486,6 +518,7 @@
         let tgl_perolehan = $('#edit-laporan #tgl_perolehan').val();
         let sumber = $('#edit-laporan #sumber').val();
         let merk = $('#edit-laporan #merk').val();
+        let inventarisir = $('#edit-laporan #inventarisir').val();
         let harga = $('#edit-laporan #harga').val();
         let keterangan = $('#edit-laporan #keterangan').val();
 
@@ -501,6 +534,7 @@
                 "tgl_perolehan": tgl_perolehan,
                 "sumber": sumber,
                 "merk": merk,
+                "inventarisir": inventarisir,
                 "harga": harga,
                 "keterangan": keterangan,
             },
@@ -529,6 +563,7 @@
                         <td>${response.data.tgl_perolehan}</td>
                         <td>${response.data.sumber}</td>
                         <td>${response.data.merk}</td>
+                        <td>${response.data.inventarisir}</td>
                         <td>${response.data.harga}</td>
                         <td>${response.data.jumlah}</td>
                     </tr>
@@ -595,6 +630,11 @@
                 }));
                 $('#lihat-laporanbar #merk').text(response[0].merk);
                 $('#lihat-laporanbar #sumber').text(response[0].sumber);
+                $('#lihat-laporanbar #inventarisir').text(new Date(response[0].inventarisir).toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }));
                 $('#lihat-laporanbar #harga').text(response[0].harga);
                 $('#lihat-laporanbar #jumlah').text(response[0].jumlah);
                 $('#lihat-laporanbar #keterangan').text(response[0].keterangan);
@@ -664,9 +704,7 @@
     }
 </script>
 
-<!-- Tampilkan Modal Cetak -->
 <script>
-    // Tampilkan atau sembunyikan form bulan berdasarkan pilihan opsi
     $(document).ready(function() {
         $('#downloadOption').on('change', function() {
             var selectedOption = $(this).val();
@@ -674,32 +712,61 @@
             var monthForm = $('#monthForm');
             var barangForm = $('#barangForm');
             var ruangForm = $('#ruangForm');
+            var tahunForm = $('#tahunForm');
 
             if (selectedOption === 'by_month') {
                 barangForm.hide();
                 ruangForm.hide();
+                tahunForm.hide();
                 monthForm.show();
                 downloadForm.attr('method', 'POST');
                 downloadForm.attr('action', "{{ route('cetak_laporan_bytanggal') }}");
+
+            } else if (selectedOption === 'stiker') {
+                barangForm.hide();
+                monthForm.hide();
+                ruangForm.hide();
+                tahunForm.hide();
+                downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', "{{ route('cetak_stiker_all') }}");
+
+            } else if (selectedOption === 'by_tahunini') {
+                barangForm.hide();
+                monthForm.hide();
+                ruangForm.hide();
+                tahunForm.hide();
+                downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', "{{ route('cetak_barang_tahunini') }}");
 
             } else if (selectedOption === 'by_barang') {
                 barangForm.show();
                 monthForm.hide();
                 ruangForm.hide();
+                tahunForm.hide();
                 downloadForm.attr('method', 'POST');
                 downloadForm.attr('action', "{{ route('cetak_laporan_bybarang') }}");
 
             } else if (selectedOption === 'by_ruang') {
                 barangForm.hide();
                 monthForm.hide();
+                tahunForm.hide();
                 ruangForm.show();
                 downloadForm.attr('method', 'POST');
                 downloadForm.attr('action', "{{ route('cetak_laporan_byruang') }}");
+
+            } else if (selectedOption === 'by_inventarisir') {
+                barangForm.hide();
+                monthForm.hide();
+                tahunForm.show();
+                ruangForm.hide();
+                downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', "{{ route('cetak_laporan_byinventarisir') }}");
 
             } else {
                 barangForm.hide();
                 monthForm.hide();
                 ruangForm.hide();
+                tahunForm.hide();
                 downloadForm.attr('method', 'GET');
                 downloadForm.attr('action', "{{ route('cetak_semua_laporan') }}");
             }

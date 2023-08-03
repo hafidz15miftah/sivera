@@ -29,7 +29,7 @@
                                     <th width="20%" class="text-center">Kode Barang</th>
                                     <th width="20%" class="text-center">Kategori</th>
                                     <th width="25%" class="text-center">Ruang</th>
-                                    <th width="30%" class="text-center">Aksi</th>
+                                    <th width="10%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

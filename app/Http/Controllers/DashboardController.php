@@ -64,7 +64,12 @@ class DashboardController extends Controller
         $kBaik = DataAsetKendaraanModel::where('kondisi', '1')->count();
         $kRR = DataAsetKendaraanModel::where('kondisi', '2')->count();
         $kRB = DataAsetKendaraanModel::where('kondisi', '3')->count();
+
+        $Baik = $bbaik + $tbaik + $jlBaik + $kBaik;
+        $RusakRingan = $bruring + $truring + $jlRR + $kRR;
+        $RusakBerat = $bruber + $truber + $jlRB + $kRB;
+        $Semua = $Baik + $RusakRingan + $RusakBerat;
         
-        return view('pages.dashboard', compact('bbarang', 'bbaik', 'bruring', 'bruber', 'tbaik', 'truring', 'truber', 'jlBaik', 'jlRR', 'jlRB', 'kBaik', 'kRR', 'kRB'), ['labels' => $labels, 'dataLaporan' => $dataLaporan]);
+        return view('pages.dashboard', compact('bbarang', 'bbaik', 'bruring', 'bruber', 'tbaik', 'truring', 'truber', 'jlBaik', 'jlRR', 'jlRB', 'kBaik', 'kRR', 'kRB', 'Baik', 'RusakRingan', 'RusakBerat', 'Semua'), ['labels' => $labels, 'dataLaporan' => $dataLaporan]);
     }
 }

@@ -20,6 +20,7 @@ class AsetJalanController extends Controller
                 'jalans.panjang',
                 'jalans.sumber',
                 'jalans.kondisi',
+                'jalans.inventarisir',
                 'jalans.keterangan',
             )
                 ->get();
@@ -43,11 +44,14 @@ class AsetJalanController extends Controller
             return DataTables::of($jalan)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' style='margin-right: 3px;' onclick='lihatdatajalan(this)'><i class='fa fa-eye'></i>Lihat</button>";
-                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-right: 3px;' onclick='updatedatajalan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
-                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_jalan' onclick='deleteDataJalan(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
+                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' style='width:50px;' onclick='lihatdatajalan(this)'><i class='fa fa-eye'></i>Lihat</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-top: 3px; width:50px;' onclick='updatedatajalan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_jalan' onclick='deleteDataJalan(this)' class='btn btn-danger btn-sm' style='margin-top: 3px; width:50px;'><i class='fa fa-trash'></i>Hapus</button>";
 
                     return $tombol;
+                })
+                ->editColumn('inventarisir', function ($row) {
+                    return \Carbon\Carbon::parse($row->inventarisir)->locale('id')->translatedFormat('l, d F Y');
                 })
                 ->rawColumns(['aksi', 'kondisi'])
                 ->make(true);
@@ -63,20 +67,21 @@ class AsetJalanController extends Controller
                 $request->all(),
                 [
                     'nama_jalan' => 'required',
-                    'no_dokumen' => 'required|unique:jalans,no_dokumen',
+                    'no_dokumen' => 'required',
                     'panjang' => 'required|numeric',
                     'sumber' => 'required',
                     'kondisi' => 'required',
+                    'inventarisir' => 'required',
                     'keterangan' => 'nullable|min:4'
                 ],
                 [
                     'nama_jalan.required' => 'Nama jalan harus diisi.',
                     'no_dokumen.required' => 'Nomor dokumen harus diisi.',
-                    'no_dokumen.unique' => 'Nomor dokumen sama dengan data yang sudah ada.',
                     'panjang.required' => 'Kolom panjang harus diisi.',
                     'panjang.numeric' => 'Kolom panjang harus berupa angka.',
                     'sumber.required' => 'Sumber dana harus diisi.',
                     'kondisi.required' => 'Silahkan pilih kondisi jalan',
+                    'inventarisir.required' => 'Data tahun inventarisir harus diisi',
                     'keterangan' => 'Keterangan harus memiliki setidaknya :min karakter.',
                 ]
             );
@@ -98,6 +103,7 @@ class AsetJalanController extends Controller
                 'panjang' => $request->panjang,
                 'sumber' => $request->sumber,
                 'kondisi' => $request->kondisi,
+                'inventarisir' => $request->inventarisir,
                 'keterangan' => $request->keterangan,
             ];
 
@@ -118,6 +124,7 @@ class AsetJalanController extends Controller
         $jalan->panjang = $request->input('panjang');
         $jalan->sumber = $request->input('sumber');
         $jalan->kondisi = $request->input('kondisi');
+        $jalan->inventarisir = $request->input('inventarisir');
         $jalan->keterangan = $request->input('keterangan');
         $jalan->save();
 

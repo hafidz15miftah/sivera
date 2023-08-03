@@ -32,8 +32,8 @@ class KondisiController extends Controller
             return DataTables::of($kondisi)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $tombol = "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-right: 3px;' onclick='ubahdatakondisi(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
-                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteDataKondisi(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
+                    $tombol = "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='width:50px;' onclick='ubahdatakondisi(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_barang' onclick='deleteDataKondisi(this)' class='btn btn-danger btn-sm' style='margin-top: 3px; width:50px;'><i class='fa fa-trash'></i>Hapus</button>";
                     return $tombol;
                 })
                 ->addColumn('kondisi', function ($row) {

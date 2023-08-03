@@ -19,6 +19,7 @@ class AsetKendaraanController extends Controller
                 'kendaraans.merk',
                 'kendaraans.tipe',
                 'kendaraans.kondisi',
+                'kendaraans.inventarisir',
                 'kendaraans.keterangan',
             )
             ->get();
@@ -42,11 +43,14 @@ class AsetKendaraanController extends Controller
             return DataTables::of($jalan)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' style='margin-right: 3px;' onclick='lihatdatakendaraan(this)'><i class='fa fa-eye'></i>Lihat</button>";
-                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-right: 3px;' onclick='updatedatakendaraan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
-                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_kendaraan' onclick='deleteDataKendaraan(this)' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i>Hapus</button>";
+                    $tombol = "<button data-id='$row->id' class='btn btn-primary btn-sm text-white' style='width:50px;' onclick='lihatdatakendaraan(this)'><i class='fa fa-eye'></i>Lihat</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' class='btn btn-warning btn-sm text-white' style='margin-top: 3px; width:50px;' onclick='updatedatakendaraan(this)'><i class='fa fa-pencil-square-o'></i>Ubah</button>";
+                    $tombol = $tombol . "<button data-id='$row->id' data-name='$row->nama_kendaraan' onclick='deleteDataKendaraan(this)' class='btn btn-danger btn-sm' style='margin-top: 3px; width:50px;'><i class='fa fa-trash'></i>Hapus</button>";
 
                     return $tombol;
+                })
+                ->editColumn('inventarisir', function ($row) {
+                    return \Carbon\Carbon::parse($row->inventarisir)->locale('id')->translatedFormat('l, d F Y');
                 })
                 ->rawColumns(['aksi', 'kondisi'])
                 ->make(true);
@@ -61,21 +65,22 @@ class AsetKendaraanController extends Controller
                 $request->all(),
                 [
                     'nama_kendaraan' => 'required',
-                    'plat' => 'required|unique:kendaraans,plat',
+                    'plat' => 'required',
                     'tgl_pembelian' => 'required',
                     'merk' => 'required',
                     'tipe' => 'required',
                     'kondisi' => 'required',
+                    'inventarisir' => 'required',
                     'keterangan' => 'nullable|min:4'
                 ],
                 [
                     'nama_kendaraan.required' => 'Nama kendaraan harus diisi.',
                     'plat.required' => 'Nomor plat kepolisian harus diisi.',
-                    'plat.unique' => 'Nomor plat kepolisian sama dengan data yang sudah ada.',
                     'tgl_pembelian.required' => 'Tanggal pembelian harus dipilih.',
                     'merk.required' => 'Merk kendaraan harus diisi.',
                     'tipe.required' => 'Tipe kendaraan harus diisi.',
                     'kondisi.required' => 'Silahkan pilih kondisi kendaraan',
+                    'inventarisir.required' => 'Data tahun inventarisir harus diisi',
                     'keterangan' => 'Keterangan harus memiliki setidaknya :min karakter.',
                 ]
             );
@@ -98,6 +103,7 @@ class AsetKendaraanController extends Controller
                 'merk' => $request->merk,
                 'tipe' => $request->tipe,
                 'kondisi' => $request->kondisi,
+                'inventarisir' => $request->inventarisir,
                 'keterangan' => $request->keterangan,
             ];
 
@@ -124,6 +130,7 @@ class AsetKendaraanController extends Controller
         $kendaraan->merk = $request->input('merk');
         $kendaraan->tipe = $request->input('tipe');
         $kendaraan->kondisi = $request->input('kondisi');
+        $kendaraan->inventarisir = $request->input('inventarisir');
         $kendaraan->keterangan = $request->input('keterangan');
         $kendaraan->save();
 

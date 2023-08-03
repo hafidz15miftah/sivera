@@ -38,12 +38,16 @@
                 @foreach($stiker as $key => $b)
                 <table border="1" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td rowspan="4" class="center-text" style="width: 80px; height: 80px"><img src="images/cilacap.png" width="50px"></td>
+                        <td rowspan="7" class="center-text" style="width: 80px; height: 80px"><img src="images/cilacap.png" width="50px"></td>
                         <td colspan="2" class="center-text" style="width: 600px;">BARANG MILIK PEMERINTAH DESA KEDAWUNG</td>
                     </tr>
                     <tr>
                         <th style="width: 100px;">Nama Barang</th>
                         <td>{{ $b->nama_barang }}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">Merk</th>
+                        <td>{{ $b->merk }}</td>
                     </tr>
                     <tr>
                         <th style="width: 100px;">ID Barang</th>
@@ -52,6 +56,14 @@
                     <tr>
                         <th style="width: 100px;">Ruang</th>
                         <td>{{ $b->nama_ruang }}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">Tgl. Perolehan</th>
+                        <td>{{ \Carbon\Carbon::parse($b->tgl_perolehan)->isoFormat('D MMMM Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 100px;">Sumber</th>
+                        <td>{{ $b->sumber }}</td>
                     </tr>
                 </table>
                 <br>

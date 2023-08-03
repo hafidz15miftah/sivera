@@ -21,7 +21,7 @@
                     <h4 class="card-title">Aset Kendaraan</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-kendaraan"><i class="fa fa-plus"></i> Tambah Aset Kendaraan</button>
                     @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
-                    <a class="btn btn-warning" style="color:white" href="{{url('kendaraan/cetak/semua')}}"><i class="fa fa-print"></i> Cetak Data Aset Kendaraan</a>
+                    <button type="button" class="btn btn-warning" style="color:white" data-toggle="modal" data-target="#downloadModal"><i class="fa fa-print"></i> Cetak Aset Kendaraan</button>
                     @endif
                     <div class="table-responsive">
                         <table id="tabel-kendaraan" class="table table-striped table-bordered zero-configuration">
@@ -32,7 +32,8 @@
                                     <th class="text-center">Merk</th>
                                     <th class="text-center">Tipe</th>
                                     <th class="text-center">Kondisi</th>
-                                    <th width="28%" class="text-center">Aksi</th>
+                                    <th class="text-center">Tgl. Inventarisir</th>
+                                    <th width="10%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,6 +41,40 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Download -->
+<div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="downloadModalLabel">Cetak Laporan Aset Kendaraan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="downloadForm" method="GET" action="{{ route('cetak_kendaraan') }}" target="_blank">
+                    @csrf
+                    <div class="form-group">
+                        <label for="downloadOption">Pilih Opsi:</label>
+                        <select class="form-control" id="downloadOption" name="download_option">
+                            <option value="all">Semua Data</option>
+                            <option value="by_tahunini">Data Tahun Ini</option>
+                            <option value="by_inventarisir">Berdasarkan Tahun Inventarisir</option>
+                        </select>
+                    </div>
+                    <div id="tahunForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="selectedTahun">Masukkan Tahun Inventarisir:</label>
+                            <input type="text" class="form-control" id="selectedTahun" name="selected_tahun" placeholder="Contoh: 2023">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cetak Data</button>
+                </form>
             </div>
         </div>
     </div>
@@ -86,7 +121,7 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="merk" class="col-form-label">Merk:</label>
                                 <input type="merk" class="form-control" name="merk" id="merk" require>
@@ -96,6 +131,12 @@
                             <div class="form-group">
                                 <label for="tipe" class="col-form-label">Tipe:</label>
                                 <input type="tipe" class="form-control" name="tipe" id="tipe" require>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="inventarisir" class="col-form-label">Tgl. Inventarisir:</label>
+                                <input type="date" class="form-control" name="inventarisir" id="inventarisir" require>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -176,10 +217,16 @@
                                 <input type="merk" class="form-control" name="merk" id="merk" require>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="tipe" class="col-form-label">Tipe:</label>
                                 <input type="tipe" class="form-control" name="tipe" id="tipe" require>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="inventarisir" class="col-form-label">Tgl. Inventarisir:</label>
+                                <input type="date" class="form-control" name="inventarisir" id="inventarisir" require disabled>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -228,6 +275,7 @@
                 <p><strong>Tipe:</strong> <span id="tipe"></span></p>
                 <p><strong>Kondisi:</strong> <span id="kondisi"></span></p>
                 <p><strong>Keterangan:</strong> <span id="keterangan"></span></p>
+                <p><strong>Tanggal Inventarisir:</strong> <span id="inventarisir"></span></p>
                 <p><strong>Ditambahkan:</strong> <span id="created_at"></span></p>
                 <p><strong>Terakhir Diubah:</strong> <span id="updated_at"></span></p>
             </div>
@@ -266,6 +314,10 @@
                     name: 'kondisi',
                 },
                 {
+                    data: 'inventarisir',
+                    name: 'inventarisir',
+                },
+                {
                     data: 'aksi',
                     name: 'aksi',
                     orderable: false,
@@ -298,6 +350,7 @@
         let merk = $('#merk').val();
         let tipe = $('#tipe').val();
         let kondisi = $('#kondisi').val();
+        let inventarisir = $('#inventarisir').val();
         let keterangan = $('#keterangan').val();
 
         //ajax
@@ -315,6 +368,7 @@
                 "merk": merk,
                 "tipe": tipe,
                 "kondisi": kondisi,
+                "inventarisir": inventarisir,
                 "keterangan": keterangan,
 
             },
@@ -338,6 +392,7 @@
                 $('#tgl_pembelian').val('');
                 $('#merk').val('');
                 $('#tipe').val('');
+                $('#inventarisir').val('');
                 $('#kondisi').prop('selectedIndex', 0);
                 $('#keterangan').val('');
 
@@ -353,6 +408,7 @@
                         <td>${response.data.tgl_pembelian}</td>
                         <td>${response.data.merk}</td>
                         <td>${response.data.tipe}</td>
+                        <td>${response.data.inventarisir}</td>
                         <td>${response.data.kondisi}</td>
                         <td>${response.data.keterangan}</td>
                     </tr>
@@ -448,6 +504,11 @@
                 $('#lihat-kendaraan #tgl_pembelian').text(dateFormatted);
                 $('#lihat-kendaraan #merk').text(response[0].merk);
                 $('#lihat-kendaraan #tipe').text(response[0].tipe);
+                $('#lihat-kendaraan #inventarisir').text(new Date(response[0].inventarisir).toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }));
                 $('#lihat-kendaraan #kondisi').text(kondisiLabel); // Use the mapped label
                 $('#lihat-kendaraan #keterangan').text(response[0].keterangan);
                 document.getElementById("created_at").innerHTML = formattedDate;
@@ -483,6 +544,7 @@
                 $('#edit-kendaraan #tgl_pembelian').val(response[0].tgl_pembelian);
                 $('#edit-kendaraan #merk').val(response[0].merk);
                 $('#edit-kendaraan #tipe').val(response[0].tipe);
+                $('#edit-kendaraan #inventarisir').val(response[0].inventarisir);
                 $('#edit-kendaraan #kondisi').val(response[0].kondisi);
                 $('#edit-kendaraan #keterangan').val(response[0].keterangan);
             }
@@ -498,6 +560,7 @@
         let tgl_pembelian = $('#edit-kendaraan #tgl_pembelian').val();
         let merk = $('#edit-kendaraan #merk').val();
         let tipe = $('#edit-kendaraan #tipe').val();
+        let inventarisir = $('#edit-kendaraan #inventarisir').val();
         let kondisi = $('#edit-kendaraan #kondisi').val();
         let keterangan = $('#edit-kendaraan #keterangan').val();
 
@@ -514,6 +577,7 @@
                 "tgl_pembelian": tgl_pembelian,
                 "merk": merk,
                 "tipe": tipe,
+                "inventarisir": inventarisir,
                 "kondisi": kondisi,
                 "keterangan": keterangan,
             },
@@ -543,6 +607,7 @@
                         <td>${response.data.tgl_pembelian}</td>
                         <td>${response.data.merk}</td>
                         <td>${response.data.tipe}</td>
+                        <td>${response.data.inventarisir}</td>
                         <td>${response.data.kondisi}</td>
                         <td>${response.data.keterangan}</td>
                     </tr>
@@ -610,5 +675,31 @@
             }
         });
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#downloadOption').on('change', function() {
+            var selectedOption = $(this).val();
+            var downloadForm = $('#downloadForm');
+            var tahunForm = $('#tahunForm');
+
+            if (selectedOption === 'by_inventarisir') {
+                tahunForm.show();
+                downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', "{{ route('cetak_kendaraan_byinventarisir') }}");
+
+            } else if (selectedOption === 'by_tahunini') {
+                tahunForm.hide();
+                downloadForm.attr('method', 'POST');
+                downloadForm.attr('action', "{{ route('cetak_tanah_tahunini') }}");
+
+            } else {
+                tahunForm.hide();
+                downloadForm.attr('method', 'GET');
+                downloadForm.attr('action', "{{ route('cetak_kendaraan') }}");
+            }
+        });
+    });
 </script>
 @endsection

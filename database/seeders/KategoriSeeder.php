@@ -19,10 +19,5 @@ class KategoriSeeder extends Seeder
             'nama_kategori' => 'Perlengkapan/Peralatan',
             'kode_kategori' => '03',
         ]);
-
-        Kategori::create([
-            'nama_kategori' => 'Tanah',
-            'kode_kategori' => '04',
-        ]);
     }
 }

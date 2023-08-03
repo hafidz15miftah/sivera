@@ -16,7 +16,7 @@ class DataAsetTanahModel extends Model
         'alamat',
         'no_sertifikat',
         'luas',
-        'pengukuran',
+        'inventarisir',
         'kondisi',
         'keterangan',
     ];

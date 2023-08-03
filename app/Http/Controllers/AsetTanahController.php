@@ -20,6 +20,7 @@ class AsetTanahController extends Controller
                 'tanah.no_sertifikat',
                 'tanah.luas',
                 'tanah.kondisi',
+                'tanah.inventarisir',
                 'tanah.keterangan',
             )
             ->get();
@@ -49,6 +50,9 @@ class AsetTanahController extends Controller
 
                     return $tombol;
                 })
+                ->editColumn('inventarisir', function ($row) {
+                    return \Carbon\Carbon::parse($row->inventarisir)->locale('id')->translatedFormat('l, d F Y');
+                })
                 ->rawColumns(['aksi', 'kondisi'])
                 ->make(true);
         }
@@ -61,22 +65,20 @@ class AsetTanahController extends Controller
         if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
                 'nama_obyek' => 'required',
-                'no_sertifikat' => 'required|unique:tanah,no_sertifikat',
+                'no_sertifikat' => 'required',
                 'luas' => 'required|numeric',
-                'pengukuran' => 'required|numeric',
                 'alamat' => 'required',
                 'kondisi' => 'required',
+                'inventarisir' => 'required',
                 'keterangan' => 'nullable|min:4'
             ],[
                 'nama_obyek.required' => 'Nama obyek harus diisi.',
                 'no_sertifikat.required' => 'Nomor sertifikat harus diisi.',
-                'no_sertifikat.unique' => 'Nomor sertifikat sama dengan data yang sudah ada.',
                 'luas.required' => 'Kolom luas harus diisi.',
                 'luas.numeric' => 'Kolom luas harus berupa angka.',
-                'pengukuran.required' => 'Kolom pengukuran terakhir harus diisi',
-                'pengukuran.numeric' => 'Kolom pengukuran harus berupa angka',
                 'alamat.required' => 'Alamat harus diisi.',
                 'kondisi.required' => 'Silahkan pilih kondisi tanah',
+                'inventarisir.required' => 'Data tahun inventarisir harus diisi',
                 'keterangan' => 'Keterangan harus memiliki setidaknya :min karakter.',
             ]
         );
@@ -95,10 +97,10 @@ class AsetTanahController extends Controller
             $lahan = [
                 'nama_obyek' => $request->nama_obyek,
                 'no_sertifikat' => $request->no_sertifikat,
-                'luas' => $request->luas,
-                'pengukuran' => $request->luas,
+                'luas' => $request->luas, 
                 'alamat' => $request->alamat,
                 'kondisi' => $request->kondisi,
+                'inventarisir' => $request->inventarisir,
                 'keterangan' => $request->keterangan,
             ];
 
@@ -116,9 +118,10 @@ class AsetTanahController extends Controller
         $lahan = DataAsetTanahModel::findorfail($id);
         $lahan->nama_obyek = $request->input('nama_obyek');
         $lahan->no_sertifikat = $request->input('no_sertifikat');
-        $lahan->pengukuran = $request->input('pengukuran');
+        $lahan->luas = $request->input('luas');
         $lahan->alamat = $request->input('alamat');
         $lahan->kondisi = $request->input('kondisi');
+        $lahan->inventarisir = $request->input('inventarisir');
         $lahan->keterangan = $request->input('keterangan');
         $lahan->save();
 

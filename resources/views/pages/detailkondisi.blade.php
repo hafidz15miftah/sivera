@@ -21,11 +21,6 @@
                 <div class="card-body">
                     <h4 class="card-title">Detail Kondisi Barang</h4>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambah-kondisi"><i class="fa fa-plus"></i> Tambah Kondisi</button>
-                    @if (Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
-                    <a class="btn btn-warning" style="color:white" href="{{ url('barang/cetak/stiker') }}" target="_blank">
-                        <i class="fa fa-print"></i> Cetak Stiker
-                    </a>
-                    @endif
                     <div class="table-responsive">
                         <table id="tabel-kondisi" class="table table-striped table-bordered zero-configuration">
                             <thead>
@@ -35,7 +30,7 @@
                                     <th width="20%" class="text-center">ID Barang</th>
                                     <th width="25%" class="text-center">Ruang</th>
                                     <th width="10%" class="text-center">Kondisi</th>
-                                    <th width="30%" class="text-center">Aksi</th>
+                                    <th width="10%" class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>

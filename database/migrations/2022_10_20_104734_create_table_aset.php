@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('no_sertifikat');
             $table->float('luas');
-            $table->float('pengukuran');
+            $table->date('inventarisir');
             $table->integer('kondisi');
             $table->string('keterangan')->nullable();
             $table->timestamps();

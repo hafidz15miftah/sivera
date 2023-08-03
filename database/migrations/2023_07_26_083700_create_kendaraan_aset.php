@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('tgl_pembelian');
             $table->string('merk');
             $table->string('tipe');
+            $table->date('inventarisir');
             $table->integer('kondisi');
             $table->string('keterangan')->nullable();
             $table->timestamps();
